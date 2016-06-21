@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>{{ line_name }}</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{{ url_for('static', filename='main.css') }}" rel="stylesheet">
+  </head>
+
+  <body class="grey lighten-4">
+      
+    <header>
+      <div class="navbar-fixed"> 
+        <nav class="light-green {% if line.get('tabs', [])|length > 1 %}z-depth-0{% endif %}">
+          <div class="container">
+            <div class="nav-wrapper">                
+              <a class="brand-logo center">{{ line.get('name') }}</a>
+              
+              <ul class="left">
+                <li><a href="{{ url_for('line_list') }}"><i class="material-icons">list</i></a></li>
+              </ul>
+
+              <ul class="right">
+                <li><a target="_blank" href="{{ line.get('reference_url') }}">출처</a></li>
+              </ul>
+              
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="light-green z-depth-1 {% if line.get('tabs', [])|length == 1 %} hide{% endif %}">
+        <div class="container">
+          <div class="row">
+            <ul class="tabs light-green">
+              {% for tab in line.get('tabs', []) %}
+              <li class="tab col s3"><a class="white-text" href="#line-tab-{{ tab.get('id') }}">{{ tab.get('name') }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="col m1 l2 hide-on-small-only">
+            &nbsp;
+          </div>
+
+          <div class="col s12 m10 l8">
+            {% for tab in line.get('tabs', []) %}
+              <div id="line-tab-{{ tab.get('id') }}" class="col s12">
+
+                <p class="center grey-text text-darken-2">{{ tab.get('time_description', '') }}</p>
+
+                <div class="card white z-depth-0">
+                  {% for time in tab.get('times', []) %}
+                  <div class="card-content center">
+                    {{ time }}
+                  </div>
+                  <div class="divider"></div>
+                  {% endfor %}
+                </div>
+
+                <div class="card white z-depth-0">
+                  {% for name, offset in tab.get('offsets', []) %}
+                  <div class="card-content center">
+                    {{ name }}, +{{ offset }}
+                  </div>
+                  <div class="divider"></div>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          
+          <div class="col s12">
+            <p class="center">
+              <br/>
+              <a href="mailto:yearnning@kaist.ac.kr" class="grey-text text-darken-2 underline">
+                시간표가 잘못됐다면, 제보해주세요!
+              </a>
+              <br/>
+              <span class="grey-text text-darken-2">({{ line.get('name') }} 시간표 업데이트: {{ line.get('update_date') }})</span>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </main>
+    
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+
+  </body>
+</html>
