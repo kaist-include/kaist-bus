@@ -1,1 +1,6 @@
-	
+venv/
+p-env/
+*.pyc
+*.sublime-*
+*.swp
+log/

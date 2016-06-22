@@ -1,9 +1,10 @@
 from flask import Flask, render_template, redirect, url_for, abort
+import datetime
 
 app = Flask(__name__)
 
 def is_weekday():
-    return False
+    return datetime.date.today().weekday() < 5
 
 def get_tab(tab_id):
     tab = {}
