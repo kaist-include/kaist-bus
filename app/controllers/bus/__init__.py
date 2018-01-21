@@ -421,8 +421,8 @@ def list_api():
 
 @blueprint.route("/<int:bus_id>")
 def detail_api(bus_id):
-    line = get_line(line_id)
-    if line is None:
-        abort(400)
-    line['tabs'] = get_tabs(line_id)
-    return render_template("bus/detail_api.html", line=line)
+    bus = get_line(bus_id)
+    if bus is None:
+        abort(404)
+    bus['stations'] = get_tabs(bus_id)
+    return render_template("bus/detail_api.html", bus=bus)
