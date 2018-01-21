@@ -17,7 +17,7 @@
       {% for station in bus.stations %}
       <div class="tab-pane fade {% if loop.index == 1%}show active{% endif %}" id="pills-{{ station.id }}" role="tabpanel" aria-labelledby="pills-{{ station.id }}-tab">
         <ul class="list-group">
-          {% for time in station.times[session.get('WEEKDAY', 0)] %}
+          {% for time in station.times[weekday] %}
           <li class="list-group-item">{{ time }}</li>
           {% else %}
           <li class="list-group-item inactive">운행정보가 없습니다.</li>

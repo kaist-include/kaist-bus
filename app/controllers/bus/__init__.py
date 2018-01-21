@@ -5,6 +5,7 @@ from flask import Flask, render_template, redirect, url_for, abort
 from flask import Blueprint
 
 from ...func import firebase_api
+from ...func.weekday import get_weekday
 
 blueprint = Blueprint('bus', __name__, url_prefix='/buses')
 
@@ -16,7 +17,9 @@ def is_weekday():
 @blueprint.route("")
 def list_api():
     return render_template(
-        "bus/list_api.html", buses=firebase_api.bus_list_api())
+        "bus/list_api.html",
+        buses=firebase_api.bus_list_api(),
+        weekday=get_weekday())
 
 
 @blueprint.route("/<int:bus_id>")
@@ -26,4 +29,7 @@ def detail_api(bus_id):
         abort(404)
 
     return render_template(
-        "bus/detail_api.html", buses=firebase_api.bus_list_api(), bus=bus)
+        "bus/detail_api.html",
+        buses=firebase_api.bus_list_api(),
+        bus=bus,
+        weekday=get_weekday())
