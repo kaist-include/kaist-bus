@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from flask import session
 
@@ -9,10 +9,8 @@ KEY_WEEKDAY_FORCED_DATETIME = 'weekday_forced_datetime'
 def _get_weekday_from_session():
     # 강제로 설정한 weekday는 1시간을 유지합니다.
     forced_datetime = session.get(KEY_WEEKDAY_FORCED_DATETIME, None)
-    if forced_datetime:
+    if forced_datetime and (datetime.now() - forced_datetime) // timedelta(minutes=1) < 60:
         return session.get(KEY_WEEKDAY, None)
-    # if forced_datetime and (datetime.now() - forced_datetime).minutes < 60:
-
     return None
 
 
