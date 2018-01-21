@@ -2,7 +2,7 @@ $bab-primary:                 #8BC34A;
 
 $theme-colors: (
   "primary": $bab-primary,
-  "danger": $bab-primary
+  "danger": $bab-primary,
 );
 
 $font-family-sans-serif:      "Spoqa Han Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
@@ -45,4 +45,30 @@ html {
   color: #FFFFFF;
   border: 0px;
   outline: none;
+}
+
+#toast-container > div {
+  -moz-border-radius: 0px 0px 0px 0px;
+  -webkit-border-radius: 0px 0px 0px 0px;
+  border-radius: 0px 0px 0px 0px;
+}
+
+.toast {
+  background-color: #333333;
+}
+
+.toast-success {
+  background-color: #333333;
+}
+
+.toast-error {
+  background-color: #333333;
+}
+
+.toast-info {
+  background-color: #333333;
+}
+
+.toast-warning {
+  background-color: #333333;
 }

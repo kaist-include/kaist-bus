@@ -8,6 +8,7 @@ SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 ATTACHING_CONTROLLERS = [
     'bus',
+    'feedback',
     'line',
     '__init__',
 ]
