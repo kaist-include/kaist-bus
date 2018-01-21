@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <title>KAIST 버스</title>
 
     <link href="{{ url_for('static', filename='main.css') }}" rel="stylesheet">
@@ -13,18 +13,18 @@
   </head>
 
   <body class="grey lighten-4">
-      
+
     <header>
-      <div class="navbar-fixed"> 
+      <div class="navbar-fixed">
         <nav class="light-green">
           <div class="container">
-            <div class="nav-wrapper">                
-              <a href="{{ url_for('line_list') }}" class="brand-logo center">KAIST 버스</a>
-              
+            <div class="nav-wrapper">
+              <a href="{{ url_for('__init__.line_list') }}" class="brand-logo center">KAIST 버스</a>
+
               <ul class="right">
                 <li></li>
               </ul>
-              
+
             </div>
           </div>
         </nav>
@@ -32,10 +32,10 @@
     </header>
 
     <main>
-    
+
       <div class="container">
         <div class="row">
-          
+
           <div class="col m1 l2 hide-on-small-only">
             &nbsp;
           </div>
@@ -44,10 +44,10 @@
             <div class="row">
 
               &nbsp;
-                
+
               {% for line in lines %}
               <div class="card white z-depth-0">
-                <a href="{{ url_for('line_detail', line_id=line.get('id', -1)) }}">
+                <a href="{{ url_for('__init__.line_detail', line_id=line.get('id', -1)) }}">
                   <div class="card-content">
                     <span class="card-title grey-text text-darken-4">{{ line.get('name', '') }}</span>
                   </div>
@@ -68,7 +68,7 @@
               </p>
 
               <div class="divider"></div>
-              
+
               &nbsp;
 
               <div class="row">
@@ -83,12 +83,12 @@
                 </div>
               </div>
 
-              
+
               <div class="card white z-depth-0">
                 <div class="fb-comments" data-href="http://bus.kaist.ac.kr/" data-numposts="7" data-width="100%"></div>
                 <div class="divider"></div>
               </div>
-              
+
             </div>
           </div>
 
