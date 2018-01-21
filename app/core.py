@@ -21,6 +21,8 @@ def init_server():
     else:
         app.secret_key = os.urandom(24)
 
+    from firebase import firebase
+
     global server
 
     class ServerObject(object):
@@ -31,4 +33,6 @@ def init_server():
     server.controllers = app.config.get('ATTACHING_CONTROLLERS', [])
     server.debug = app.config.get('DEBUG')
     server.select_limit = app.config.get('SELECT_LIMIT')
+    server.firebase_app = firebase.FirebaseApplication(
+        'https://proven-entropy-106213.firebaseio.com/', None)
     return server
