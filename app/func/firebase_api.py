@@ -29,7 +29,7 @@ def get_updated_datetime():
 def bus_list_api():
     bus_objects = _get_result()
     buses = []
-    for bus_id in bus_objects.keys():
+    for bus_id in sorted(bus_objects.keys()):
         bus = bus_objects[bus_id]
         if not bus:
             continue
