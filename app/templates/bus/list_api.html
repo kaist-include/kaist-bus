@@ -2,8 +2,10 @@
 
 {% block container %}
 <div class="row">
-  <div class="col-12 col-md-1 col-lg-2">
-    &nbsp;
+  <div class="d-none d-md-block col-12 col-md-1 col-lg-2 text-right">
+    <div class="fb-like" data-href="http://bus.kaist.ac.kr/" data-layout="box_count" data-action="recommend" data-show-faces="true" data-share="true"></div>
+    <p>&nbsp;</p>
+    <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://bus.kaist.ac.kr/">Tweet</a>
   </div>
 
   <div class="col-12 col-md-10 col-lg-8">
@@ -20,8 +22,8 @@
         {% endfor %}
 
         <p class="text-center bus-report">
-          <a href="mailto:yearnning@kaist.ac.kr" class="grey-text text-darken-2 underline">
-            시간표가 잘못됐다면, 제보해주세요!
+          <a href="mailto:yearnning@kaist.ac.kr" class="">
+            <u>시간표가 잘못됐다면, 제보해주세요!</u>
           </a><br/>
           <small class="text-secondary">(전체 시간표 업데이트: 2017-01-21)</small>
         </p>
@@ -46,16 +48,10 @@
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="col-12">
-      <div class="card">
-        <div class="card-content">
-          <div class="fb-like" data-href="http://bus.kaist.ac.kr/" data-layout="box_count" data-action="recommend" data-show-faces="true" data-share="true"></div>
-          <p>&nbsp;</p>
-          <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://bus.kaist.ac.kr/">Tweet</a>
-        </div>
-      </div>
-    </div>
+  <div class="col-12 col-md-1 col-lg-2 d-none d-md-block">
+
   </div>
 
   <div id="fb-root"></div>
