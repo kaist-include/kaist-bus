@@ -3,14 +3,16 @@ import datetime
 
 app = Flask(__name__)
 
+
 def is_weekday():
     return datetime.date.today().weekday() < 5
+
 
 def get_tab(tab_id):
     tab = {}
     if tab_id == 1:
         tab['name'] = '문지>본원'
-        
+
         if is_weekday():
             times = []
             times.append("07:30")
@@ -42,7 +44,7 @@ def get_tab(tab_id):
             times.append("02:40")
             tab['times'] = times
             tab['time_description'] = '평일 시간표입니다'
-        else :
+        else:
             times = []
             times.append("08:10")
             times.append("09:40")
@@ -93,7 +95,7 @@ def get_tab(tab_id):
             times.append("03:00")
             tab['times'] = times
             tab['time_description'] = '평일 시간표입니다'
-        else :
+        else:
             times = []
             times.append("08:30")
             times.append("10:00")
@@ -168,9 +170,9 @@ def get_tab(tab_id):
 
     elif tab_id == 4:
 
-        tab['name'] = '화암>문지' 
+        tab['name'] = '화암>문지'
         if is_weekday():
-            
+
             times = []
             times.append("07:20")
             times.append("07:50")
@@ -203,7 +205,7 @@ def get_tab(tab_id):
             times.append("03:30")
             tab['times'] = times
             tab['time_description'] = '평일 시간표입니다'
-        else :
+        else:
             times = []
             times.append("08:00")
             times.append("09:30")
@@ -222,7 +224,7 @@ def get_tab(tab_id):
             tab['time_description'] = '주말/공휴일 시간표입니다'
 
     elif tab_id == 5:
-        tab['name'] = '본원>월평' 
+        tab['name'] = '본원>월평'
 
         if is_weekday():
             times = []
@@ -236,7 +238,7 @@ def get_tab(tab_id):
             times.append("17:00")
             tab['times'] = times
             tab['time_description'] = '평일에만 운영합니다'
-        else :
+        else:
             tab['time_description'] = '주말/공휴일에는 운영하지 않습니다'
 
         offsets = []
@@ -249,7 +251,7 @@ def get_tab(tab_id):
         tab['offsets'] = offsets
 
     elif tab_id == 6:
-        tab['name'] = '월평>본원' #(밑에 장소별로 +시간 써두기)
+        tab['name'] = '월평>본원'  #(밑에 장소별로 +시간 써두기)
 
         if is_weekday():
             times = []
@@ -263,7 +265,7 @@ def get_tab(tab_id):
             times.append("17:40")
             tab['times'] = times
             tab['time_description'] = '평일에만 운영합니다'
-        else : 
+        else:
             tab['time_description'] = '주말/공휴일에는 운영하지 않습니다'
 
         offsets = []
@@ -272,7 +274,7 @@ def get_tab(tab_id):
         tab['offsets'] = offsets
 
     elif tab_id == 7:
-        tab['name'] = '카이마루 출발' 
+        tab['name'] = '카이마루 출발'
 
         if is_weekday():
             times = []
@@ -309,7 +311,7 @@ def get_tab(tab_id):
             times.append("17:00")
             tab['times'] = times
             tab['time_description'] = '평일에만 운영합니다'
-        else :
+        else:
             tab['time_description'] = '주말/공휴일에는 운영하지 않습니다'
 
     elif tab_id == 8:
@@ -320,7 +322,7 @@ def get_tab(tab_id):
             times.append("07:35")
             tab['time_description'] = '평일에만 운영합니다'
             tab['times'] = times
-        else :
+        else:
             tab['time_description'] = '주말/공휴일에는 운영하지 않습니다'
 
     elif tab_id == 9:
@@ -331,7 +333,7 @@ def get_tab(tab_id):
             times = []
             times.append("07:40")
             tab['times'] = times
-        else :
+        else:
             tab['time_description'] = '주말/공휴일에는 운영하지 않습니다'
     elif tab_id == 10:
         tab['name'] = '본원>중리'
@@ -341,7 +343,7 @@ def get_tab(tab_id):
             times = []
             times.append("18:10")
             tab['times'] = times
-        else :
+        else:
             tab['time_description'] = '주말/공휴일에는 운영하지 않습니다'
     elif tab_id == 11:
         tab['name'] = '본원>대동'
@@ -351,11 +353,12 @@ def get_tab(tab_id):
             times = []
             times.append("18:10")
             tab['times'] = times
-        else :
+        else:
             tab['time_description'] = '주말/공휴일에는 운영하지 않습니다'
 
     tab['id'] = tab_id
     return tab
+
 
 def get_tabs(line_id):
     tabs = []
@@ -374,42 +377,49 @@ def get_tabs(line_id):
         tabs.append(get_tab(9))
         tabs.append(get_tab(10))
         tabs.append(get_tab(11))
-    else :
+    else:
         return None
     return tabs
+
 
 def get_line(line_id):
     line = {}
     if line_id == 1:
         line['name'] = '문지-화암-본원'
-        line['reference_url'] = 'http://m.kaist.ac.kr/_prog/_board/?mode=V&no=226&code=shuttle&site_dvs_cd=kr&menu_dvs_cd=010701&skey=&sval=&site_dvs=mobile&GotoPage='
+        line[
+            'reference_url'] = 'http://m.kaist.ac.kr/_prog/_board/?mode=V&no=226&code=shuttle&site_dvs_cd=kr&menu_dvs_cd=010701&skey=&sval=&site_dvs=mobile&GotoPage='
         line['update_date'] = '2016-06-19'
     elif line_id == 2:
         line['name'] = '월평-시내-본원'
-        line['reference_url'] = 'http://m.kaist.ac.kr/_prog/_board/?mode=V&no=228&code=shuttle&site_dvs_cd=kr&menu_dvs_cd=010701&skey=&sval=&site_dvs=mobile&GotoPage='
+        line[
+            'reference_url'] = 'http://m.kaist.ac.kr/_prog/_board/?mode=V&no=228&code=shuttle&site_dvs_cd=kr&menu_dvs_cd=010701&skey=&sval=&site_dvs=mobile&GotoPage='
         line['update_date'] = '2016-06-19'
     elif line_id == 3:
         line['name'] = 'OLEV'
-        line['reference_url'] = 'http://m.kaist.ac.kr/_prog/_board/?mode=V&no=230&code=shuttle&site_dvs_cd=kr&menu_dvs_cd=010701&skey=&sval=&site_dvs=mobile&GotoPage='
+        line[
+            'reference_url'] = 'http://m.kaist.ac.kr/_prog/_board/?mode=V&no=230&code=shuttle&site_dvs_cd=kr&menu_dvs_cd=010701&skey=&sval=&site_dvs=mobile&GotoPage='
         line['update_date'] = '2016-06-19'
-    elif line_id == 4: 
+    elif line_id == 4:
         line['name'] = '통근버스'
-        line['reference_url'] = 'http://m.kaist.ac.kr/_prog/_board/?mode=V&no=229&code=shuttle&site_dvs_cd=kr&menu_dvs_cd=010701&skey=&sval=&site_dvs=mobile&GotoPage='
+        line[
+            'reference_url'] = 'http://m.kaist.ac.kr/_prog/_board/?mode=V&no=229&code=shuttle&site_dvs_cd=kr&menu_dvs_cd=010701&skey=&sval=&site_dvs=mobile&GotoPage='
         line['update_date'] = '2016-06-19'
-    else :
+    else:
         return None
     line['id'] = line_id
     return line
+
 
 @app.route("/")
 def main():
     return redirect(url_for('line_list'))
 
+
 @app.route("/1")
 def line_list():
-    lines = [ get_line(line_id) for line_id in range(1, 5) ]
-    return render_template("line_list.html",
-                           lines=lines)
+    lines = [get_line(line_id) for line_id in range(1, 5)]
+    return render_template("line_list.html", lines=lines)
+
 
 @app.route("/line/<int:line_id>")
 def line_detail(line_id):
@@ -417,8 +427,8 @@ def line_detail(line_id):
     if line is None:
         abort(400)
     line['tabs'] = get_tabs(line_id)
-    return render_template("line_detail.html", 
-                           line=line)
+    return render_template("line_detail.html", line=line)
+
 
 if __name__ == "__main__":
     app.run()
