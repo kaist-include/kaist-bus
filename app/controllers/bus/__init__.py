@@ -16,7 +16,8 @@ def list_api():
     return render_template(
         "bus/list_api.html",
         buses=firebase_api.bus_list_api(),
-        weekday=get_weekday())
+        weekday=get_weekday(),
+        bus_updated_datetime=firebase_api.get_updated_datetime())
 
 
 @blueprint.route("/<int:bus_id>")
@@ -29,7 +30,8 @@ def detail_api(bus_id):
         "bus/detail_api.html",
         buses=firebase_api.bus_list_api(),
         bus=bus,
-        weekday=get_weekday())
+        weekday=get_weekday(),
+        bus_updated_datetime=firebase_api.get_updated_datetime())
 
 
 @blueprint.route("/weekday")

@@ -35,6 +35,10 @@ def _get_result():
     return result
 
 
+def get_updated_datetime():
+    return session.get(KEY_BUS_UPDATED_DATETIME, '')[:10]
+
+
 def bus_list_api():
     _buses = _get_result()
     buses = []

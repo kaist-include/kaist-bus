@@ -57,7 +57,7 @@
               <a class="dropdown-item {% if weekday < 5 %}active{% endif %}" href="{{ url_for('bus.weekday_api', weekday=0, next_url=request.path) }}">평일 시간표</a>
               <a class="dropdown-item {% if weekday >= 5 %}active{% endif %}" href="{{ url_for('bus.weekday_api', weekday=5, next_url=request.path) }}">휴일 시간표</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">피드백</a>
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#feedback-modal">피드백</a>
             </div>
           </li>
         </ul>
@@ -71,6 +71,31 @@
 		</div>
 
     {% block modal %}
+    <!-- Modal -->
+    <div class="modal fade" id="feedback-modal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">대출 안내 사항</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+            - 대출 발생만으로 개인의 신용등급이 하락하지 않습니다. 현재 탱커펀드(주)의 자회사 여신회사인 탱커대부금융(주)를 통해 발생하는 대출은 타 신용기관과 대출정보가 공유되지 않기 때문에 신용등급에 영향을 주지 않습니다.</br>
+            - 연체시에는 신용등급이 하락할 수 있으며 타 금융기관과 대출 기록이 공유될 수 있습니다. 이 경우 대부업권에서의 연체 이력이 남게 되므로 주의해야 합니다.</br>
+            - 대출 심사 과정에서 신용정보 조회가 필요할 수 있으며 조회기록은 신용정보 회사에 보관됩니다. 그러나 본인의 신용정보 조회는 신용점수와 등급에 영향을 미치지 않으며 해당 정보가 타 금융기관에 제공되지도 않습니다.</br>
+            - 중도상환이 가능하나 대출 약정시에 소정의 중도상환 수수료를 부여할 수 있으며, 담보조건, 연체이율 등의 부대사항은 대면 협의시에 구체적으로 논의합니다.</br>
+            - 이율은 기본적으로 제2금융권과 대부업권 대비 저렴하게 대출을 진행합니다. 구체적 수치는 내부 심사기준에 따라 정해지며, 담보설정비용과 시장상황에 따라 유동적으로 적용합니다.</br>
+            - 대출 신청 자격에는 제한이 없으나 투자자 보호를 위하여 우량 사업자 대상 대출, 저위험 담보대출을 주로 면밀히 검토하고 있습니다.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">닫기</button>
+          </div>
+        </div>
+      </div>
+    </div>
     {% endblock %}
 
 		{% block script %}
