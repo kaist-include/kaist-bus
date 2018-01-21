@@ -413,10 +413,13 @@ def get_line(line_id):
     return line
 
 
+def _init_buses():
+    return [get_line(line_id) for line_id in range(1, 5)]
+
+
 @blueprint.route("")
 def list_api():
-    lines = [get_line(line_id) for line_id in range(1, 5)]
-    return render_template("bus/list_api.html", buses=lines)
+    return render_template("bus/list_api.html", buses=_init_buses())
 
 
 @blueprint.route("/<int:bus_id>")
@@ -425,4 +428,4 @@ def detail_api(bus_id):
     if bus is None:
         abort(404)
     bus['stations'] = get_tabs(bus_id)
-    return render_template("bus/detail_api.html", bus=bus)
+    return render_template("bus/detail_api.html", buses=_init_buses(), bus=bus)

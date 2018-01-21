@@ -26,9 +26,11 @@
 
       <div class="navbar-collapse collapse" id="busNavbar">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item {% if request.endpoint.startswith('bus.') %}active{% endif %}">
-            <a class="nav-link" href="{{ url_for('bus.list_api') }}">시간표</a>
+          {% for bus in buses %}
+          <li class="nav-item {% if request.endpoint == 'bus.detail_api' and request.view_args.get('bus_id') == bus.id %}active{% endif %}">
+            <a class="nav-link" href="{{ url_for('bus.detail_api', bus_id=bus.id) }}">{{ bus.name }}</a>
           </li>
+          {% endfor %}
         </ul>
       </div>
     </nav>
