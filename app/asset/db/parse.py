@@ -1,3 +1,5 @@
+from datetime import datetime
+
 f = open('data.csv')
 for _ in range(2):
     f.readline()
@@ -44,6 +46,10 @@ for line in f:
     bus_dict['stations'] = stations_dict
     data_dict[bus_id] = bus_dict
 f.close()
+
+data_dict[0] = {
+    'updated_datetime': str(datetime.now())
+}
 
 data_dict = {'campuses': {1: {'buses': data_dict}}}
 
