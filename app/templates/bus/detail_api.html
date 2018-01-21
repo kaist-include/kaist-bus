@@ -1,0 +1,108 @@
+{% extends '__base__.html' %}
+
+{% block title %}KAIST 버스 - {{ bus.name }}{% endblock %}
+
+{% block container %}
+<div class="row">
+  <div class="col-12">
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+      {% for station in bus.stations %}
+      <li class="nav-item">
+        <a class="nav-link {% if loop.index == 1 %}active{% endif %}" id="pills-{{ station.id }}-tab" data-toggle="pill" href="#pills-{{ station.id }}" role="tab" aria-controls="pills-{{ station.id }}" aria-selected="true">
+          {{ station.name }}
+          <br/>
+          <small><i class="fa fa-angle-right" aria-hidden="true"></i> {{ station.direction_name }}</small>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <div class="tab-content" id="pills-tabContent">
+      {% for station in bus.stations %}
+      <div class="tab-pane fade {% if loop.index == 1%}show active{% endif %}" id="pills-{{ station.id }}" role="tabpanel" aria-labelledby="pills-{{ station.id }}-tab">
+        <ul class="list-group">
+          {% for time in station.times[weekday] %}
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-6">{{ time }}</div>
+              <div class="bus-left-time col-6 text-right text-secondary" data-time="{{ time }}">
+                <i class="fa fa-spinner" aria-hidden="true"></i>
+              </div>
+            </div>
+          </li>
+          {% if loop.index % 9 == 8 %}
+          <li class="list-group-item">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-format="fluid"
+                 data-ad-layout-key="-gs-y+2r-m-39"
+                 data-ad-client="ca-pub-2610017399996979"
+                 data-ad-slot="3450439862"></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </li>
+          {% endif %}
+          {% else %}
+          <li class="list-group-item inactive">운행정보가 없습니다.</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+
+    {% include '__base__/_feedback.html' %}
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+{{ super() }}
+<script>
+$(document).ready(function(e){
+  setInterval(function(){
+    $(".bus-left-time").text(function(){
+      var time = $(this).data('time');
+      var times = time.split(":");
+      var hour = parseInt(times[0]);
+      var minute = parseInt(times[1]);
+      if (hour < 4){
+        hour += 24;
+      }
+      var standard = hour * 3600 + minute * 60;
+
+      var dt = new Date();
+      var hour = dt.getHours();
+      if (hour < 4){
+        hour += 24;
+      }
+      var now = hour * 3600 + dt.getMinutes() * 60 + dt.getSeconds();
+      var delta = standard - now;
+
+      if (delta < -30) {
+        $(this).html('-');
+      } else if (delta < 30) {
+        $(this).html('곧 도착');
+      } else {
+        var deltaHour = parseInt(delta / 3600);
+        var deltaMinute = parseInt((delta % 3600) / 60);
+        var deltaSecond = (delta % 60);
+        var deltaMessage = "";
+        if (deltaHour > 0) {
+          deltaMessage += (deltaHour + "시간")
+        }
+        if (deltaMinute > 0) {
+          deltaMessage += (" " + deltaMinute + "분")
+        }
+        if (deltaSecond > 0) {
+          deltaMessage += (" " + deltaSecond + "초")
+        }
+        $(this).html(deltaMessage + " 전");
+      }
+
+    });
+  }, 1000);
+});
+</script>
+{% endblock %}
