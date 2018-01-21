@@ -21,7 +21,7 @@
       {% for station in bus.stations %}
       <div class="tab-pane fade {% if loop.index == 1%}show active{% endif %}" id="pills-{{ station.id }}" role="tabpanel" aria-labelledby="pills-{{ station.id }}-tab">
         <ul class="list-group">
-          {% for time in station.times[weekday] %}
+          {% for time in station.times[weekday|string] %}
           <li class="list-group-item">
             <div class="row">
               <div class="col-6">{{ time }}</div>
