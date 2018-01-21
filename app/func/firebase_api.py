@@ -1,10 +1,42 @@
+import json
+from datetime import datetime
+
+from flask import session
+
 from ..core import server
 
 firebase_app = server.firebase_app
 
+KEY_BUS_UPDATED_DATETIME_CHECKED_DATETIME = 'firebase/campuses/1/bus_updated_datetime/checked_datetime'
+KEY_BUS_UPDATED_DATETIME = 'firebase/campuses/1/bus_updated_datetime'
+KEY_BUS_RESULT = 'firebase/campuses/1/buses'
+
+
+def _get_result():
+    checked_datetime = session.get(KEY_BUS_UPDATED_DATETIME_CHECKED_DATETIME,
+                                   None)
+    if checked_datetime:
+        if (datetime.now() - checked_datetime).days < 1:
+            result = session.get(KEY_BUS_RESULT, None)
+            if result:
+                return json.loads(result)
+
+    bus_updated_datetime = firebase_app.get(
+        '/development/campuses/1/bus_updated_datetime', None)
+    if session.get(KEY_BUS_UPDATED_DATETIME, None) == bus_updated_datetime:
+        result = session.get(KEY_BUS_RESULT, None)
+        if result:
+            return json.loads(result)
+
+    result = firebase_app.get('/development/campuses/1/buses', None)
+    session[KEY_BUS_RESULT] = json.dumps(result)
+    session[KEY_BUS_UPDATED_DATETIME] = bus_updated_datetime
+    session[KEY_BUS_UPDATED_DATETIME_CHECKED_DATETIME] = datetime.now()
+    return result
+
 
 def bus_list_api():
-    _buses = firebase_app.get('/development/campuses/1/buses', None)
+    _buses = _get_result()
     buses = []
     for bus_id, bus in enumerate(_buses):
         if not bus:
@@ -36,6 +68,6 @@ def _handle_bus(bus, bus_id):
 
 
 def bus_detail_api(bus_id):
-    bus = firebase_app.get('/development/campuses/1/buses/{}'.format(bus_id),
-                           None)
+    result = _get_result()
+    bus = result[bus_id]
     return _handle_bus(bus, bus_id)

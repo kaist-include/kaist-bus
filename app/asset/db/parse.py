@@ -47,11 +47,14 @@ for line in f:
     data_dict[bus_id] = bus_dict
 f.close()
 
-data_dict[0] = {
-    'updated_datetime': str(datetime.now())
+data_dict = {
+    'campuses': {
+        1: {
+            'buses': data_dict,
+            'bus_updated_datetime': str(datetime.now())
+        }
+    }
 }
-
-data_dict = {'campuses': {1: {'buses': data_dict}}}
 
 import json
 f = open('data.json', 'w')
