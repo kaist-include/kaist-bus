@@ -11,9 +11,11 @@ $border-radius:               .0rem !default;
 $border-radius-lg:            .0rem !default;
 $border-radius-sm:            .0rem !default;
 
+$body-bg: #F5F5F5;
+
 @import "../vendors/bootstrap/scss/bootstrap";
 
-body > div.container{
+body > div.container {
   margin-top: 40px;
   padding-bottom: 40px;
 }
@@ -25,4 +27,16 @@ select:not([multiple]){
 
 select {
   border-radius: 0px;
+}
+
+.card-title {
+  margin-bottom: 0px;
+}
+
+.bus-report {
+  margin-top: 10px;
+}
+
+html {
+  line-spacing: -0.05rem;
 }

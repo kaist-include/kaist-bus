@@ -416,7 +416,7 @@ def get_line(line_id):
 @blueprint.route("")
 def list_api():
     lines = [get_line(line_id) for line_id in range(1, 5)]
-    return render_template("bus/list_api.html", lines=lines)
+    return render_template("bus/list_api.html", buses=lines)
 
 
 @blueprint.route("/<int:bus_id>")
