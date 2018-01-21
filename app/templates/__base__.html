@@ -53,8 +53,8 @@
               {% if weekday < 5 %}평일{% else %}휴일{% endif %}
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item {% if weekday < 5 %}active{% endif %}" href="#">평일 시간표</a>
-              <a class="dropdown-item {% if weekday >= 5 %}active{% endif %}" href="#">휴일 시간표</a>
+              <a class="dropdown-item {% if weekday < 5 %}active{% endif %}" href="{{ url_for('bus.weekday_api', weekday=0, next_url=request.path) }}">평일 시간표</a>
+              <a class="dropdown-item {% if weekday >= 5 %}active{% endif %}" href="{{ url_for('bus.weekday_api', weekday=5, next_url=request.path) }}">휴일 시간표</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">피드백</a>
             </div>
