@@ -41,14 +41,11 @@ def bus_list_api():
 
 def _handle_bus(bus, bus_id):
     bus['id'] = int(bus_id)
-
     stations, station_object = [], bus.get('stations', {})
-    print(type(station_object))
-    for station_id in station_object.keys():
+    for station_id in sorted(station_object.keys()):
         station = station_object[station_id]
         station['id'] = int(station_id)
         stations.append(station)
-
     bus['stations'] = stations
     return bus
 
