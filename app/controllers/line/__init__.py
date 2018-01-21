@@ -4,14 +4,14 @@ from datetime import date
 from flask import Flask, redirect, url_for, abort
 from flask import Blueprint
 
-blueprint = Blueprint('__init__', __name__, url_prefix='/')
+blueprint = Blueprint('line', __name__, url_prefix='/line')
 
 
 @blueprint.route("")
-def main_api():
+def list_api():
     return redirect(url_for('bus.list_api'))
 
 
-@blueprint.route("<int:campus_id>")
-def _campus_api(campus_id):
+@blueprint.route("/<int:line_id>")
+def detail_api(line_id):
     return redirect(url_for('bus.list_api'))

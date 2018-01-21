@@ -7,5 +7,7 @@ SQLALCHEMY_POOL_RECYCLE = 540  # mariadb wait_timeout = 600
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 ATTACHING_CONTROLLERS = [
+    'bus',
+    'line',
     '__init__',
 ]
