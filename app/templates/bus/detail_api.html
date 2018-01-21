@@ -22,7 +22,14 @@
       <div class="tab-pane fade {% if loop.index == 1%}show active{% endif %}" id="pills-{{ station.id }}" role="tabpanel" aria-labelledby="pills-{{ station.id }}-tab">
         <ul class="list-group">
           {% for time in station.times[weekday] %}
-          <li class="list-group-item">{{ time }}</li>
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-6">{{ time }}</div>
+              <div class="bus-left-time col-6 text-right text-secondary" data-time="{{ time }}">
+                <i class="fa fa-spinner" aria-hidden="true"></i>
+              </div>
+            </div>
+          </li>
           {% else %}
           <li class="list-group-item inactive">운행정보가 없습니다.</li>
           {% endfor %}
@@ -35,4 +42,54 @@
     {% include '__base__/_feedback.html' %}
   </div>
 </div>
+{% endblock %}
+
+{% block script %}
+{{ super() }}
+<script>
+$(document).ready(function(e){
+  setInterval(function(){
+    $(".bus-left-time").text(function(){
+      var time = $(this).data('time');
+      var times = time.split(":");
+      var hour = parseInt(times[0]);
+      var minute = parseInt(times[1]);
+      if (hour < 4){
+        hour += 24;
+      }
+      var standard = hour * 3600 + minute * 60;
+
+      var dt = new Date();
+      var hour = dt.getHours();
+      if (hour < 4){
+        hour += 24;
+      }
+      var now = hour * 3600 + dt.getMinutes() * 60 + dt.getSeconds();
+      var delta = standard - now;
+
+      if (delta < -30) {
+        $(this).html('-');
+      } else if (delta < 30) {
+        $(this).html('곧 도착');
+      } else {
+        var deltaHour = parseInt(delta / 3600);
+        var deltaMinute = parseInt((delta % 3600) / 60);
+        var deltaSecond = (delta % 60);
+        var deltaMessage = "";
+        if (deltaHour > 0) {
+          deltaMessage += (deltaHour + "시간")
+        }
+        if (deltaMinute > 0) {
+          deltaMessage += (" " + deltaMinute + "분")
+        }
+        if (deltaSecond > 0) {
+          deltaMessage += (" " + deltaSecond + "초")
+        }
+        $(this).html(deltaMessage + " 전");
+      }
+
+    });
+  }, 1000);
+});
+</script>
 {% endblock %}
