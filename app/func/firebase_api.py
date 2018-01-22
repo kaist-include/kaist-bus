@@ -3,14 +3,7 @@ from datetime import datetime
 
 from flask import session
 
-# from ..core import server
-#
-# firebase_app = server.firebase_app
-#
-# KEY_BUS_UPDATED_DATETIME_CHECKED_DATETIME = 'firebase/campuses/1/bus_updated_datetime/checked_datetime'
 KEY_BUS_UPDATED_DATETIME = 'firebase/campuses/1/bus_updated_datetime'
-
-# KEY_BUS_RESULT = 'firebase/campuses/1/buses'
 
 
 def _get_result():
@@ -29,8 +22,9 @@ def get_updated_datetime():
 def bus_list_api():
     bus_objects = _get_result()
     buses = []
-    for bus_id in sorted(bus_objects.keys()):
-        bus = bus_objects[bus_id]
+    bus_ids = sorted([int(key) for key in bus_objects.keys()])
+    for bus_id in bus_ids:
+        bus = bus_objects[str(bus_id)]
         if not bus:
             continue
         if bus_id == 7:
@@ -40,11 +34,12 @@ def bus_list_api():
 
 
 def _handle_bus(bus, bus_id):
-    bus['id'] = int(bus_id)
+    bus['id'] = bus_id
     stations, station_object = [], bus.get('stations', {})
-    for station_id in sorted(station_object.keys()):
-        station = station_object[station_id]
-        station['id'] = int(station_id)
+    stations_ids = sorted([int(key) for key in station_object.keys()])
+    for station_id in stations_ids:
+        station = station_object[str(station_id)]
+        station['id'] = station_id
         stations.append(station)
     bus['stations'] = stations
     return bus
