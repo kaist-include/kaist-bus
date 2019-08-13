@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>KAIST 버스 2.0 - 문지: 화암행 (휴일)</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#413b98">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap&subset=korean" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="shortcut icon" href="./icon-4x.png" type="image/x-icon">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="./icon-4x.png" type="image/x-icon">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZPGD7LLE5D"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-ZPGD7LLE5D');
+    </script>
+    <script src="./warningForWeekends.js"></script>
+    <script>
+        var array1 = [470, 560, 650, 740, 830, 920, 1010, 1100, 1190, 1280, 1370, 1460, 1550];
+        var delay = [0, 10];
+
+        var date = new Date();
+
+        setInterval(function() {
+            var date = new Date();
+            var time = tick(date.getHours(), 2) + ":" + tick(date.getMinutes(), 2) + ":" + tick(date.getSeconds(), 2);
+            $('.current_timer').text(time);
+
+            var next_bus_val = next_bus(date.getHours(), date.getMinutes(), 0);
+            if (next_bus_val == -1) {
+                $("#timer_nextbus").text("운행 종료");
+                $("#timer_left").text("운행 종료");
+            } else {
+                $("#timer_nextbus").text(tick(Math.floor(array1[next_bus_val] / 60), 2) + ":" + tick(Math.floor(array1[next_bus_val] - Math.floor(array1[next_bus_val] / 60) * 60), 2) + ":00");
+                var time_left = Math.floor(array1[next_bus_val] / 60) * 3600 + Math.floor(array1[next_bus_val] - Math.floor(array1[next_bus_val] / 60) * 60) * 60 + 0 - (date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds());
+                $("#timer_left").text(tick(Math.floor(time_left / 3600), 2) + ":" + tick(Math.floor((time_left - Math.floor(time_left / 3600) * 3600) / 60), 2) + ":" + tick(time_left - Math.floor(time_left / 3600) * 3600 - Math.floor((time_left - Math.floor(time_left / 3600) * 3600) / 60) * 60, 2));
+            }
+
+            $("#timer_nextbus2").text(stationTimerSetting1(delay[1], date));
+            $("#timer_left2").text(stationTimerSetting2(delay[1], date));
+
+            $("#timer_nextbus3").text(stationTimerSetting1(delay[2], date));
+            $("#timer_left3").text(stationTimerSetting2(delay[2], date));
+
+            $(".spinner-timer").hide();
+
+            for (var k = 0; k < array1.length; k++) {
+                for (var k2 = 0; k2 < delay.length; k2++) {
+                    var timeRemaining = array1[k] * 60 + delay[k2] * 60 - date.getHours() * 3600 - date.getMinutes() * 60 - date.getSeconds();
+                    if (timeRemaining > 0) {
+                        $("#timeLeft" + delay[k2] + tick(k, 2)).text((int2strTimeLeft(timeRemaining)));
+                    } else {
+                        $("#timeLeft" + delay[k2] + tick(k, 2)).text(("-"));
+                    }
+                }
+            }
+
+        }, 500)
+
+        function stationTimerSetting1(offset, date) {
+            var next_bus_val = next_bus(date.getHours(), date.getMinutes(), offset);
+            if (next_bus_val == -1) {
+                return "운행 종료";
+            } else {
+                var next_bus_time = array1[next_bus_val] + offset;
+                return tick(Math.floor(next_bus_time / 60), 2) + ":" + tick(Math.floor(next_bus_time - Math.floor(next_bus_time / 60) * 60), 2) + ":00";
+            }
+        }
+
+        function int2strTimeLeft(num) {
+            var hr = tick(Math.floor(num / 3600), 1);
+            var min = tick(Math.floor(tick(num - Math.floor(num / 3600) * 3600, 2) / 60), 1);
+            var sec = tick(num - hr * 3600 - min * 60, 2)
+            if (isDiff || !isDiff) {
+                return "-";
+            } else {
+                return (hr != 0 ? (hr + "시간 ") : "") + ((min != 0 || hr != 0) ? (min + "분 ") : "") + sec + "초";
+            }
+        }
+
+
+        function stationTimerSetting2(offset, date) {
+            var next_bus_val = next_bus(date.getHours(), date.getMinutes(), offset);
+            if (next_bus_val == -1) {
+                return "운행 종료";
+            } else {
+                var next_bus_time = array1[next_bus_val] + offset;
+                var time_left = Math.floor(next_bus_time / 60) * 3600 + Math.floor(next_bus_time - Math.floor(next_bus_time / 60) * 60) * 60 - (date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds());
+                return tick(Math.floor(time_left / 3600), 2) + ":" + tick(Math.floor((time_left - Math.floor(time_left / 3600) * 3600) / 60), 2) + ":" + tick(time_left - Math.floor(time_left / 3600) * 3600 - Math.floor((time_left - Math.floor(time_left / 3600) * 3600) / 60) * 60, 2);
+            }
+        }
+
+
+        function int2str(num) {
+            if (num < 0) {
+                num += 1440;
+            }
+            var hr = tick(Math.floor(num / 60), 2);
+            var min = tick(num - Math.floor(num / 60) * 60, 2);
+            return hr + "시 " + min + "분";
+        }
+
+        function tick(num, size) {
+            var s = num + "";
+            while (s.length < size) s = "0" + s;
+
+            return s;
+        }
+
+        function next_bus(hr, min, offset) {
+            var cur_time = hr * 60 + min;
+
+            for (var i = 0; i < array1.length; i++) {
+                if (array1[i] + offset > cur_time) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        function contentsMaker(offset) {
+            var contents = "";
+            for (i = 0; i < array1.length; i++) {
+                contents += "<tr><td>" + int2str(array1[i] + offset) + "</td><td style='text-align: right;' id='timeLeft" + offset + tick(i, 2) + "'>" + '<div class="spinner-border spinner-border-sm text-info spinner-timer"></div>' + "</td></tr>";
+            }
+            return contents;
+        }
+        $(document).ready(function() {
+
+            $('[data-toggle="tooltip_noWeekends"]').tooltip();
+            $('[data-toggle="tooltip"]').tooltip();
+
+            $('#ttProvider').append(contentsMaker(delay[0]));
+            $('#ttProvider2').append(contentsMaker(delay[1]));
+            $('#ttProvider3').append(contentsMaker(delay[2]));
+
+        });
+
+        $(function() {
+            $("#header").load("./header.html");
+            $("#footer").load("./footer.html");
+            $("#carousel").load("./carousel.html");
+        });
+    </script>
+
+</head>
+
+<body>
+
+    <div id="header"></div>
+
+    <div class="container bus-title">
+        <i class="far fa-calendar-check"></i> <mark style="font-size: 1.5rem;">문지: 화암행</mark> <small>휴일</small>
+    </div>
+
+    <nav class="navbar navbar-light navbar-expand bg-faded justify-content-center" style="background:linear-gradient(135deg, #7117ea 0%,#9b30b9 100%) !important; padding-top:6px; padding-bottom:6px;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
+            <ul class="nav nav-pills w-100 justify-content-center" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#tab1">문지</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#tab2">화암</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="warningForDaysInversion"></div>
+
+    <div class="container">
+        <div class="tab-content">
+            <div id="tab1" class="container tab-pane active">
+                <div class="card bg-light text-dark text-center timers-invisible" style="margin-top:18px; margin-bottom:18px;">
+                    <div class="card-body">
+                        <div class="container timers">
+                            <div class="row">
+
+                                <div class="col-6" style=" text-align: center;">
+                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간"><i class="fas fa-stopwatch"></i> 남은
+                                        시간</span>
+                                </div>
+                                <div class="col-2" style="position:absolute; border-left: 2px solid white; opacity: 0.85; height:44px; padding:0; left: 50%;">
+
+                                </div>
+                                <div class="col-6" style=" text-align: center;">
+                                    <div class="spinner-border text-info spinner-timer"></div>
+                                    <div style="display:inline-block; text-align: center;"> <span id="timer_left" style="margin-bottom:0; font-size:1.7rem;"></span> </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card bg-light text-dark text-center timers-invisible" style="margin-top:18px; margin-bottom:18px;">
+                    <div class="card-body">
+                        <div class="container timers">
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <h4 data-toggle="tooltip" data-placement="top" title="현재 시각"><i class="far fa-clock"></i></h4>
+                                    <div class="spinner-border text-info spinner-timer"></div>
+                                    <span class="current_timer" style="margin-bottom:0;"></span>
+                                </div>
+                                <div class="col-6">
+                                    <h4 data-toggle="tooltip" data-placement="top" title="다음 버스 시각"><i class="fas fa-bus"></i></h4>
+                                    <div class="spinner-border text-info spinner-timer"></div>
+                                    <span id="timer_nextbus" style="margin-bottom:0;"></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <table class="table table-hover" style="margin-top:12px;">
+                    <thead>
+                        <tr>
+                            <th>도착 예정</th>
+                            <th style="text-align:right;">남은 시간</th>
+                        </tr>
+                    </thead>
+                    <tbody id='ttProvider'>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="container_tab2">
+
+            </div>
+            <div id="tab2" class="container tab-pane">
+                <div class="card bg-light text-dark text-center timers-invisible" style="margin-top:18px; margin-bottom:18px;">
+                    <div class="card-body">
+                        <div class="container timers">
+                            <div class="row">
+
+                                <div class="col-6" style=" text-align: center;">
+                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간"><i class="fas fa-stopwatch"></i> 남은
+                                        시간</span>
+                                </div>
+                                <div class="col-2" style="position:absolute; border-left: 2px solid white; opacity: 0.85; height:44px; padding:0; left: 50%;">
+
+                                </div>
+                                <div class="col-6" style=" text-align: center;">
+                                    <div class="spinner-border text-info spinner-timer"></div>
+                                    <div style="display:inline-block; text-align: center;"> <span id="timer_left2" style="margin-bottom:0; font-size:1.7rem;"></span> </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card bg-light text-dark text-center timers-invisible" style="margin-top:18px; margin-bottom:18px;">
+                    <div class="card-body">
+                        <div class="container timers">
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <h4 data-toggle="tooltip" data-placement="top" title="현재 시각"><i class="far fa-clock"></i></h4>
+                                    <div class="spinner-border text-info spinner-timer"></div>
+                                    <span class="current_timer" style="margin-bottom:0;"></span>
+                                </div>
+                                <div class="col-6">
+                                    <h4 data-toggle="tooltip" data-placement="top" title="다음 버스 시각"><i class="fas fa-bus"></i></h4>
+                                    <div class="spinner-border text-info spinner-timer"></div>
+                                    <span id="timer_nextbus2" style="margin-bottom:0;"></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <table class="table table-hover" style="margin-top:12px;">
+                    <thead>
+                        <tr>
+                            <th>도착 예정</th>
+                            <th style="text-align:right;">남은 시간</th>
+                        </tr>
+                    </thead>
+                    <tbody id='ttProvider2'>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="tab3" class="container tab-pane">
+                <div class="card bg-light text-dark text-center timers-invisible" style="margin-top:18px; margin-bottom:18px;">
+                    <div class="card-body">
+                        <div class="container timers">
+                            <div class="row">
+
+                                <div class="col-6" style=" text-align: center;">
+                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간"><i class="fas fa-stopwatch"></i> 남은
+                                        시간</span>
+                                </div>
+                                <div class="col-2" style="position:absolute; border-left: 2px solid white; opacity: 0.85; height:44px; padding:0; left: 50%;">
+
+                                </div>
+                                <div class="col-6" style=" text-align: center;">
+                                    <div class="spinner-border text-info spinner-timer"></div>
+                                    <div style="display:inline-block; text-align: center;"> <span id="timer_left3" style="margin-bottom:0; font-size:1.7rem;"></span> </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card bg-light text-dark text-center timers-invisible" style="margin-top:18px; margin-bottom:18px;">
+                    <div class="card-body">
+                        <div class="container timers">
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <h4 data-toggle="tooltip" data-placement="top" title="현재 시각"><i class="far fa-clock"></i></h4>
+                                    <div class="spinner-border text-info spinner-timer"></div>
+                                    <span class="current_timer" style="margin-bottom:0;"></span>
+                                </div>
+                                <div class="col-6">
+                                    <h4 data-toggle="tooltip" data-placement="top" title="다음 버스 시각"><i class="fas fa-bus"></i></h4>
+                                    <div class="spinner-border text-info spinner-timer"></div>
+                                    <span id="timer_nextbus3" style="margin-bottom:0;"></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <table class="table table-hover" style="margin-top:12px;">
+                    <thead>
+                        <tr>
+                            <th>도착 예정</th>
+                            <th style="text-align:right;">남은 시간</th>
+                        </tr>
+                    </thead>
+                    <tbody id='ttProvider3'>
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="alert alert-info" style="margin-top:12px; font-size:0.78rem;">
+            <strong>참고</strong><br>시내 도로 사정에 따라 각 정류장 도착 예정 시각과 실제 도착 시각 간에 다소 차이가 있을 수 있습니다.
+        </div>
+        <div class="alert alert-secondary" style=" margin-top:12px; font-size:0.8rem;">
+            <strong>비상 연락처 안내 </strong><br>총무팀(주간, 042-350-2315)<br>수덕관광(010-9500-3663, 010-3030-4240)
+        </div>
+    </div>
+
+
+    <div class="container" style="margin-bottom:20px;">
+        <div id="carousel"></div>
+    </div>
+
+    <div id="footer"></div>
+</body>
+
+</html>

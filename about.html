@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>KAIST 버스 2.0 - About</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#413b98">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap&subset=korean" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="shortcut icon" href="./icon-4x.png" type="image/x-icon">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="./icon-4x.png" type="image/x-icon">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZPGD7LLE5D"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-ZPGD7LLE5D');
+    </script>
+    <script>
+        $(function() {
+            $("#header").load("./header.html");
+            $("#footer").load("./footer.html");
+        });
+    </script>
+
+
+</head>
+
+<body>
+    <div id="header"></div>
+
+
+    <div class="container about-container">
+        <h4 style="margin-top: 20px; margin-bottom:15px;">
+            <i class="fas fa-wrench"></i> About 카이스트 버스
+        </h4>
+        <div class="card bg-light text-dark text-center">
+            <div class="card-header">
+                2019년 8월 13일
+            </div>
+            <div class="card-body">
+                <div class="col-12" style="text-align: left;">
+                    <p><mark>서비스를 오픈했습니다.</mark></p>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card bg-dark text-light text-center">
+            <div class="card-header">
+                기여한 사람들
+            </div>
+            <div class="card-body">
+                <div class="col-12" style="text-align: left;">
+                    <p>Jaeryoung Ka (2019~, v2.0)</p>
+                    <p>Joonyoung Yi (2018~)</p>
+                    <p>Dongwoo Kim (2014 ~ 2017)</p>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="footer"></div>
+</body>
+
+</html>

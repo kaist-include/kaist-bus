@@ -1,0 +1,112 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top" style="background-color:#413b98 !important; padding-top:6px; padding-bottom:6px;">
+    <a class="navbar-brand abs" href="./index.html" style="font-weight: 600;">카이스트 버스 2.0</a>
+    <button class="header-mobile-button d-md-none" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
+        <!-- <span class="navbar-toggler-icon"></span> -->
+        <span style="font-size:16px; color:white; opacity: 0.90;">노선</span>
+    </button>
+    <div class="navbar-collapse collapse" id="collapsingNavbar">
+        <ul class="navbar-nav">
+
+            <div class="btn-group">
+                <a href="./olev.html">
+                    <button class="btn btn-info caret-off" type="button">
+                        OLEV
+                    </button>
+                </a>
+            </div>
+
+            <div class="btn-group">
+                <a href="./wolpyeong.html">
+                    <button class="btn btn-info caret-off" type="button">
+                        시내순환
+                    </button>
+                </a>
+            </div>
+
+
+            <div class="btn-group dropright">
+                <button class="btn btn-info caret-off dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        통근버스
+                                    </button>
+                <div class="dropdown-menu">
+                    <h6 class="dropdown-header">통근버스 시간표</h6>
+                    <a class="dropdown-item" href="./commute_inbound.html">출근 노선</a>
+                    <a class="dropdown-item" href="./commute_outbound.html">퇴근 노선</a>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-info caret-off" type="button">
+                                <span data-toggle="tooltip_toSeoul"
+                                    title="금요일 17시 45분 강당 출발, 포탈 사전 예약 필요">서울행</span>
+                        </button>
+            </div>
+
+        </ul>
+        <hr class="col-10 d-md-none" style="border: 0.5px solid white;">
+        <ul class="navbar-nav ml-auto">
+
+
+
+            <div class="btn-group dropleft">
+                <button class="btn btn-info caret-off dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    본교
+                                </button>
+                <div class="dropdown-menu">
+                    <h6 class="dropdown-header">본교 출발 버스</h6>
+                    <a class="dropdown-item" href="./main_live.html">오늘 시간표 <span class="badge badge-info">TODAY</span> </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="./main_weekdays.html">주중</a>
+                    <a class="dropdown-item" href="./main_weekends.html">주말/공휴일</a>
+                </div>
+            </div>
+
+
+
+            <div class="btn-group dropleft">
+                <button class="btn btn-info caret-off dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            문지
+                        </button>
+                <div class="dropdown-menu">
+                    <h6 class="dropdown-header">문지 출발 버스</h6>
+                    <a class="dropdown-item" href="./munji_inbound_live.html">본교행 <span class="badge badge-info">TODAY</span> </a>
+                    <a class="dropdown-item" href="./munji_outbound_live.html">화암행 <span class="badge badge-info">TODAY</span> </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="./munji_weekdays_inbound.html">본교행 주중</a>
+                    <a class="dropdown-item" href="./munji_weekends_inbound.html">본교행 주말/공휴일</a>
+                    <a class="dropdown-item" href="./munji_weekdays_outbound.html">화암행 주중</a>
+                    <a class="dropdown-item" href="./munji_weekends_outbound.html">화암행 주말/공휴일</a>
+                </div>
+            </div>
+
+            <div class="btn-group dropleft">
+                <button class="btn btn-info caret-off dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                화암
+                            </button>
+                <div class="dropdown-menu">
+                    <h6 class="dropdown-header">화암 출발 버스</h6>
+                    <a class="dropdown-item" href="./hwaam_live.html">본교행 <span class="badge badge-info">TODAY</span> </a>
+                    <a class="dropdown-item" href="./hwaam_to_munji_live.html">문지행 <span class="badge badge-info">TODAY</span> </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="./hwaam_weekdays.html">본교행 주중</a>
+                    <a class="dropdown-item" href="./hwaam_weekends.html">본교행 주말/공휴일</a>
+                    <a class="dropdown-item" href="./hwaam_to_munji_weekdays.html">문지행 주중</a>
+                    <a class="dropdown-item" href="./hwaam_to_munji_weekends.html">문지행 주말/공휴일</a>
+                </div>
+            </div>
+
+            <hr class="col-10 d-md-none" style="border: 0.5px solid white;">
+
+            <a tabindex="0" class="btn btn-info caret-off d-md-none" role="button" data-toggle="popover" data-placement="bottom" data-trigger="focus" title="홈 화면에 바로가기 추가" data-content="안드로이드에서는 주소창 오른 쪽 ⋮ 버튼에서, iOS에서는 공유 > '홈 화면에 추가' 기능을 이용해 홈 화면에 바로가기를 추가하여 편리하게 앱을 이용하실 수 있습니다.">홈 화면에 바로가기 추가</a>
+
+
+        </ul>
+    </div>
+</nav>
+
+<script>
+    $(document).ready(function() {
+        $('[data-toggle="tooltip_toSeoul"]').tooltip();
+        $('[data-toggle="popover"]').popover();
+    });
+</script>
