@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>KAIST 버스 2.0 - 통근 버스 (퇴근)</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#413b98">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap&subset=korean" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="shortcut icon" href="./icon-4x.png" type="image/x-icon">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="./icon-4x.png" type="image/x-icon">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZPGD7LLE5D"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-ZPGD7LLE5D');
+    </script>
+    <script>
+        var array1 = [];
+        var delay = [];
+        var expressBus = []
+
+        var date = new Date();
+
+        setInterval(function() {
+            var date = new Date();
+            var time = tick(date.getHours(), 2) + ":" + tick(date.getMinutes(), 2) + ":" + tick(date.getSeconds(), 2);
+            $('.current_timer').text(time);
+
+            var next_bus_val = next_bus(date.getHours(), date.getMinutes(), 0);
+            if (next_bus_val == -1) {
+                $("#timer_nextbus").text("운행 종료");
+                $("#timer_left").text("운행 종료");
+            } else {
+                $("#timer_nextbus").text(tick(Math.floor(array1[next_bus_val] / 60), 2) + ":" + tick(Math.floor(array1[next_bus_val] - Math.floor(array1[next_bus_val] / 60) * 60), 2) + ":00");
+                var time_left = Math.floor(array1[next_bus_val] / 60) * 3600 + Math.floor(array1[next_bus_val] - Math.floor(array1[next_bus_val] / 60) * 60) * 60 + 0 - (date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds());
+                $("#timer_left").text(tick(Math.floor(time_left / 3600), 2) + ":" + tick(Math.floor((time_left - Math.floor(time_left / 3600) * 3600) / 60), 2) + ":" + tick(time_left - Math.floor(time_left / 3600) * 3600 - Math.floor((time_left - Math.floor(time_left / 3600) * 3600) / 60) * 60, 2));
+            }
+
+            $("#timer_nextbus2").text(stationTimerSetting1(delay[1], date));
+            $("#timer_left2").text(stationTimerSetting2(delay[1], date));
+
+            $("#timer_nextbus3").text(stationTimerSetting1(delay[2], date));
+            $("#timer_left3").text(stationTimerSetting2(delay[2], date));
+
+            $("#timer_nextbus4").text(stationTimerSetting1(delay[3], date));
+            $("#timer_left4").text(stationTimerSetting2(delay[3], date));
+
+            $("#timer_nextbus5").text(stationTimerSetting1(delay[4], date));
+            $("#timer_left5").text(stationTimerSetting2(delay[4], date));
+
+            $(".spinner-timer").hide();
+
+        }, 500)
+
+        function stationTimerSetting1(offset, date) {
+            var next_bus_val = next_bus(date.getHours(), date.getMinutes(), offset);
+            if (next_bus_val == -1) {
+                return "운행 종료";
+            } else {
+                var next_bus_time = array1[next_bus_val] + offset;
+                return tick(Math.floor(next_bus_time / 60), 2) + ":" + tick(Math.floor(next_bus_time - Math.floor(next_bus_time / 60) * 60), 2) + ":00";
+            }
+        }
+
+        function stationTimerSetting2(offset, date) {
+            var next_bus_val = next_bus(date.getHours(), date.getMinutes(), offset);
+            if (next_bus_val == -1) {
+                return "운행 종료";
+            } else {
+                var next_bus_time = array1[next_bus_val] + offset;
+                var time_left = Math.floor(next_bus_time / 60) * 3600 + Math.floor(next_bus_time - Math.floor(next_bus_time / 60) * 60) * 60 - (date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds());
+                return tick(Math.floor(time_left / 3600), 2) + ":" + tick(Math.floor((time_left - Math.floor(time_left / 3600) * 3600) / 60), 2) + ":" + tick(time_left - Math.floor(time_left / 3600) * 3600 - Math.floor((time_left - Math.floor(time_left / 3600) * 3600) / 60) * 60, 2);
+            }
+        }
+
+
+        function int2str(num) {
+            if (num < 0) {
+                num += 1440;
+            }
+            var hr = tick(Math.floor(num / 60), 2);
+            var min = tick(num - Math.floor(num / 60) * 60, 2);
+            return hr + "시 " + min + "분";
+        }
+
+        function tick(num, size) {
+            var s = num + "";
+            while (s.length < size) s = "0" + s;
+
+            return s;
+        }
+
+        function next_bus(hr, min, offset) {
+            var cur_time = hr * 60 + min;
+
+            for (var i = 0; i < array1.length; i++) {
+                if (array1[i] + offset > cur_time) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+
+        $(document).ready(function() {
+            $('[data-toggle="tooltip_noWeekends"]').tooltip();
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+        $(function() {
+            $("#header").load("./header.html");
+            $("#footer").load("./footer.html");
+            $("#carousel").load("./carousel.html");
+        });
+    </script>
+
+</head>
+
+<body>
+
+    <div id="header"></div>
+
+    <div class="container bus-title">
+        <i class="far fa-calendar-check"></i> <mark style="font-size: 1.5rem;">통근 버스</mark> <small>퇴근</small>
+    </div>
+
+    <div class="container">
+        <div class="alert alert-warning" style="margin-top:12px;">
+            <strong>통근 버스 안내</strong><br>
+            <span style="margin-bottom:2px; font-size: 0.78rem;">교직원의 출퇴근을 위해 마련된 통근버스 특성 상, 학생 및 외부 방문자는 탑승이 어렵습니다.</span>
+            <br><span style="font-size: 0.78rem;">도로 교통사정에 따라 각 정류장에 약 5분의 시간차가 있을 수 있습니다.</span>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-light justify-content-center " style="background:linear-gradient(135deg, #7117ea 0%,#9b30b9 100%) !important; padding-top:6px; padding-bottom:6px; ">
+        <div style="color: white; font-size:1.4rem; font-weight:900; width:100%; text-align: center; ">
+            1호차 <small>74오 1718</small>
+        </div>
+        <div class="spinner-border text-info spinner-timer " style="font-size: 1rem; "></div>
+        <div class="current_timer " style="text-align: center; color:white; font-size:1.4rem; "></div>
+    </nav>
+
+
+    <div class="container commute-container">
+
+        <div class="tab-content">
+            <div id="tab1 " class="container tab-pane active ">
+                <table class="table table-hover " style="margin-top:12px; ">
+                    <thead>
+                        <tr>
+                            <th width="5%" style="min-width:88px;">시간</th>
+                            <th width="95%" style=" text-align:right; ">정류장</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>18시 07분</td>
+                            <td>대강당<br><span style="font-size:0.75rem">[E15 앞]</span></td>
+                        </tr>
+                        <tr>
+                            <td>18시 08분</td>
+                            <td>교육지원동<br><span style="font-size:0.75rem">[W8 앞]</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>18시 09분</td>
+                            <td>오리연못
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>KAIST 정문
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>궁동
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>충대오거리<br><span style="font-size:0.75rem">[미스터피자 앞]</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>유성온천역<br><span style="font-size:0.75rem">[1번 출구 앞]</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>대전일보 본사 맞은 편<br><span style="font-size:0.75rem">[변압기 앞]</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>갈마동<br><span style="font-size:0.75rem">[백년예식장 앞]</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>가장동 4가<br><span style="font-size:0.75rem">[나르매아파트 앞]</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>태평동 5가
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>목동<br><span style="font-size:0.75rem">[충남여고 앞]</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>성남동<br><span style="font-size:0.75rem">[효촌마을아파트 건너편 버스 정류장 앞]</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>대전복합터미널<br><span style="font-size:0.75rem">[미건의료기기 앞]</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <nav class="navbar navbar-light justify-content-center " style="background:linear-gradient(135deg, #7117ea 0%,#9b30b9 100%) !important; padding-top:6px; padding-bottom:6px; ">
+        <div style="color: white; font-size:1.4rem; font-weight:900; width:100%; text-align: center; ">
+            2호차 <small>74오 1717</small>
+        </div>
+        <div class="spinner-border text-info spinner-timer " style="font-size: 1rem; "></div>
+        <div class="current_timer " style="text-align: center; color:white; font-size:1.4rem; "></div>
+    </nav>
+
+    <div class="container commute-container">
+
+        <div class="tab-content">
+            <div id="tab1 " class="container tab-pane active ">
+                <table class="table table-hover " style="margin-top:12px; ">
+                    <thead>
+                        <tr>
+                            <th width="5%" style="min-width:88px;">시간</th>
+                            <th width="95%" style=" text-align:right; ">정류장</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>18시 07분</td>
+                            <td>대강당<br><span style="font-size:0.75rem">[E15 앞]</span></td>
+                        </tr>
+                        <tr>
+                            <td>18시 08분</td>
+                            <td>교육지원동<br><span style="font-size:0.75rem">[W8 앞]</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>18시 09분</td>
+                            <td>오리연못
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>KAIST 정문
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>월평역<br><span style="font-size:0.75rem">[1번 출구]</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>정부청사역<br><span style="font-size:0.75rem">[둔산경찰서 앞 대전청사역 3번 출구]</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>둔산동<br><span style="font-size:0.75rem">[세이브존 앞]</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>태흥동<br><span style="font-size:0.75rem">[중구청 앞]</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>부사동<br><span style="font-size:0.75rem">[야구장 옆]</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>문창동<br><span style="font-size:0.75rem">[청진장여관 앞]</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>대동<br><span style="font-size:0.75rem">[충남중 앞]</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+    <div class="container " style="margin-bottom:20px; ">
+        <div id="carousel "></div>
+    </div>
+
+    <div id="footer"></div>
+</body>
+
+</html>
