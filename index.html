@@ -204,13 +204,5 @@
     <div id="footer"></div>
 </body>
 
-<script>
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./service-worker.js')
-            .then(function(reg) {}).catch(function(err) {
-                console.log("ServiceWorker Error: ", err)
-            });
-    }
-</script>
 
 </html>
