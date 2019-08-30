@@ -31,7 +31,7 @@
     </script>
     <script>
         var date = new Date();
-        var forcedWeekends = [15];
+        var forcedWeekends = [12, 13];
         var isWeekends = false;
         var day = date.getDay();
 
@@ -69,6 +69,7 @@
             $("#header").load("./header.html");
             $("#footer").load("./footer.html");
             $("#carousel").load("./carousel.html");
+            $("#carousel_extra").load("./carousel_extra.html");
         });
     </script>
 
@@ -195,6 +196,10 @@
 
         </div>
 
+    </div>
+
+    <div class="container" style="margin-bottom:20px;">
+        <div id="carousel_extra"></div>
     </div>
 
     <div class="container" style="margin-bottom:20px;">
