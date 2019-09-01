@@ -26,7 +26,6 @@
             dataLayer.push(arguments);
         }
         gtag('js', new Date());
-
         gtag('config', 'G-ZPGD7LLE5D');
     </script>
     <script>
@@ -34,38 +33,29 @@
         var forcedWeekends = [12, 13];
         var isWeekends = false;
         var day = date.getDay();
-
         for (var i = 0; i < forcedWeekends.length; i++) {
             if (date.getDate() == forcedWeekends[i]) {
                 isWeekends = true;
             }
         }
-
         if (day == 0 || day == 6) {
             isWeekends = true;
         }
-
         setInterval(function() {
-
             var date = new Date();
             var time = tick(date.getHours(), 2) + ":" + tick(date.getMinutes(), 2) + ":" + tick(date.getSeconds(), 2);
             $('.current_timer').text(time);
             $(".spinner-timer").hide();
-
             $("#index-date").text(date.getFullYear() + "년 " + (date.getMonth() + 1) + "월 " + date.getDate() + "일");
             $("#index-isWeekends").text(isWeekends ? "휴일" : "주중");
-
         }, 500)
 
         function tick(num, size) {
             var s = num + "";
             while (s.length < size) s = "0" + s;
-
             return s;
         }
-
         $(function() {
-
             $("#header").load("./header.html");
             $("#footer").load("./footer.html");
             $("#carousel").load("./carousel.html");
@@ -117,15 +107,15 @@
                 <ul class="list-group index-list mb-3" style="border-left-color: #413b98;">
                     <li class="list-group-item d-flex justify-content-between lh-condensed ">
                         <div>
-                            <h6 class="my-0"><a href="./olev.html" class="caret-off-white">OLEV 본교 교내순환</a></h6>
-                            <small class="text-muted">교내순환 버스입니다. 평일에만 운행합니다.</small>
+                            <h6 class="my-0"><a href="./olev.html">OLEV 본교 교내순환</a></h6>
+                            <small class="text-muted">평일에만 운행합니다.</small>
                         </div>
                         <span class="text-muted"></span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between lh-condensed ">
                         <div>
-                            <h6 class="my-0"><a href="./wolpyeong.html" class="caret-off-white">시내순환 (월평)</a></h6>
-                            <small class="text-muted">시내순환 버스입니다. 평일에만 운행합니다.</small>
+                            <h6 class="my-0"><a href="./wolpyeong.html">시내순환 (월평)</a></h6>
+                            <small class="text-muted">평일에만 운행합니다.</small>
                         </div>
                         <span class="text-muted"></span>
                     </li>
