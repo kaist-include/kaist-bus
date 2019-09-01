@@ -142,9 +142,26 @@ a {
     display: none !important;
 }
 
+.list-group-item a:hover {
+    text-decoration: none;
+    color: black;
+}
+
 .caret-off {
     background-color: #413b98 !important;
     border-color: #413b98 !important;
+}
+
+.caret-off-white::before {
+    display: none !important;
+}
+
+.caret-off-white::after {
+    display: none !important;
+}
+
+.caret-off-white {
+    font-size: 1rem;
 }
 
 .caret-off:hover {
@@ -248,4 +265,11 @@ a {
 
 .commute-container tbody tr td:nth-child(2) {
     text-align: right;
+}
+
+blockquote {
+    background-color: #f5f5f5;
+    border-left: 5px solid #dbdbdb;
+    padding: 1.25em 1.5em;
+    margin-top: 12px;
 }

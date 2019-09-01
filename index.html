@@ -83,130 +83,129 @@
     </div>
 
     <div class="container" style="margin-bottom:-5px;">
-        <div id="carousel_extra"></div>
+
+    </div>
+
+    <div class="container" style="margin-top: 0px;">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12 order-md-1 mb-1">
+                        <div class="card bg-light text-light text-center index-time" style="margin-top:12px; margin-bottom:12px;">
+                            <div class="card-body">
+                                <div class="container timers">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h4 style="margin-top:7px;" data-toggle="tooltip" data-placement="top" title="현재 시각"><i class="far fa-clock"></i> 현재 시각</h4>
+                                            <div class="spinner-border text-info spinner-timer"></div>
+                                            <span class="current_timer" style="margin-bottom:0; font-size:2.5rem;"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 order-md-2 mb-1">
+                        <div id="carousel_extra"></div>
+                        <div id="carousel"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-6 order-md-2 mb-1" style="margin-top:12px;">
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-condensed bg-light">
+                        <div>
+                            <h6 class="my-0"><a href="./olev.html">OLEV 본교 교내순환</a></h6>
+                            <small class="text-muted">평일에만 운행합니다.</small>
+                        </div>
+                        <span class="text-muted"></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed bg-light">
+                        <div>
+                            <h6 class="my-0"><a href="./wolpyeong.html">시내순환 (월평)</a></h6>
+                            <small class="text-muted">평일에만 운행합니다.</small>
+                        </div>
+                        <span class="text-muted"></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed bg-light">
+                        <div>
+                            <h6 class="my-0">
+                                <div class="dropright">
+                                    <span class="caret-off-white index-button dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                    본교 출발
+                                            </span>
+                                    <div class="dropdown-menu">
+                                        <h6 class="dropdown-header">본교 출발 버스</h6>
+                                        <a class="dropdown-item" href="./main_live.html">오늘 시간표 <span class="badge badge-info">TODAY</span> </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="./main_weekdays.html">주중</a>
+                                        <a class="dropdown-item" href="./main_weekends.html">주말/공휴일</a>
+                                    </div>
+                                </div>
+                            </h6>
+                            <small class="text-muted">본교에서 문지, 화암으로 가는 버스입니다.</small>
+                        </div>
+                        <span class="text-muted"></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed bg-light">
+                        <div>
+                            <h6 class="my-0">
+                                <div class="dropright">
+                                    <span class="caret-off-white index-button dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                        문지 출발
+                                                </span>
+                                    <div class="dropdown-menu">
+                                        <h6 class="dropdown-header">문지 출발 버스</h6>
+                                        <a class="dropdown-item" href="./munji_inbound_live.html">본교행 <span class="badge badge-info">TODAY</span> </a>
+                                        <a class="dropdown-item" href="./munji_outbound_live.html">화암행 <span class="badge badge-info">TODAY</span> </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="./munji_weekdays_inbound.html">본교행 주중</a>
+                                        <a class="dropdown-item" href="./munji_weekends_inbound.html">본교행 주말/공휴일</a>
+                                        <a class="dropdown-item" href="./munji_weekdays_outbound.html">화암행 주중</a>
+                                        <a class="dropdown-item" href="./munji_weekends_outbound.html">화암행 주말/공휴일</a>
+                                    </div>
+                                </div>
+                            </h6>
+                            <small class="text-muted">문지에서 본교, 화암으로 가는 버스입니다.</small>
+                        </div>
+                        <span class="text-muted"></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed bg-light">
+                        <div>
+                            <h6 class="my-0">
+                                <div class="dropright">
+                                    <span class="caret-off-white index-button dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                            화암 출발
+                                                    </span>
+                                    <div class="dropdown-menu">
+                                        <h6 class="dropdown-header">화암 출발 버스</h6>
+                                        <a class="dropdown-item" href="./hwaam_live.html">본교행 <span class="badge badge-info">TODAY</span> </a>
+                                        <a class="dropdown-item" href="./hwaam_to_munji_live.html">문지행 <span class="badge badge-info">TODAY</span> </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="./hwaam_weekdays.html">본교행 주중</a>
+                                        <a class="dropdown-item" href="./hwaam_weekends.html">본교행 주말/공휴일</a>
+                                        <a class="dropdown-item" href="./hwaam_to_munji_weekdays.html">문지행 주중</a>
+                                        <a class="dropdown-item" href="./hwaam_to_munji_weekends.html">문지행 주말/공휴일</a>
+                                    </div>
+                                </div>
+                            </h6>
+                            <small class="text-muted">화암에서 본교, 문지로 가는 버스입니다.</small>
+                        </div>
+                        <span class="text-muted"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 
 
     <div class="container">
-        <div class="card bg-light text-light text-center index-time" style="margin-top:22px; margin-bottom:18px;">
-            <div class="card-body">
-                <div class="container timers">
-                    <div class="row">
-                        <div class="col-12">
-                            <h4 style="margin-top:7px;" data-toggle="tooltip" data-placement="top" title="현재 시각"><i class="far fa-clock"></i> 현재 시각</h4>
-                            <div class="spinner-border text-info spinner-timer"></div>
-                            <span class="current_timer" style="margin-bottom:0; font-size:2.5rem;"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="container" style="padding-top:2px; padding-bottom:12px;">
-        <div class="row" style="margin-bottom:12px;">
-            <div class="col-6 col-6-left">
-                <div class="btn-group">
-                    <a href="./olev.html">
-                        <button class="btn btn-info index-button caret-off" type="button">
-                                OLEV
-                        </button>
-                    </a>
-                </div>
-            </div>
-            <div class="col-6 col-6-right">
-                <a href="./wolpyeong.html">
-                    <button class="btn btn-info index-button caret-off" type="button">
-                            시내순환
-                    </button>
-                </a>
-            </div>
-        </div>
-        <div class="row" style="margin-bottom:12px;">
-
-
-            <div class="col-6 col-6-left">
-                <div class="btn-group dropright">
-                    <button class="btn btn-info caret-off index-button dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    본교 출발
-                                                </button>
-                    <div class="dropdown-menu">
-                        <h6 class="dropdown-header">본교 출발 버스</h6>
-                        <a class="dropdown-item" href="./main_live.html">오늘 시간표 <span class="badge badge-info">TODAY</span> </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="./main_weekdays.html">주중</a>
-                        <a class="dropdown-item" href="./main_weekends.html">주말/공휴일</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-6 col-6-right">
-                <div class="card bg-light text-dark text-center">
-                    <div class="btn-group dropright">
-                        <button class="btn btn-info caret-off index-button dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            문지 출발
-                                    </button>
-                        <div class="dropdown-menu">
-                            <h6 class="dropdown-header">문지 출발 버스</h6>
-                            <a class="dropdown-item" href="./munji_inbound_live.html">본교행 <span class="badge badge-info">TODAY</span> </a>
-                            <a class="dropdown-item" href="./munji_outbound_live.html">화암행 <span class="badge badge-info">TODAY</span> </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="./munji_weekdays_inbound.html">본교행 주중</a>
-                            <a class="dropdown-item" href="./munji_weekends_inbound.html">본교행 주말/공휴일</a>
-                            <a class="dropdown-item" href="./munji_weekdays_outbound.html">화암행 주중</a>
-                            <a class="dropdown-item" href="./munji_weekends_outbound.html">화암행 주말/공휴일</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-        <div class="row" style="margin-bottom:12px;">
-
-
-
-            <div class="col-6 col-6-left">
-                <div class="btn-group dropright">
-                    <button class="btn btn-info caret-off index-button dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            화암 출발
-                                        </button>
-                    <div class="dropdown-menu">
-                        <h6 class="dropdown-header">화암 출발 버스</h6>
-                        <a class="dropdown-item" href="./hwaam_live.html">본교행 <span class="badge badge-info">TODAY</span> </a>
-                        <a class="dropdown-item" href="./hwaam_to_munji_live.html">문지행 <span class="badge badge-info">TODAY</span> </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="./hwaam_weekdays.html">본교행 주중</a>
-                        <a class="dropdown-item" href="./hwaam_weekends.html">본교행 주말/공휴일</a>
-                        <a class="dropdown-item" href="./hwaam_to_munji_weekdays.html">문지행 주중</a>
-                        <a class="dropdown-item" href="./hwaam_to_munji_weekends.html">문지행 주말/공휴일</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-6 col-6-right">
-                <div class="btn-group dropleft">
-                    <button class="btn btn-info caret-off index-button dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            통근버스
-                        </button>
-                    <div class="dropdown-menu">
-                        <h6 class="dropdown-header">통근버스 시간표</h6>
-                        <a class="dropdown-item" href="./commute_inbound.html">출근 노선</a>
-                        <a class="dropdown-item" href="./commute_outbound.html">퇴근 노선</a>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
 
     </div>
 
 
-    <div class="container" style="margin-bottom:20px;">
-        <div id="carousel"></div>
-    </div>
 
     <div id="footer"></div>
 </body>
