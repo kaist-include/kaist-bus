@@ -61,6 +61,9 @@
             $("#carousel").load("./carousel.html");
             $("#carousel_extra").load("./carousel_extra.html");
         });
+        $(document).ready(function() {
+            $('.dropdown-toggle').dropdown();
+        });
     </script>
 
 </head>
@@ -107,15 +110,15 @@
                 <ul class="list-group index-list mb-3" style="border-left-color: #413b98;">
                     <li class="list-group-item d-flex justify-content-between lh-condensed ">
                         <div>
-                            <h6 class="my-0"><a href="./olev.html">OLEV 본교 교내순환</a></h6>
-                            <small class="text-muted">평일에만 운행합니다.</small>
+                            <h6 class="my-0"><a href="./olev.html" class="caret-off-white">OLEV 본교 교내순환</a></h6>
+                            <small class="text-muted">교내순환 버스입니다. 평일에만 운행합니다.</small>
                         </div>
                         <span class="text-muted"></span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between lh-condensed ">
                         <div>
-                            <h6 class="my-0"><a href="./wolpyeong.html">시내순환 (월평)</a></h6>
-                            <small class="text-muted">평일에만 운행합니다.</small>
+                            <h6 class="my-0"><a href="./wolpyeong.html" class="caret-off-white">시내순환 (월평)</a></h6>
+                            <small class="text-muted">시내순환 버스입니다. 평일에만 운행합니다.</small>
                         </div>
                         <span class="text-muted"></span>
                     </li>
@@ -123,9 +126,9 @@
                         <div>
                             <h6 class="my-0">
                                 <div class="dropleft">
-                                    <span class="caret-off-white index-button dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="caret-off-white index-button dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
                                                                                     본교 출발
-                                            </span>
+                                    </a>
                                     <div class="dropdown-menu">
                                         <h6 class="dropdown-header">본교 출발 버스</h6>
                                         <a class="dropdown-item" href="./main_live.html">오늘 시간표 <span class="badge badge-info">TODAY</span> </a>
