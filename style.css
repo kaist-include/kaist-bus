@@ -292,6 +292,11 @@ blockquote {
     font-size: 0.9rem;
 }
 
+.bd-callout a:hover {
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
 .bd-callout h4 {
     margin-top: 0;
     margin-bottom: .75rem
