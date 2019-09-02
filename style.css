@@ -33,7 +33,7 @@
 }
 
 td {
-    font-size: 1rem;
+    font-size: 0.88rem;
 }
 
 th {
@@ -340,5 +340,5 @@ blockquote {
 }
 
 .navbar-collapse a {
-    font-size: 0.85rem;
+    font-size: 0.875rem;
 }
