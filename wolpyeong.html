@@ -29,7 +29,7 @@
         gtag('config', 'G-ZPGD7LLE5D');
     </script>
 
-    <script src="./warningForWeekdays.js"></script>
+    <script src="./warningForForcedHolidays.js"></script>
     <script>
         var array1 = [545, 605, 665, 785, 845, 905, 965, 1025, 1085];
         var delay = [0, 1, 3, 4, 10, 15, 20, 27, 35, 38, 39, 40, 41];
@@ -197,7 +197,7 @@
     </script>
     <script>
         setInterval(function() {
-            if (isWeekends) {
+            if (isHolidays) {
                 $(".card").css("display", "none");
             }
         }, 500);
@@ -209,7 +209,7 @@
     <div id="header"></div>
 
     <div class="container bus-title">
-        <i class="far fa-calendar-check"></i> <mark style="font-size: 1.5rem;">시내순환 시간표</mark> <small>주중 전용</small>
+        <i class="far fa-calendar-check"></i> <mark style="font-size: 1.5rem;">시내순환 시간표</mark> <small>주중/주말</small>
     </div>
 
     <nav class="navbar navbar-light navbar-expand bg-faded justify-content-center" style="background:linear-gradient(135deg, #7117ea 0%,#9b30b9 100%) !important; padding-top:6px; padding-bottom:6px;">
@@ -258,6 +258,19 @@
         </div>
     </nav>
 
+    <div class="col-md-12">
+        <div class="bd-callout bd-callout-info">
+            <h4>시내순환 주말 운행 안내</h4>
+            <p>시내순환 버스가 10월 6일까지 주말에도 평일과 동일한 시간표로 시범 추가 운행됩니다. <a href="https://ara.kaist.ac.kr/board/Notice/579335/" target="_blank">(아라 공지 확인하기)</a></p>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="bd-callout bd-callout-warning">
+            <h4>9월 12일, 13일 미운행</h4>
+            <p>추석 연휴로 인해 9월 12일, 13일에는 시내순환 버스가 운행되지 않습니다.</p>
+        </div>
+    </div>
     <div id="warningForDaysInversion"></div>
 
     <div class="container">

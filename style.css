@@ -288,6 +288,10 @@ blockquote {
     font-size: 0.9rem;
 }
 
+.bd-callout a {
+    font-size: 0.9rem;
+}
+
 .bd-callout h4 {
     margin-top: 0;
     margin-bottom: .75rem
@@ -341,4 +345,8 @@ blockquote {
 
 .navbar-collapse a {
     font-size: 0.875rem;
+}
+
+.specialHolidayCallout {
+    display: block;
 }
