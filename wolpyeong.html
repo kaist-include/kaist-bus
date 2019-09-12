@@ -175,7 +175,7 @@
 
         function contentsMaker2(offset1, offset2) {
             var contents = "";
-            contents += "<tr><td colspan='2' style='color:#413b98'>" + "[안내] 아래의 9회차 시간표는 시내 교통 상황에 따라 심한 경우 원래의 시간표에서 30분 이상 지연되는 경우가 많습니다. 현재 시내순환 버스에 GPS를 장착할 수 없기에 정확한 도착 시각 예측이 어려운 점 양해 부탁드립니다." + "</td></tr>";
+            contents += "<tr><td colspan='2' style='color:#413b98'>" + "[안내] 아래의 9회차 시간표는 시내 교통 상황에 따라 원래의 시간표에서 30분 이상 지연되는 경우가 많습니다." + "</td></tr>";
 
             for (i = 0; i < 1; i++) {
                 contents += "<tr><td colspan='2'>" + int2str(array2[i] + offset1) + " (평균 지연 시간 " + offset2 + " 분)" + "</td></tr>";
@@ -288,22 +288,7 @@
         </div>
     </nav>
 
-    <div class="container">
-        <div class="col-md-12">
-            <div class="bd-callout bd-callout-info">
-                <h4>시내순환 주말 운행 안내</h4>
-                <p>시내순환 버스가 10월 6일까지 주말에도 평일과 동일한 시간표로 시범 추가 운행됩니다. <a href="https://ara.kaist.ac.kr/board/Notice/579335/" target="_blank">(아라 공지 확인하기)</a></p>
-            </div>
-        </div>
-        <div class="container">
-            <div class="bd-callout bd-callout-danger">
-                <h4>교통 상황에 따른 안내</h4>
-                <p>9회차 버스는 퇴근 시간대로 인하여 예정된 도착 시각과 많은 차이가 있을 수 있습니다. 특히 갤러리아 백화점에서 탑승하시는 경우 25분 가량 버스가 지체될 수 있습니다. 저희 서비스는 현재 GPS를 이용하여 버스를 추적하고 있지 않아서, 이 점을 어떻게 할 것인지에 대해 학교와 논의해본 후 개선하려고 합니다.</p>
-            </div>
 
-        </div>
-
-    </div>
     <div id="warningForDaysInversion"></div>
 
     <div class="container">
@@ -1094,6 +1079,20 @@
         </div>
     </div>
 
+    <div class="container">
+        <div class="col-md-12">
+            <div class="bd-callout bd-callout-info">
+                <h4>시내순환 주말 운행 안내</h4>
+                <p>시내순환 버스가 10월 6일까지 주말에도 평일과 동일한 시간표로 시범 추가 운행됩니다. <a href="https://ara.kaist.ac.kr/board/Notice/579335/" target="_blank">(아라 공지 확인하기)</a></p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="bd-callout bd-callout-danger">
+                <h4>9회차 버스의 교통 상황에 따른 안내</h4>
+                <p>9회차 버스는 퇴근 시간대로 인하여 예정된 도착 시각과 많은 차이가 있을 수 있습니다. 현재 시내순환 버스에 GPS를 장착할 수 없기에 정확한 도착 시각 예측이 어려운 점 양해 부탁드립니다. 이 점을 어떻게 할 것인지에 대해 학교와 논의해본 후 개선하려고 합니다.</p>
+            </div>
+        </div>
+    </div>
 
     <div class="container" style="margin-bottom:20px;">
         <div id="carousel"></div>
