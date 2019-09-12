@@ -355,3 +355,11 @@ blockquote {
 .specialHolidayCallout {
     display: block;
 }
+
+.androidApp {
+color: white;
+}
+
+.androidApp:hover {
+color: white;
+}
