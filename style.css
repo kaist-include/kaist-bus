@@ -277,8 +277,8 @@ blockquote {
 
 .bd-callout {
     padding: 1.25rem;
-    margin-top: 1.25rem;
-    margin-bottom: 1.25rem;
+    margin-top: .65rem;
+    margin-bottom: .35rem;
     border: 1px solid #eee;
     border-left-width: .25rem;
     border-radius: .25rem
@@ -299,7 +299,8 @@ blockquote {
 
 .bd-callout h4 {
     margin-top: 0;
-    margin-bottom: .75rem
+    margin-bottom: .75rem;
+    font-size: 0.95rem;
 }
 
 .bd-callout p:last-child {
@@ -311,15 +312,15 @@ blockquote {
 }
 
 .bd-callout+.bd-callout {
-    margin-top: -.25rem
+    margin-top: .45rem
 }
 
 .bd-callout-info {
-    border-left-color: #5bc0de
+    border-left-color: #4a9db6
 }
 
 .bd-callout-info h4 {
-    color: #5bc0de
+    color: #4a9db6
 }
 
 .bd-callout-warning {
@@ -335,7 +336,7 @@ blockquote {
 }
 
 .bd-callout-danger h4 {
-    color: #d9534f
+    color: #d9534f;
 }
 
 .index-list {
