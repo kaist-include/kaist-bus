@@ -1,14 +1,24 @@
 <footer style="background:linear-gradient(135deg, #7367f0 0%,#413b98 100%); color:white;">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-browser/0.1.0/jquery.browser.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            var browserDetails = navigator.userAgent;
+            var isWebView = browserDetails.indexOf("wv");
+            if (isWebView == -1) {
+                $("#androidApp").html('안드로이드 앱 다운로드 <i class="fab fa-android" style="font-size:3.3rem;"></i>');
+            }
+
+        });
+    </script>
     <div class="container" style="padding-top:12px; padding-bottom:12px;">
         <div class="row">
             <div class="col-12">
                 <span style="color:white; font-weight: 900;">카이스트 버스 v2.0</span>
-                 <span style="opacity: 0.8;">(9월 12일 업데이트)</span>
+                <span style="opacity: 0.8;">(9월 12일 업데이트)</span>
             </div>
             <div class="col-12" style="text-align: right;">
                 <a class="androidApp" href="https://play.google.com/store/apps/details?id=com.jaeryoungka.kaist_bus" target="_blank">
-                 안드로이드 앱 다운로드 <i class="fab fa-android" style="font-size:3.3rem;"></i>
-                    </a>
+                </a>
             </div>
         </div>
     </div>

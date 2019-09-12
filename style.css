@@ -357,15 +357,13 @@ blockquote {
 }
 
 .androidApp {
-color: white;
+    color: white;
 }
 
 .androidApp:hover {
-color: white;
+    text-decoration: none !important;
 }
 
 .androidApp:active {
-    text-decoration: none;
-    color: white;
-    
-    }
+    text-decoration: none !important;
+}
