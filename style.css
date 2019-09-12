@@ -363,3 +363,9 @@ color: white;
 .androidApp:hover {
 color: white;
 }
+
+.androidApp:active {
+    text-decoration: none;
+    color: white;
+    
+    }
