@@ -362,8 +362,10 @@ blockquote {
 
 .androidApp:hover {
     text-decoration: none !important;
+    color: white;
 }
 
 .androidApp:active {
     text-decoration: none !important;
+    color: white;
 }
