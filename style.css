@@ -354,7 +354,7 @@ blockquote {
 }
 
 .specialHolidayCallout {
-    display: block;
+    display: none;
 }
 
 .androidApp {
