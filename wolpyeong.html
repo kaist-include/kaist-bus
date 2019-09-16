@@ -43,8 +43,8 @@
 
             var next_bus_val = next_bus(date.getHours(), date.getMinutes(), 0);
             if (next_bus_val == -1) {
-                $("#timer_nextbus").text("");
-                $("#timer_left").text("");
+                $("#timer_nextbus").text("하단 참조");
+                $("#timer_left").text("하단 참조");
             } else {
                 $("#timer_nextbus").text(tick(Math.floor(array1[next_bus_val] / 60), 2) + ":" + tick(Math.floor(array1[next_bus_val] - Math.floor(array1[next_bus_val] / 60) * 60), 2) + ":00");
                 var time_left = Math.floor(array1[next_bus_val] / 60) * 3600 + Math.floor(array1[next_bus_val] - Math.floor(array1[next_bus_val] / 60) * 60) * 60 + 0 - (date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds());
@@ -178,7 +178,7 @@
             contents += "<tr><td colspan='2' style='color:#413b98'>" + "[안내] 아래의 9회차 시간표는 시내 교통 상황에 따라 원래의 시간표에서 30분 이상 지연되는 경우가 많습니다." + "</td></tr>";
 
             for (i = 0; i < 1; i++) {
-                contents += "<tr><td colspan='2'>" + int2str(array2[i] + offset1) + " (평균 지연 시간 " + offset2 + " 분)" + "</td></tr>";
+                contents += "<tr><td colspan='2'>" + int2str(array2[i] + offset1) + " (평균 추가 지연 시간 " + offset2 + " 분)" + "</td></tr>";
             }
             return contents;
         }
