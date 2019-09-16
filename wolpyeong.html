@@ -43,8 +43,8 @@
 
             var next_bus_val = next_bus(date.getHours(), date.getMinutes(), 0);
             if (next_bus_val == -1) {
-                $("#timer_nextbus").text("운행 종료");
-                $("#timer_left").text("운행 종료");
+                $("#timer_nextbus").text("");
+                $("#timer_left").text("");
             } else {
                 $("#timer_nextbus").text(tick(Math.floor(array1[next_bus_val] / 60), 2) + ":" + tick(Math.floor(array1[next_bus_val] - Math.floor(array1[next_bus_val] / 60) * 60), 2) + ":00");
                 var time_left = Math.floor(array1[next_bus_val] / 60) * 3600 + Math.floor(array1[next_bus_val] - Math.floor(array1[next_bus_val] / 60) * 60) * 60 + 0 - (date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds());
@@ -105,7 +105,7 @@
         function stationTimerSetting1(offset, date) {
             var next_bus_val = next_bus(date.getHours(), date.getMinutes(), offset);
             if (next_bus_val == -1) {
-                return "운행 종료";
+                return "";
             } else {
                 var next_bus_time = array1[next_bus_val] + offset;
                 return tick(Math.floor(next_bus_time / 60), 2) + ":" + tick(Math.floor(next_bus_time - Math.floor(next_bus_time / 60) * 60), 2) + ":00";
@@ -115,7 +115,7 @@
         function stationTimerSetting2(offset, date) {
             var next_bus_val = next_bus(date.getHours(), date.getMinutes(), offset);
             if (next_bus_val == -1) {
-                return "운행 종료";
+                return "";
             } else {
                 var next_bus_time = array1[next_bus_val] + offset;
                 var time_left = Math.floor(next_bus_time / 60) * 3600 + Math.floor(next_bus_time - Math.floor(next_bus_time / 60) * 60) * 60 - (date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds());
