@@ -104,8 +104,8 @@
 
         function stationTimerSetting1(offset, date) {
             var next_bus_val = next_bus(date.getHours(), date.getMinutes(), offset);
-            if (next_bus_val == -1) {
-                return "";
+            if (next_bus_val == -1 || next_bus_val == 8) {
+                return "하단 참조";
             } else {
                 var next_bus_time = array1[next_bus_val] + offset;
                 return tick(Math.floor(next_bus_time / 60), 2) + ":" + tick(Math.floor(next_bus_time - Math.floor(next_bus_time / 60) * 60), 2) + ":00";
@@ -114,8 +114,8 @@
 
         function stationTimerSetting2(offset, date) {
             var next_bus_val = next_bus(date.getHours(), date.getMinutes(), offset);
-            if (next_bus_val == -1) {
-                return "";
+            if (next_bus_val == -1 || next_bus_val == 8) {
+                return "하단 참조";
             } else {
                 var next_bus_time = array1[next_bus_val] + offset;
                 var time_left = Math.floor(next_bus_time / 60) * 3600 + Math.floor(next_bus_time - Math.floor(next_bus_time / 60) * 60) * 60 - (date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds());
