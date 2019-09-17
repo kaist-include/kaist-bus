@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>KAIST 버스 2.0</title>
+    <title v-html="titleText">KAIST 버스 2.0</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#413b98">
@@ -14,6 +14,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
     <link rel="shortcut icon" href="./icon-4x.png" type="image/x-icon">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="./icon-4x.png" type="image/x-icon">
@@ -46,8 +47,8 @@
             var time = tick(date.getHours(), 2) + ":" + tick(date.getMinutes(), 2) + ":" + tick(date.getSeconds(), 2);
             $('.current_timer').text(time);
             $(".spinner-timer").hide();
-            $("#index-date").text(date.getFullYear() + "년 " + (date.getMonth() + 1) + "월 " + date.getDate() + "일");
-            $("#index-isWeekends").text(isWeekends ? "휴일" : "주중");
+            $("#index-date").text(date.getFullYear() + "/" + tick((date.getMonth() + 1), 2) + "/" + date.getDate() + "");
+            $("#index-isWeekends").text(isWeekends ? "휴일(Holidays)" : "주중(Weekdays)");
         }, 500)
 
         function tick(num, size) {
@@ -76,26 +77,24 @@
     </div>
 
 
-    <div class="container" style="margin-top: -15px;">
+    <div id="indexPageMainContainer" class="container" style="margin-top: -15px;">
         <div class="row">
             <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-12" style="margin-bottom: -15px;">
-                        <div class="bd-callout bd-callout-info">
-                            <h4>OLEV/시내순환 연장</h4>
-                            <p>OLEV 및 시내순환 버스가 9월 한달 시범 연장 운행됩니다. <a href="https://ara.kaist.ac.kr/board/Notice/579335/" target="_blank">(아라 공지 확인하기)</a></p>
-                            <p style="color:#00000080">OLEV: 평일 18시 55분까지 연장 운행 (9월 30일까지)
-                                <br>시내순환: 주말 추가 운행 (10월 6일까지, 9월 12일 및 9월 13일 제외)</p>
+                        <div class="bd-callout bd-callout-info" v-html="indexCallout1Title">
+                        </div>
+                        <div v-html="indexCalloutTranslation">
                         </div>
                     </div>
 
                     <div class="col-md-12 order-md-1 mb-1">
-                        <div class="card bg-light text-light text-center index-time" style="margin-top:12px; margin-bottom:12px;">
+                        <div class="card bg-light text-light text-center index-time" style="margin-top:22px; margin-bottom:6px;">
                             <div class="card-body">
                                 <div class="container timers">
                                     <div class="row">
                                         <div class="col-12">
-                                            <h4 style="margin-top:7px;" data-toggle="tooltip" data-placement="top" title="현재 시각"><i class="far fa-clock"></i> 현재 시각</h4>
+                                            <h4 style="margin-top:7px;" data-toggle="tooltip" data-placement="top" title="현재 시각(Current time)"><i class="far fa-clock"></i><span v-html="indexCurrentTimer"></span></h4>
                                             <div class="spinner-border text-info spinner-timer"></div>
                                             <span class="current_timer" style="margin-bottom:0; font-size:2.5rem;"></span>
                                         </div>
@@ -105,26 +104,22 @@
                         </div>
                     </div>
                     <div class="col-md-12 order-md-2 mb-1">
-                        
+
                         <div id="carousel"></div>
                     </div>
                 </div>
             </div>
 
 
-            <div class="col-md-6 order-md-2 mb-1" style="margin-top:12px;">
+            <div class="col-md-6 order-md-2 mb-1">
                 <ul class="list-group index-list mb-3" style="border-left-color: #413b98;">
                     <li class="list-group-item d-flex justify-content-between lh-condensed ">
-                        <div>
-                            <h6 class="my-0"><a href="./olev.html" class="caret-off-white">OLEV 본교 교내순환</a></h6>
-                            <small class="text-muted">교내순환 버스입니다. 평일에만 운행합니다.</small>
+                        <div v-html="OLEVMenu">
                         </div>
                         <span class="text-muted"></span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between lh-condensed ">
-                        <div>
-                            <h6 class="my-0"><a href="./wolpyeong.html" class="caret-off-white">시내순환 (월평)</a></h6>
-                            <small class="text-muted">시내순환 버스입니다. 평일에만 운행합니다.</small>
+                        <div v-html="WolpyeongMenu">
                         </div>
                         <span class="text-muted"></span>
                     </li>
@@ -227,5 +222,60 @@
     <div id="footer"></div>
 </body>
 
+
+<script type="text/javascript">
+    var vue_det = new Vue({
+        el: 'head',
+        data: {
+            lang: "",
+            titleText: "",
+        },
+        mounted: function() {
+            this.detectLanguage()
+        },
+        methods: {
+            detectLanguage: function() {
+                this.lang = navigator.language.split("-")[0];
+                if (this.lang == "ko") {
+                    this.titleText = "KAIST 버스 2.0";
+                } else {
+                    this.titleText = "KAIST BUS 2.0 (English)";
+                }
+            },
+        }
+    });
+    var vue_det2 = new Vue({
+        el: '#indexPageMainContainer',
+        data: {
+            lang: "",
+            indexCallout1Title: "",
+            indexCurrentTimer: "",
+            OLEVMenu: "",
+            WolpyeongMenu: "",
+            indexCalloutTranslation: ""
+        },
+        mounted: function() {
+            this.detectLanguage()
+        },
+        methods: {
+            detectLanguage: function() {
+                this.lang = navigator.language.split("-")[0];
+                if (this.lang == "ko") {
+                    this.indexCallout1Title = '<h4>OLEV 및 시내순환 연장 운행 안내</h4><p>OLEV 및 시내순환 버스가 9월 한달 시범 연장 운행됩니다. <a href="https://ara.kaist.ac.kr/board/Notice/579335/" target="_blank">(아라 공지 확인하기)</a></p><p style="color:#00000080">OLEV: 평일 18시 55분까지 연장 운행 (9월 30일까지) <br> 시내순환: 주말 추가 운행(10월 6일까지) </p>';
+                    this.indexCurrentTimer = ' 현재 시각';
+                    this.OLEVMenu = '<h6 class="my-0"><a href="./olev.html" class="caret-off-white">OLEV 본교 교내순환</a></h6><small class="text-muted">교내순환 버스입니다. 평일에만 운행합니다.</small>';
+                    this.WolpyeongMenu = '<h6 class="my-0"><a href="./wolpyeong.html" class="caret-off-white">시내순환 (월평)</a></h6><small class="text-muted">시내순환 버스입니다.</small>';
+                    this.indexCalloutTranslation = '';
+                } else {
+                    this.indexCallout1Title = '<h4>More OLEV (on-campus) and Wolpyeong roundtrip buses!</h4><p>Great news! The school decided to provide more buses on these two bus routes.</p><p style="color:#00000080">OLEV (on-campus): Weekdays only, last bus extended to 18:55 (until Sep 30th) <br> Welpyeong: Buses available even on holidays (until Oct 6th) </p>';
+                    this.indexCurrentTimer = ' Time (KST)';
+                    this.OLEVMenu = '<h6 class="my-0"><a href="./olev.html" class="caret-off-white">OLEV (on-campus bus)</a></h6><small class="text-muted">OLEV (on-campus bus). A free electronic bus moving within the main campus. Available only on weekdays. </small>';
+                    this.WolpyeongMenu = '<h6 class="my-0"><a href="./wolpyeong.html" class="caret-off-white">Wolpyeong roundtrip</a></h6><small class="text-muted">A free roundtrip bus connecting KAIST and nearby outside spots. Available on every day.</small>';
+                    this.indexCalloutTranslation = '<div class="bd-callout bd-callout-warning"><h4>Translation In Progress</h4><p>Thank you for your interest on KAIST BUS service. I decided to provide an English version of this service since I got surging requests, but it would take some time to finish translation because I am very busy doing my main work. Sorry for the inconvenience.</p></div>';
+                }
+            },
+        }
+    });
+</script>
 
 </html>
