@@ -235,7 +235,8 @@
         },
         methods: {
             detectLanguage: function() {
-                this.lang = navigator.language.split("-")[0];
+                var langDetected = (navigator.language || navigator.browserLanguage);
+                this.lang = langDetected.split("-")[0];
                 if (this.lang == "ko") {
                     this.titleText = "KAIST 버스 2.0";
                 } else {
@@ -259,7 +260,8 @@
         },
         methods: {
             detectLanguage: function() {
-                this.lang = navigator.language.split("-")[0];
+                var langDetected = (navigator.language || navigator.browserLanguage);
+                this.lang = langDetected.split("-")[0];
                 if (this.lang == "ko") {
                     this.indexCallout1Title = '<h4>OLEV 및 시내순환 연장 운행 안내</h4><p>OLEV 및 시내순환 버스가 9월 한달 시범 연장 운행됩니다. <a href="https://ara.kaist.ac.kr/board/Notice/579335/" target="_blank">(아라 공지 확인하기)</a></p><p style="color:#00000080">OLEV: 평일 18시 55분까지 연장 운행 (9월 30일까지) <br> 시내순환: 주말 추가 운행(10월 6일까지) </p>';
                     this.indexCurrentTimer = ' 현재 시각';
