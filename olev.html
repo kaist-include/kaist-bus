@@ -33,7 +33,8 @@
     <script>
         var array1 = [525, 535, 555, 565, 585, 595, 615, 625, 645, 655, 675, 685, 705, 775, 795, 805, 825, 835, 855, 865, 885, 895, 915, 925, 945, 955, 975, 985, 1005, 1015, 1035, 1045, 1065, 1075, 1095, 1105, 1125, 1135];
         var delay = [0, 1, 3, 4, 6, 7, 8, 9, 10, 11, 12];
-        var language = navigator.language.split("-")[0];
+        var langDetected = (navigator.language || navigator.browserLanguage);
+        var language = langDetected.split("-")[0];
 
         var date = new Date();
 
@@ -970,7 +971,8 @@
         },
         methods: {
             detectLanguage: function() {
-                this.lang = navigator.language.split("-")[0];
+                var langDetected = (navigator.language || navigator.browserLanguage);
+                this.lang = langDetected.split("-")[0];
                 if (this.lang == "ko") {
                     this.OLEVDate = '<i class="far fa-calendar-check"></i> <mark style="font-size: 1.5rem;">OLEV 시간표</mark> 주중 전용';
                 } else {
@@ -1001,7 +1003,8 @@
         },
         methods: {
             detectLanguage: function() {
-                this.lang = navigator.language.split("-")[0];
+                var langDetected = (navigator.language || navigator.browserLanguage);
+                this.lang = langDetected.split("-")[0];
                 if (this.lang == "ko") {
                     this.busStop1 = '카이마루';
                     this.busStop2 = '스컴';
@@ -1044,7 +1047,8 @@
         },
         methods: {
             detectLanguage: function() {
-                this.lang = navigator.language.split("-")[0];
+                var langDetected = (navigator.language || navigator.browserLanguage);
+                this.lang = langDetected.split("-")[0];
                 if (this.lang == "ko") {
                     this.busTimeLeft = '<i class="fas fa-stopwatch"></i> 남은 시간';
                     this.OLEVTR = '<th>도착 예정</th><th style="text-align:right;">남은 시간</th>';
@@ -1067,7 +1071,8 @@
         },
         methods: {
             detectLanguage: function() {
-                this.lang = navigator.language.split("-")[0];
+                var langDetected = (navigator.language || navigator.browserLanguage);
+                this.lang = langDetected.split("-")[0];
                 if (this.lang == "ko") {
                     this.OLEVCallout2 = '<h4>OLEV 연장 운행</h4><p>OLEV 버스가 9월 한달 시범 연장 운행됩니다. <a href="https://ara.kaist.ac.kr/board/Notice/579335/" target="_blank">(아라 공지 확인하기)</a></p><p>9월 30일까지 막차 시간이 18시 55분으로 연장됩니다. (기존 막차 16시 55분)</p>';
                 } else {
