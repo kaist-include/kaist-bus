@@ -31,7 +31,7 @@
     </script>
     <script>
         var date = new Date();
-        var forcedWeekends = [12, 13];
+        var forcedWeekends = [3, 9];
         var isWeekends = false;
         var day = date.getDay();
         for (var i = 0; i < forcedWeekends.length; i++) {
@@ -222,63 +222,63 @@
 
 
     <div id="footer"></div>
-    
+
     <script type="text/javascript">
-    var vue_det = new Vue({
-        el: 'head',
-        data: {
-            lang: "",
-            titleText: "",
-        },
-        mounted: function() {
-            this.detectLanguage()
-        },
-        methods: {
-            detectLanguage: function() {
-                var langDetected = (navigator.language || navigator.browserLanguage);
-                this.lang = langDetected.split("-")[0];
-                if (this.lang == "ko") {
-                    this.titleText = "KAIST 버스 2.0";
-                } else {
-                    this.titleText = "KAIST BUS 2.0 (English)";
-                }
+        var vue_det = new Vue({
+            el: 'head',
+            data: {
+                lang: "",
+                titleText: "",
             },
-        }
-    });
-    var vue_det2 = new Vue({
-        el: '#indexPageMainContainer',
-        data: {
-            lang: "",
-            indexCallout1Title: "",
-            indexCurrentTimer: "",
-            OLEVMenu: "",
-            WolpyeongMenu: "",
-            indexCalloutTranslation: ""
-        },
-        mounted: function() {
-            this.detectLanguage()
-        },
-        methods: {
-            detectLanguage: function() {
-                var langDetected = (navigator.language || navigator.browserLanguage);
-                this.lang = langDetected.split("-")[0];
-                if (this.lang == "ko") {
-                    this.indexCallout1Title = '<h4>OLEV 및 시내순환 연장 운행 안내</h4><p>OLEV 및 시내순환 버스가 9월 한달 시범 연장 운행됩니다. <a href="https://ara.kaist.ac.kr/board/Notice/579335/" target="_blank">(아라 공지 확인하기)</a></p><p style="color:#00000080">OLEV: 평일 18시 55분까지 연장 운행 (9월 30일까지) <br> 시내순환: 주말 추가 운행(10월 6일까지) </p>';
-                    this.indexCurrentTimer = ' 현재 시각';
-                    this.OLEVMenu = '<h6 class="my-0"><a href="./olev.html" class="caret-off-white">OLEV 본교 교내순환</a></h6><small class="text-muted">교내순환 버스입니다. 평일에만 운행합니다.</small>';
-                    this.WolpyeongMenu = '<h6 class="my-0"><a href="./wolpyeong.html" class="caret-off-white">시내순환 (월평)</a></h6><small class="text-muted">시내순환 버스입니다.</small>';
-                    this.indexCalloutTranslation = '';
-                } else {
-                    this.indexCallout1Title = '<h4>More OLEV (on-campus) and Wolpyeong roundtrip buses!</h4><p>Great news! The school decided to provide more buses on these two bus routes.</p><p style="color:#00000080">OLEV (on-campus): Weekdays only, last bus extended to 18:55 (until Sep 30th) <br> Welpyeong: Buses available even on holidays (until Oct 6th) </p>';
-                    this.indexCurrentTimer = ' Time (KST)';
-                    this.OLEVMenu = '<h6 class="my-0"><a href="./olev.html" class="caret-off-white">OLEV (on-campus bus)</a></h6><small class="text-muted">OLEV (on-campus bus). A free electronic bus moving within the main campus. Available only on weekdays. </small>';
-                    this.WolpyeongMenu = '<h6 class="my-0"><a href="./wolpyeong.html" class="caret-off-white">Wolpyeong roundtrip</a></h6><small class="text-muted">A free roundtrip bus connecting KAIST and nearby outside spots. Available on every day.</small>';
-                    this.indexCalloutTranslation = '<div class="bd-callout bd-callout-warning"><h4>Translation In Progress</h4><p>Thank you for your interest on KAIST BUS service. I decided to provide an English version of this service since I got surging requests, but it would take some time to finish translation because I am very busy doing my main work. Sorry for the inconvenience.</p></div>';
-                }
+            mounted: function() {
+                this.detectLanguage()
             },
-        }
-    });
-</script>
+            methods: {
+                detectLanguage: function() {
+                    var langDetected = (navigator.language || navigator.browserLanguage);
+                    this.lang = langDetected.split("-")[0];
+                    if (this.lang == "ko") {
+                        this.titleText = "KAIST 버스 2.0";
+                    } else {
+                        this.titleText = "KAIST BUS 2.0 (English)";
+                    }
+                },
+            }
+        });
+        var vue_det2 = new Vue({
+            el: '#indexPageMainContainer',
+            data: {
+                lang: "",
+                indexCallout1Title: "",
+                indexCurrentTimer: "",
+                OLEVMenu: "",
+                WolpyeongMenu: "",
+                indexCalloutTranslation: ""
+            },
+            mounted: function() {
+                this.detectLanguage()
+            },
+            methods: {
+                detectLanguage: function() {
+                    var langDetected = (navigator.language || navigator.browserLanguage);
+                    this.lang = langDetected.split("-")[0];
+                    if (this.lang == "ko") {
+                        this.indexCallout1Title = '<h4>시내순환 추가 운행 안내</h4><p>시내순환 버스가 10월 6일까지 추가 운행됩니다. <a href="https://ara.kaist.ac.kr/board/Notice/579335/" target="_blank">(아라 공지 확인하기)</a></p><p>OLEV 버스는 다시 원래대로 평일 16:55까지만 운행됩니다.</p>';
+                        this.indexCurrentTimer = ' 현재 시각';
+                        this.OLEVMenu = '<h6 class="my-0"><a href="./olev.html" class="caret-off-white">OLEV 본교 교내순환</a></h6><small class="text-muted">교내순환 버스입니다. 평일에만 운행합니다.</small>';
+                        this.WolpyeongMenu = '<h6 class="my-0"><a href="./wolpyeong.html" class="caret-off-white">시내순환 (월평)</a></h6><small class="text-muted">시내순환 버스입니다.</small>';
+                        this.indexCalloutTranslation = '';
+                    } else {
+                        this.indexCallout1Title = '<h4>More Wolpyeong roundtrip buses</h4><p>The school decided to drive buses for weekends on Wolpyeong roundtrip bus until Oct 6th. Weekdays buses are still available.</p><p>OLEV bus now services until 16:55, back from 18:55.</p>';
+                        this.indexCurrentTimer = ' Time (KST)';
+                        this.OLEVMenu = '<h6 class="my-0"><a href="./olev.html" class="caret-off-white">OLEV (on-campus bus)</a></h6><small class="text-muted">OLEV (on-campus bus). A free electronic bus moving within the main campus. Available only on weekdays. </small>';
+                        this.WolpyeongMenu = '<h6 class="my-0"><a href="./wolpyeong.html" class="caret-off-white">Wolpyeong roundtrip</a></h6><small class="text-muted">A free roundtrip bus connecting KAIST and nearby outside spots. Available on every day.</small>';
+                        this.indexCalloutTranslation = '<div class="bd-callout bd-callout-warning"><h4>Translation In Progress</h4><p>Thank you for your interest on KAIST BUS service. I decided to provide an English version of this service since I got surging requests, but it would take some time to finish translation because I am very busy doing my main work. Sorry for the inconvenience.</p></div>';
+                    }
+                },
+            }
+        });
+    </script>
 </body>
 
 

@@ -31,7 +31,7 @@
     </script>
     <script src="./warningForWeekdays.js"></script>
     <script>
-        var array1 = [525, 535, 555, 565, 585, 595, 615, 625, 645, 655, 675, 685, 705, 775, 795, 805, 825, 835, 855, 865, 885, 895, 915, 925, 945, 955, 975, 985, 1005, 1015, 1035, 1045, 1065, 1075, 1095, 1105, 1125, 1135];
+        var array1 = [525, 535, 555, 565, 585, 595, 615, 625, 645, 655, 675, 685, 705, 775, 795, 805, 825, 835, 855, 865, 885, 895, 915, 925, 945, 955, 975, 985, 1005, 1015];
         var delay = [0, 1, 3, 4, 6, 7, 8, 9, 10, 11, 12];
         var langDetected = (navigator.language || navigator.browserLanguage);
         var language = langDetected.split("-")[0];
@@ -957,131 +957,131 @@
     </div>
 
     <div id="footer"></div>
-    
+
     <script type="text/javascript">
-    var vue_det2 = new Vue({
-        el: '.bus-title',
-        data: {
-            lang: "",
-            OLEVDate: "",
-        },
-        mounted: function() {
-            this.detectLanguage()
-        },
-        methods: {
-            detectLanguage: function() {
-                var langDetected = (navigator.language || navigator.browserLanguage);
-                this.lang = langDetected.split("-")[0];
-                if (this.lang == "ko") {
-                    this.OLEVDate = '<i class="far fa-calendar-check"></i> <mark style="font-size: 1.5rem;">OLEV 시간표</mark> 주중 전용';
-                } else {
-                    this.OLEVDate = '<i class="far fa-calendar-check"></i> <mark style="font-size: 1.5rem;">OLEV on-campus</mark> Weekdays';
-                }
+        var vue_det2 = new Vue({
+            el: '.bus-title',
+            data: {
+                lang: "",
+                OLEVDate: "",
             },
-        }
-    });
-
-    var vue_det = new Vue({
-        el: '.navbar',
-        data: {
-            lang: "",
-            busStop1: "",
-            busStop2: "",
-            busStop3: "",
-            busStop4: "",
-            busStop5: "",
-            busStop6: "",
-            busStop7: "",
-            busStop8: "",
-            busStop9: "",
-            busStop10: "",
-            busStop11: "",
-        },
-        mounted: function() {
-            this.detectLanguage()
-        },
-        methods: {
-            detectLanguage: function() {
-                var langDetected = (navigator.language || navigator.browserLanguage);
-                this.lang = langDetected.split("-")[0];
-                if (this.lang == "ko") {
-                    this.busStop1 = '카이마루';
-                    this.busStop2 = '스컴';
-                    this.busStop3 = '창의관';
-                    this.busStop4 = '의과학센터';
-                    this.busStop5 = '파팔라도';
-                    this.busStop6 = '나노종합';
-                    this.busStop7 = '정문';
-                    this.busStop8 = '오리연못';
-                    this.busStop9 = 'W8';
-                    this.busStop10 = '나눔관';
-                    this.busStop11 = '희망/다솜관';
-
-                } else {
-                    this.busStop1 = 'Kai-Maru (Restaurant)';
-                    this.busStop2 = 'Sports Complex';
-                    this.busStop3 = 'Creative Learning Building';
-                    this.busStop4 = 'Biomedical Research Center';
-                    this.busStop5 = 'Papalado Center';
-                    this.busStop6 = 'Nanofab Center';
-                    this.busStop7 = 'Main gate';
-                    this.busStop8 = 'Duck Pond';
-                    this.busStop9 = 'W8 Startup Center';
-                    this.busStop10 = 'Nanum Hall';
-                    this.busStop11 = 'Heemang/Dasom Hall';
-                }
+            mounted: function() {
+                this.detectLanguage()
             },
-        }
-    });
+            methods: {
+                detectLanguage: function() {
+                    var langDetected = (navigator.language || navigator.browserLanguage);
+                    this.lang = langDetected.split("-")[0];
+                    if (this.lang == "ko") {
+                        this.OLEVDate = '<i class="far fa-calendar-check"></i> <mark style="font-size: 1.5rem;">OLEV 시간표</mark> 주중 전용';
+                    } else {
+                        this.OLEVDate = '<i class="far fa-calendar-check"></i> <mark style="font-size: 1.5rem;">OLEV on-campus</mark> Weekdays';
+                    }
+                },
+            }
+        });
 
-    var vue_det4 = new Vue({
-        el: '.OLEVContainerTimers',
-        data: {
-            lang: "",
-            busTimeLeft: "",
-            OLEVTR: "",
-        },
-        mounted: function() {
-            this.detectLanguage()
-        },
-        methods: {
-            detectLanguage: function() {
-                var langDetected = (navigator.language || navigator.browserLanguage);
-                this.lang = langDetected.split("-")[0];
-                if (this.lang == "ko") {
-                    this.busTimeLeft = '<i class="fas fa-stopwatch"></i> 남은 시간';
-                    this.OLEVTR = '<th>도착 예정</th><th style="text-align:right;">남은 시간</th>';
-                } else {
-                    this.busTimeLeft = '<i class="fas fa-stopwatch"></i> Arrival';
-                    this.OLEVTR = '<th>Expected Arrial</th><th style="text-align:right;">Time Left</th>';
-                }
+        var vue_det = new Vue({
+            el: '.navbar',
+            data: {
+                lang: "",
+                busStop1: "",
+                busStop2: "",
+                busStop3: "",
+                busStop4: "",
+                busStop5: "",
+                busStop6: "",
+                busStop7: "",
+                busStop8: "",
+                busStop9: "",
+                busStop10: "",
+                busStop11: "",
             },
-        }
-    });
-
-    var vue_det5 = new Vue({
-        el: '.container-callout-2',
-        data: {
-            lang: "",
-            OLEVCallout2: "",
-        },
-        mounted: function() {
-            this.detectLanguage()
-        },
-        methods: {
-            detectLanguage: function() {
-                var langDetected = (navigator.language || navigator.browserLanguage);
-                this.lang = langDetected.split("-")[0];
-                if (this.lang == "ko") {
-                    this.OLEVCallout2 = '<h4>OLEV 연장 운행</h4><p>OLEV 버스가 9월 한달 시범 연장 운행됩니다. <a href="https://ara.kaist.ac.kr/board/Notice/579335/" target="_blank">(아라 공지 확인하기)</a></p><p>9월 30일까지 막차 시간이 18시 55분으로 연장됩니다. (기존 막차 16시 55분)</p>';
-                } else {
-                    this.OLEVCallout2 = '<h4>More OLEV bus!</h4><p>For weekdays only, bus runs until 18:55 (starting from Kai-Maru), until Sep 30th (was 16:55)</p>';
-
-                }
+            mounted: function() {
+                this.detectLanguage()
             },
-        }
-    });
-</script>
+            methods: {
+                detectLanguage: function() {
+                    var langDetected = (navigator.language || navigator.browserLanguage);
+                    this.lang = langDetected.split("-")[0];
+                    if (this.lang == "ko") {
+                        this.busStop1 = '카이마루';
+                        this.busStop2 = '스컴';
+                        this.busStop3 = '창의관';
+                        this.busStop4 = '의과학센터';
+                        this.busStop5 = '파팔라도';
+                        this.busStop6 = '나노종합';
+                        this.busStop7 = '정문';
+                        this.busStop8 = '오리연못';
+                        this.busStop9 = 'W8';
+                        this.busStop10 = '나눔관';
+                        this.busStop11 = '희망/다솜관';
+
+                    } else {
+                        this.busStop1 = 'Kai-Maru (Restaurant)';
+                        this.busStop2 = 'Sports Complex';
+                        this.busStop3 = 'Creative Learning Building';
+                        this.busStop4 = 'Biomedical Research Center';
+                        this.busStop5 = 'Papalado Center';
+                        this.busStop6 = 'Nanofab Center';
+                        this.busStop7 = 'Main gate';
+                        this.busStop8 = 'Duck Pond';
+                        this.busStop9 = 'W8 Startup Center';
+                        this.busStop10 = 'Nanum Hall';
+                        this.busStop11 = 'Heemang/Dasom Hall';
+                    }
+                },
+            }
+        });
+
+        var vue_det4 = new Vue({
+            el: '.OLEVContainerTimers',
+            data: {
+                lang: "",
+                busTimeLeft: "",
+                OLEVTR: "",
+            },
+            mounted: function() {
+                this.detectLanguage()
+            },
+            methods: {
+                detectLanguage: function() {
+                    var langDetected = (navigator.language || navigator.browserLanguage);
+                    this.lang = langDetected.split("-")[0];
+                    if (this.lang == "ko") {
+                        this.busTimeLeft = '<i class="fas fa-stopwatch"></i> 남은 시간';
+                        this.OLEVTR = '<th>도착 예정</th><th style="text-align:right;">남은 시간</th>';
+                    } else {
+                        this.busTimeLeft = '<i class="fas fa-stopwatch"></i> Arrival';
+                        this.OLEVTR = '<th>Expected Arrial</th><th style="text-align:right;">Time Left</th>';
+                    }
+                },
+            }
+        });
+
+        var vue_det5 = new Vue({
+            el: '.container-callout-2',
+            data: {
+                lang: "",
+                OLEVCallout2: "",
+            },
+            mounted: function() {
+                this.detectLanguage()
+            },
+            methods: {
+                detectLanguage: function() {
+                    var langDetected = (navigator.language || navigator.browserLanguage);
+                    this.lang = langDetected.split("-")[0];
+                    if (this.lang == "ko") {
+                        this.OLEVCallout2 = '<h4>OLEV 연장 운행 종료</h4><p>OLEV 버스 연장 운행이 종료되어, 16:55까지만 운행되게 됩니다.</p>';
+                    } else {
+                        this.OLEVCallout2 = '<h4>OLEV drives until 16:55</h4><p>As of Oct 1st, OLEV bus drives only until 16:55 (previously 18:55).</p>';
+
+                    }
+                },
+            }
+        });
+    </script>
 </body>
 
 
