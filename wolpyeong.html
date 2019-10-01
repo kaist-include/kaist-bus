@@ -34,6 +34,8 @@
     <script>
         var array1 = [545, 605, 665, 785, 845, 905, 965, 1025, 1085];
         var delay = [0, 1, 3, 4, 10, 15, 20, 27, 35, 38, 39, 40, 41];
+        var langDetected = (navigator.language || navigator.browserLanguage);
+        var language = langDetected.split("-")[0];
 
         var date = new Date();
 
@@ -44,8 +46,14 @@
 
             var next_bus_val = next_bus(date.getHours(), date.getMinutes(), 0);
             if (next_bus_val == -1 || next_bus_val == 8) {
-                $("#timer_nextbus").text("하단 참조");
-                $("#timer_left").text("하단 참조");
+                if (language == "ko") {
+                    $("#timer_nextbus").text("하단 참조");
+                    $("#timer_left").text("하단 참조");
+                } else {
+                    $("#timer_nextbus").text("See Below");
+                    $("#timer_left").text("See Below");
+                }
+
             } else {
                 $("#timer_nextbus").text(tick(Math.floor(array1[next_bus_val] / 60), 2) + ":" + tick(Math.floor(array1[next_bus_val] - Math.floor(array1[next_bus_val] / 60) * 60), 2) + ":00");
                 var time_left = Math.floor(array1[next_bus_val] / 60) * 3600 + Math.floor(array1[next_bus_val] - Math.floor(array1[next_bus_val] / 60) * 60) * 60 + 0 - (date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds());
@@ -106,7 +114,11 @@
         function stationTimerSetting1(offset, date) {
             var next_bus_val = next_bus(date.getHours(), date.getMinutes(), offset);
             if (next_bus_val == -1 || next_bus_val == 8) {
-                return "하단 참조";
+                if (language == "ko") {
+                    return "하단 참조";
+                } else {
+                    return "See Below";
+                }
             } else {
                 var next_bus_time = array1[next_bus_val] + offset;
                 return tick(Math.floor(next_bus_time / 60), 2) + ":" + tick(Math.floor(next_bus_time - Math.floor(next_bus_time / 60) * 60), 2) + ":00";
@@ -116,7 +128,11 @@
         function stationTimerSetting2(offset, date) {
             var next_bus_val = next_bus(date.getHours(), date.getMinutes(), offset);
             if (next_bus_val == -1 || next_bus_val == 8) {
-                return "하단 참조";
+                if (language == "ko") {
+                    return "하단 참조";
+                } else {
+                    return "See Below";
+                }
             } else {
                 var next_bus_time = array1[next_bus_val] + offset;
                 var time_left = Math.floor(next_bus_time / 60) * 3600 + Math.floor(next_bus_time - Math.floor(next_bus_time / 60) * 60) * 60 - (date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds());
@@ -141,7 +157,7 @@
             }
             var hr = tick(Math.floor(num / 60), 2);
             var min = tick(num - Math.floor(num / 60) * 60, 2);
-            return hr + "시 " + min + "분";
+            return hr + ":" + min + "";
         }
 
         function tick(num, size) {
@@ -176,11 +192,19 @@
 
         function contentsMaker2(offset1, offset2) {
             var contents = "";
-            contents += "<tr><td colspan='2' style='color:#413b98'>" + "[안내] 아래의 9회차 시간표는 시내 교통 상황에 따라 원래의 시간표에서 상당한 시간 지연되는 경우가 많습니다." + "</td></tr>";
-
-            for (i = 0; i < 1; i++) {
-                contents += "<tr><td colspan='2'>" + int2str(array2[i] + offset1) + " (평균 추가 지연 시간 " + offset2 + " 분)" + "</td></tr>";
+            if (language == "ko") {
+                contents += "<tr><td colspan='2' style='color:#413b98'>" + "[안내] 아래의 9회차 시간표는 시내 교통 상황에 따라 원래의 시간표에서 상당한 시간 지연되는 경우가 많습니다." + "</td></tr>";
+                for (i = 0; i < 1; i++) {
+                    contents += "<tr><td colspan='2'>" + int2str(array2[i] + offset1) + " (평균 추가 지연 시간 " + offset2 + " 분)" + "</td></tr>";
+                }
+            } else {
+                contents += "<tr><td colspan='2' style='color:#413b98'>" + "[Notice] The 9th bus below has a long delay from original schedule due to the surging traffics." + "</td></tr>";
+                for (i = 0; i < 1; i++) {
+                    contents += "<tr><td colspan='2'>" + int2str(array2[i] + offset1) + " (+ expected delay: " + offset2 + " minutes)" + "</td></tr>";
+                }
             }
+
+
             return contents;
         }
 
@@ -240,7 +264,8 @@
     <div id="header"></div>
 
     <div class="container bus-title">
-        <i class="far fa-calendar-check"></i> <mark style="font-size: 1.5rem;">시내순환 시간표</mark> <small>주중/주말</small>
+        <span v-html="OLEVDate">
+        </span>
     </div>
 
     <nav class="navbar navbar-light navbar-expand bg-faded justify-content-center" style="background:linear-gradient(135deg, #7117ea 0%,#9b30b9 100%) !important; padding-top:6px; padding-bottom:6px;">
@@ -250,40 +275,40 @@
         <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
             <ul class="nav nav-pills w-100 justify-content-center" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#tab1">영빈관</a>
+                    <a class="nav-link active" data-toggle="tab" href="#tab1" v-html="busStop1">카이마루</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tab2">강당</a>
+                    <a class="nav-link" data-toggle="tab" href="#tab2" v-html="busStop2">스컴</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tab3">본관</a>
+                    <a class="nav-link" data-toggle="tab" href="#tab3" v-html="busStop3">창의관</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tab4">오리연못</a>
+                    <a class="nav-link" data-toggle="tab" href="#tab4" v-html="busStop4">의과학센터</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tab5">충대앞</a>
+                    <a class="nav-link" data-toggle="tab" href="#tab5" v-html="busStop5">파팔라도</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tab6">월평역 1번출구</a>
+                    <a class="nav-link" data-toggle="tab" href="#tab6" v-html="busStop6">나노종합</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tab7">갤러리아</a>
+                    <a class="nav-link" data-toggle="tab" href="#tab7" v-html="busStop7">정문</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tab8">정부청사</a>
+                    <a class="nav-link" data-toggle="tab" href="#tab8" v-html="busStop8">오리연못</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tab9">월평역 3번출구</a>
+                    <a class="nav-link" data-toggle="tab" href="#tab9" v-html="busStop9">W8</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tab10">오리연못</a>
+                    <a class="nav-link" data-toggle="tab" href="#tab10" v-html="busStop10">나눔관</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tab11">본관</a>
+                    <a class="nav-link" data-toggle="tab" href="#tab11" v-html="busStop11">서측</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tab12">강당</a>
+                    <a class="nav-link" data-toggle="tab" href="#tab11" v-html="busStop12">서측</a>
                 </li>
             </ul>
         </div>
@@ -292,7 +317,7 @@
 
     <div id="warningForDaysInversion"></div>
 
-    <div class="container">
+    <div class="container OLEVContainerTimers">
         <div class="tab-content">
             <div id="tab1" class="container tab-pane active">
                 <div class="card bg-light text-dark text-center" style="margin-top:18px; margin-bottom:18px;">
@@ -301,7 +326,7 @@
                             <div class="row">
 
                                 <div class="col-6" style=" text-align: center;">
-                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간"><i class="fas fa-stopwatch"></i> 남은
+                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간" v-html="busTimeLeft"><i class="fas fa-stopwatch"></i> 남은
                                         시간</span>
                                 </div>
                                 <div class="col-2" style="position:absolute; border-left: 2px solid white; opacity: 0.85; height:44px; padding:0; left: 50%;">
@@ -344,7 +369,7 @@
 
                 <table class="table table-hover" style="margin-top:12px;">
                     <thead>
-                        <tr>
+                        <tr v-html="OLEVTR">
                             <th>도착 예정</th>
                             <th style="text-align:right;">남은 시간</th>
                         </tr>
@@ -364,7 +389,7 @@
                             <div class="row">
 
                                 <div class="col-6" style=" text-align: center;">
-                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간"><i class="fas fa-stopwatch"></i> 남은
+                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간" v-html="busTimeLeft"><i class="fas fa-stopwatch"></i> 남은
                                         시간</span>
                                 </div>
                                 <div class="col-2" style="position:absolute; border-left: 2px solid white; opacity: 0.85; height:44px; padding:0; left: 50%;">
@@ -407,7 +432,7 @@
 
                 <table class="table table-hover" style="margin-top:12px;">
                     <thead>
-                        <tr>
+                        <tr v-html="OLEVTR">
                             <th>도착 예정</th>
                             <th style="text-align:right;">남은 시간</th>
                         </tr>
@@ -424,7 +449,7 @@
                             <div class="row">
 
                                 <div class="col-6" style=" text-align: center;">
-                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간"><i class="fas fa-stopwatch"></i> 남은
+                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간" v-html="busTimeLeft"><i class="fas fa-stopwatch"></i> 남은
                                         시간</span>
                                 </div>
                                 <div class="col-2" style="position:absolute; border-left: 2px solid white; opacity: 0.85; height:44px; padding:0; left: 50%;">
@@ -467,7 +492,7 @@
 
                 <table class="table table-hover" style="margin-top:12px;">
                     <thead>
-                        <tr>
+                        <tr v-html="OLEVTR">
                             <th>도착 예정</th>
                             <th style="text-align:right;">남은 시간</th>
                         </tr>
@@ -484,7 +509,7 @@
                             <div class="row">
 
                                 <div class="col-6" style=" text-align: center;">
-                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간"><i class="fas fa-stopwatch"></i> 남은
+                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간" v-html="busTimeLeft"><i class="fas fa-stopwatch"></i> 남은
                                         시간</span>
                                 </div>
                                 <div class="col-2" style="position:absolute; border-left: 2px solid white; opacity: 0.85; height:44px; padding:0; left: 50%;">
@@ -527,7 +552,7 @@
 
                 <table class="table table-hover" style="margin-top:12px;">
                     <thead>
-                        <tr>
+                        <tr v-html="OLEVTR">
                             <th>도착 예정</th>
                             <th style="text-align:right;">남은 시간</th>
                         </tr>
@@ -544,7 +569,7 @@
                             <div class="row">
 
                                 <div class="col-6" style=" text-align: center;">
-                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간"><i class="fas fa-stopwatch"></i> 남은
+                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간" v-html="busTimeLeft"><i class="fas fa-stopwatch"></i> 남은
                                         시간</span>
                                 </div>
                                 <div class="col-2" style="position:absolute; border-left: 2px solid white; opacity: 0.85; height:44px; padding:0; left: 50%;">
@@ -587,7 +612,7 @@
 
                 <table class="table table-hover" style="margin-top:12px;">
                     <thead>
-                        <tr>
+                        <tr v-html="OLEVTR">
                             <th>도착 예정</th>
                             <th style="text-align:right;">남은 시간</th>
                         </tr>
@@ -604,7 +629,7 @@
                             <div class="row">
 
                                 <div class="col-6" style=" text-align: center;">
-                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간"><i class="fas fa-stopwatch"></i> 남은
+                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간" v-html="busTimeLeft"><i class="fas fa-stopwatch"></i> 남은
                                         시간</span>
                                 </div>
                                 <div class="col-2" style="position:absolute; border-left: 2px solid white; opacity: 0.85; height:44px; padding:0; left: 50%;">
@@ -647,7 +672,7 @@
 
                 <table class="table table-hover" style="margin-top:12px;">
                     <thead>
-                        <tr>
+                        <tr v-html="OLEVTR">
                             <th>도착 예정</th>
                             <th style="text-align:right;">남은 시간</th>
                         </tr>
@@ -664,7 +689,7 @@
                             <div class="row">
 
                                 <div class="col-6" style=" text-align: center;">
-                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간"><i class="fas fa-stopwatch"></i> 남은
+                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간" v-html="busTimeLeft"><i class="fas fa-stopwatch"></i> 남은
                                         시간</span>
                                 </div>
                                 <div class="col-2" style="position:absolute; border-left: 2px solid white; opacity: 0.85; height:44px; padding:0; left: 50%;">
@@ -707,7 +732,7 @@
 
                 <table class="table table-hover" style="margin-top:12px;">
                     <thead>
-                        <tr>
+                        <tr v-html="OLEVTR">
                             <th>도착 예정</th>
                             <th style="text-align:right;">남은 시간</th>
                         </tr>
@@ -724,7 +749,7 @@
                             <div class="row">
 
                                 <div class="col-6" style=" text-align: center;">
-                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간"><i class="fas fa-stopwatch"></i> 남은
+                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간" v-html="busTimeLeft"><i class="fas fa-stopwatch"></i> 남은
                                         시간</span>
                                 </div>
                                 <div class="col-2" style="position:absolute; border-left: 2px solid white; opacity: 0.85; height:44px; padding:0; left: 50%;">
@@ -767,7 +792,7 @@
 
                 <table class="table table-hover" style="margin-top:12px;">
                     <thead>
-                        <tr>
+                        <tr v-html="OLEVTR">
                             <th>도착 예정</th>
                             <th style="text-align:right;">남은 시간</th>
                         </tr>
@@ -784,7 +809,7 @@
                             <div class="row">
 
                                 <div class="col-6" style=" text-align: center;">
-                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간"><i class="fas fa-stopwatch"></i> 남은
+                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간" v-html="busTimeLeft"><i class="fas fa-stopwatch"></i> 남은
                                         시간</span>
                                 </div>
                                 <div class="col-2" style="position:absolute; border-left: 2px solid white; opacity: 0.85; height:44px; padding:0; left: 50%;">
@@ -827,7 +852,7 @@
 
                 <table class="table table-hover" style="margin-top:12px;">
                     <thead>
-                        <tr>
+                        <tr v-html="OLEVTR">
                             <th>도착 예정</th>
                             <th style="text-align:right;">남은 시간</th>
                         </tr>
@@ -844,7 +869,7 @@
                             <div class="row">
 
                                 <div class="col-6" style=" text-align: center;">
-                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간"><i class="fas fa-stopwatch"></i> 남은
+                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간" v-html="busTimeLeft"><i class="fas fa-stopwatch"></i> 남은
                                         시간</span>
                                 </div>
                                 <div class="col-2" style="position:absolute; border-left: 2px solid white; opacity: 0.85; height:44px; padding:0; left: 50%;">
@@ -887,7 +912,7 @@
 
                 <table class="table table-hover" style="margin-top:12px;">
                     <thead>
-                        <tr>
+                        <tr v-html="OLEVTR">
                             <th>도착 예정</th>
                             <th style="text-align:right;">남은 시간</th>
                         </tr>
@@ -904,7 +929,7 @@
                             <div class="row">
 
                                 <div class="col-6" style=" text-align: center;">
-                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간"><i class="fas fa-stopwatch"></i> 남은
+                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간" v-html="busTimeLeft"><i class="fas fa-stopwatch"></i> 남은
                                         시간</span>
                                 </div>
                                 <div class="col-2" style="position:absolute; border-left: 2px solid white; opacity: 0.85; height:44px; padding:0; left: 50%;">
@@ -947,7 +972,7 @@
 
                 <table class="table table-hover" style="margin-top:12px;">
                     <thead>
-                        <tr>
+                        <tr v-html="OLEVTR">
                             <th>도착 예정</th>
                             <th style="text-align:right;">남은 시간</th>
                         </tr>
@@ -964,7 +989,7 @@
                             <div class="row">
 
                                 <div class="col-6" style=" text-align: center;">
-                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간"><i class="fas fa-stopwatch"></i> 남은
+                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간" v-html="busTimeLeft"><i class="fas fa-stopwatch"></i> 남은
                                         시간</span>
                                 </div>
                                 <div class="col-2" style="position:absolute; border-left: 2px solid white; opacity: 0.85; height:44px; padding:0; left: 50%;">
@@ -1007,7 +1032,7 @@
 
                 <table class="table table-hover" style="margin-top:12px;">
                     <thead>
-                        <tr>
+                        <tr v-html="OLEVTR">
                             <th>도착 예정</th>
                             <th style="text-align:right;">남은 시간</th>
                         </tr>
@@ -1024,7 +1049,7 @@
                             <div class="row">
 
                                 <div class="col-6" style=" text-align: center;">
-                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간"><i class="fas fa-stopwatch"></i> 남은
+                                    <span style="line-height: 44px; text-align: left;" data-toggle="tooltip" data-placement="top" title="도착까지 남은 시간" v-html="busTimeLeft"><i class="fas fa-stopwatch"></i> 남은
                                         시간</span>
                                 </div>
                                 <div class="col-2" style="position:absolute; border-left: 2px solid white; opacity: 0.85; height:44px; padding:0; left: 50%;">
@@ -1067,7 +1092,7 @@
 
                 <table class="table table-hover" style="margin-top:12px;">
                     <thead>
-                        <tr>
+                        <tr v-html="OLEVTR">
                             <th>도착 예정</th>
                             <th style="text-align:right;">남은 시간</th>
                         </tr>
@@ -1080,15 +1105,15 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container container-callout-2">
         <div class="col-md-12">
-            <div class="bd-callout bd-callout-info">
+            <div class="bd-callout bd-callout-info" v-html="OLEVCallout3">
                 <h4>시내순환 주말 운행 안내</h4>
                 <p>시내순환 버스가 10월 6일까지 주말에도 평일과 동일한 시간표로 시범 추가 운행됩니다. <a href="https://ara.kaist.ac.kr/board/Notice/579335/" target="_blank">(아라 공지 확인하기)</a></p>
             </div>
         </div>
         <div class="container">
-            <div class="bd-callout bd-callout-danger">
+            <div class="bd-callout bd-callout-danger" v-html="OLEVCallout4">
                 <h4>9회차 버스의 교통 상황에 따른 안내</h4>
                 <p>9회차 버스는 퇴근 시간대로 인하여 예정된 도착 시각과 많은 차이가 있을 수 있습니다. 현재 시내순환 버스에 GPS를 장착할 수 없기에 정확한 도착 시각 예측이 어려운 점 양해 부탁드립니다. 이 점을 어떻게 할 것인지에 대해 학교와 논의해본 후 개선하려고 합니다.</p>
             </div>
@@ -1100,6 +1125,135 @@
     </div>
 
     <div id="footer"></div>
+    <script type="text/javascript">
+        var vue_det2 = new Vue({
+            el: '.bus-title',
+            data: {
+                lang: "",
+                OLEVDate: "",
+            },
+            mounted: function() {
+                this.detectLanguage()
+            },
+            methods: {
+                detectLanguage: function() {
+                    var langDetected = (navigator.language || navigator.browserLanguage);
+                    this.lang = langDetected.split("-")[0];
+                    if (this.lang == "ko") {
+                        this.OLEVDate = '<i class="far fa-calendar-check"></i> <mark style="font-size: 1.5rem;">OLEV 시간표</mark> 주중 전용';
+                    } else {
+                        this.OLEVDate = '<i class="far fa-calendar-check"></i> <mark style="font-size: 1.5rem;">OLEV on-campus</mark> Weekdays';
+                    }
+                },
+            }
+        });
+
+        var vue_det = new Vue({
+            el: '.navbar',
+            data: {
+                lang: "",
+                busStop1: "",
+                busStop2: "",
+                busStop3: "",
+                busStop4: "",
+                busStop5: "",
+                busStop6: "",
+                busStop7: "",
+                busStop8: "",
+                busStop9: "",
+                busStop10: "",
+                busStop11: "",
+                busStop12: "",
+            },
+            mounted: function() {
+                this.detectLanguage()
+            },
+            methods: {
+                detectLanguage: function() {
+                    var langDetected = (navigator.language || navigator.browserLanguage);
+                    this.lang = langDetected.split("-")[0];
+                    if (this.lang == "ko") {
+                        this.busStop1 = '영빈관';
+                        this.busStop2 = '강당';
+                        this.busStop3 = '본관';
+                        this.busStop4 = '오리연못';
+                        this.busStop5 = '충대앞';
+                        this.busStop6 = '월평역 1번출구';
+                        this.busStop7 = '갤러리아';
+                        this.busStop8 = '정부청사';
+                        this.busStop9 = '월평역 3번출구';
+                        this.busStop10 = '오리연못';
+                        this.busStop11 = '본관';
+                        this.busStop12 = '강당';
+
+                    } else {
+                        this.busStop1 = 'N6';
+                        this.busStop2 = 'Auditorium';
+                        this.busStop3 = 'E14';
+                        this.busStop4 = 'Duck pond';
+                        this.busStop5 = 'Chungnam National Univ.';
+                        this.busStop6 = 'Wolpyeong St. Exit #1';
+                        this.busStop7 = 'Galleria Department Store';
+                        this.busStop8 = 'Government Complex';
+                        this.busStop9 = 'Wolpyeong St. Exit #3';
+                        this.busStop10 = 'Duck pond';
+                        this.busStop11 = 'E14';
+                        this.busStop12 = 'Auditorium';
+                    }
+                },
+            }
+        });
+
+        var vue_det4 = new Vue({
+            el: '.OLEVContainerTimers',
+            data: {
+                lang: "",
+                busTimeLeft: "",
+                OLEVTR: "",
+            },
+            mounted: function() {
+                this.detectLanguage()
+            },
+            methods: {
+                detectLanguage: function() {
+                    var langDetected = (navigator.language || navigator.browserLanguage);
+                    this.lang = langDetected.split("-")[0];
+                    if (this.lang == "ko") {
+                        this.busTimeLeft = '<i class="fas fa-stopwatch"></i> 남은 시간';
+                        this.OLEVTR = '<th>도착 예정</th><th style="text-align:right;">남은 시간</th>';
+                    } else {
+                        this.busTimeLeft = '<i class="fas fa-stopwatch"></i> Arrival';
+                        this.OLEVTR = '<th>Expected Arrial</th><th style="text-align:right;">Time Left</th>';
+                    }
+                },
+            }
+        });
+
+        var vue_det5 = new Vue({
+            el: '.container-callout-2',
+            data: {
+                lang: "",
+                OLEVCallout3: "",
+                OLEVCallout4: "",
+            },
+            mounted: function() {
+                this.detectLanguage()
+            },
+            methods: {
+                detectLanguage: function() {
+                    var langDetected = (navigator.language || navigator.browserLanguage);
+                    this.lang = langDetected.split("-")[0];
+                    if (this.lang == "ko") {
+                        this.OLEVCallout3 = '<h4>시내순환 주말 운행 안내</h4><p>시내순환 버스가 10월 6일까지 주말에도 평일과 동일한 시간표로 시범 추가 운행됩니다. <a href="https://ara.kaist.ac.kr/board/Notice/579335/" target="_blank">(아라 공지 확인하기)</a></p>';
+                        this.OLEVCallout4 = '<h4>9회차 버스의 교통 상황에 따른 안내</h4><p>9회차 버스는 퇴근 시간대로 인하여 예정된 도착 시각과 많은 차이가 있을 수 있습니다. 현재 시내순환 버스에 GPS를 장착할 수 없기에 정확한 도착 시각 예측이 어려운 점 양해 부탁드립니다. 이 점을 어떻게 할 것인지에 대해 학교와 논의해본 후 개선하려고 합니다.</p>';
+                    } else {
+                        this.OLEVCallout3 = '<h4>Wolpyeong Bus on weekends!</h4><p>Wolpyeong bus drives on weekends too, until Oct 6th!</p>';
+                        this.OLEVCallout4 = '<h4>Notice on 9th (18:05) bus</h4><p>The 9th bus (18:05) has a long delay due to the high traffic. Currently we are unable to set up a GPS to buses, so we cannot predict an accurate arrival time. We are talking about this with the school. Sorry for the inconvinience.</p>';
+                    }
+                },
+            }
+        });
+    </script>
 </body>
 
 </html>
