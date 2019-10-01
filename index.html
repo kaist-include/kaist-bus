@@ -47,7 +47,7 @@
             var time = tick(date.getHours(), 2) + ":" + tick(date.getMinutes(), 2) + ":" + tick(date.getSeconds(), 2);
             $('.current_timer').text(time);
             $(".spinner-timer").hide();
-            $("#index-date").text(date.getFullYear() + "/" + tick((date.getMonth() + 1), 2) + "/" + date.getDate() + "");
+            $("#index-date").text(date.getFullYear() + "/" + tick((date.getMonth() + 1), 2) + "/" + tick(date.getDate(), 2) + "");
             $("#index-isWeekends").text(isWeekends ? "휴일(Holidays)" : "주중(Weekdays)");
         }, 500)
 
@@ -269,7 +269,7 @@
                         this.WolpyeongMenu = '<h6 class="my-0"><a href="./wolpyeong.html" class="caret-off-white">시내순환 (월평)</a></h6><small class="text-muted">시내순환 버스입니다.</small>';
                         this.indexCalloutTranslation = '';
                     } else {
-                        this.indexCallout1Title = '<h4>More Wolpyeong roundtrip buses</h4><p>The school decided to drive buses for weekends on Wolpyeong roundtrip bus until Oct 6th. Weekdays buses are still available.</p><p>OLEV bus now services until 16:55, back from 18:55.</p>';
+                        this.indexCallout1Title = '<h4>More Wolpyeong roundtrip buses!</h4><p>The school decided to offer Wolpyeong roundtrip bus on weekends until Oct 6th. Weekdays buses are still available.</p><p>OLEV buses now drive until 16:55, back from 18:55.</p>';
                         this.indexCurrentTimer = ' Time (KST)';
                         this.OLEVMenu = '<h6 class="my-0"><a href="./olev.html" class="caret-off-white">OLEV (on-campus bus)</a></h6><small class="text-muted">OLEV (on-campus bus). A free electronic bus moving within the main campus. Available only on weekdays. </small>';
                         this.WolpyeongMenu = '<h6 class="my-0"><a href="./wolpyeong.html" class="caret-off-white">Wolpyeong roundtrip</a></h6><small class="text-muted">A free roundtrip bus connecting KAIST and nearby outside spots. Available on every day.</small>';
