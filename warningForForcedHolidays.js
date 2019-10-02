@@ -1,5 +1,5 @@
 var date = new Date();
-var Holidays = [3, 9];
+var Holidays = [];
 var isHolidays = false;
 var day = date.getDay();
 var isDiff = false;
