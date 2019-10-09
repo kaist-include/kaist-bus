@@ -4,8 +4,14 @@
         $(function() {
             var browserDetails = navigator.userAgent;
             var isWebView = browserDetails.indexOf("wv");
+            var langDetected = (navigator.language || navigator.browserLanguage);
+            var lang = langDetected.split("-")[0];
             if (isWebView == -1) {
-                $(".androidApp").html('안드로이드 앱 다운로드 <i class="fab fa-android" style="font-size:3.3rem;"></i>');
+                if (lang == "ko") {
+                    $(".androidApp").html('안드로이드 앱 다운로드 <i class="fab fa-android" style="font-size:3.3rem;"></i>');
+                } else {
+                    $(".androidApp").html('Android App Download <i class="fab fa-android" style="font-size:3.3rem;"></i>');
+                }
             }
 
         });
@@ -13,8 +19,8 @@
     <div class="container" style="margin-top:12px; padding-top:12px; padding-bottom:12px;">
         <div class="row">
             <div class="col-12">
-                <span style="color:white; font-weight: 900;">카이스트 버스 v2.0</span>
-                <span style="opacity: 0.8;">(10월 9일 업데이트)</span>
+                <span style="color:white; font-weight: 900;">{{footerNote}}</span>
+                <span style="opacity: 0.8;">{{footerUpdateDate}}</span>
             </div>
             <div class="col-12" style="text-align: right;">
                 <a class="androidApp" href="https://play.google.com/store/apps/details?id=com.jaeryoungka.kaist_bus" target="_blank">
@@ -23,3 +29,30 @@
         </div>
     </div>
 </footer>
+
+<script type="text/javascript">
+    var vue_header = new Vue({
+        el: 'footer',
+        data: {
+            lang: "",
+            footerNote: "",
+            footerUpdateDate: "",
+        },
+        mounted: function() {
+            this.detectLanguage()
+        },
+        methods: {
+            detectLanguage: function() {
+                var langDetected = (navigator.language || navigator.browserLanguage);
+                this.lang = langDetected.split("-")[0];
+                if (this.lang == "ko") {
+                    this.footerNote = "카이스트 버스 2.0";
+                    this.footerUpdateDate = "(10월 9일 업데이트)";
+                } else {
+                    this.footerNote = "KAIST BUS 2.0";
+                    this.footerUpdateDate = "(Updated: Oct 9th)";
+                }
+            },
+        }
+    });
+</script>
