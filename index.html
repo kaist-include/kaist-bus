@@ -88,12 +88,12 @@
                             <p>11월 14일의 출근 통근 버스는 기존의 시간표에서 1시간 늦은 시각에 운행됩니다.</p>
                         </div>
                     </div>
-                    
+                -->
                     <div class="col-md-12" style="margin-bottom: -15px;">
-<div class="bd-callout bd-callout-info" v-html="indexCallout1Title">
+                        <div class="bd-callout bd-callout-info" v-html="indexCallout1Title">
                         </div>
                     </div>
--->
+
 
                     <div class="col-md-12 order-md-1 mb-1">
                         <div class="card bg-light text-light text-center index-time" style="margin-top:22px; margin-bottom:6px;">
@@ -271,13 +271,13 @@
                     var langDetected = (navigator.language || navigator.browserLanguage);
                     this.lang = langDetected.split("-")[0];
                     if (this.lang == "ko") {
-                        this.indexCallout1Title = '<h4>시내순환 추가 운행 안내</h4><p>시내순환 버스가 10월 6일까지 추가 운행됩니다. <a href="https://ara.kaist.ac.kr/board/Notice/579335/" target="_blank">(아라 공지 확인하기)</a></p><p>OLEV 버스는 다시 원래대로 평일 16:55까지만 운행됩니다.</p>';
+                        this.indexCallout1Title = '<h4>12월 23일 OLEV 운행 노선 변경 안내</h4><p>2019년 12월 23일부터 OLEV 버스 노선이 변경됩니다. 정문까지는 기존 그대로 운행한 이후, 오리연못 대신 신소재공학동을 거쳐 희망/다솜관으로 향한 뒤 학사식당으로 돌아오게 됩니다.</p>';
                         this.indexCurrentTimer = ' 현재 시각';
                         this.OLEVMenu = '<h6 class="my-0"><a href="./olev.html" class="caret-off-white">OLEV 본교 교내순환</a></h6><small class="text-muted">교내순환 버스입니다. 평일에만 운행합니다.</small>';
                         this.WolpyeongMenu = '<h6 class="my-0"><a href="./wolpyeong.html" class="caret-off-white">시내순환 (월평)</a></h6><small class="text-muted">시내순환 버스입니다.</small>';
                         this.indexCalloutTranslation = '';
                     } else {
-                        this.indexCallout1Title = '<h4>More Wolpyeong roundtrip buses!</h4><p>The school decided to offer Wolpyeong roundtrip bus on weekends until Oct 6th. Weekdays buses are still available.</p><p>OLEV buses now drive until 16:55, back from 18:55.</p>';
+                        this.indexCallout1Title = '<h4>OLEV route change (Dec 23th)</h4><p>We have a change on the OLEV route. After passing the main gate, it visits the Materials Science and Engineering B/D, W4 Domitory, International Faculty APT, and then returns back to the cafeteria.</p>';
                         this.indexCurrentTimer = ' Time (KST)';
                         this.OLEVMenu = '<h6 class="my-0"><a href="./olev.html" class="caret-off-white">OLEV (on-campus bus)</a></h6><small class="text-muted">OLEV (on-campus bus). A free electronic bus moving within the main campus. Available only on weekdays. </small>';
                         this.WolpyeongMenu = '<h6 class="my-0"><a href="./wolpyeong.html" class="caret-off-white">Wolpyeong roundtrip</a></h6><small class="text-muted">A free roundtrip bus connecting KAIST and nearby outside spots. Available on every day.</small>';
