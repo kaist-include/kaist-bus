@@ -31,7 +31,7 @@
     </script>
     <script>
         var date = new Date();
-        var forcedWeekends = [1, 24, 27];
+        var forcedWeekends = [1, 24, 27, 28];
         var isWeekends = false;
         var day = date.getDay();
         for (var i = 0; i < forcedWeekends.length; i++) {
@@ -82,12 +82,12 @@
             <div class="col-md-6">
                 <div class="row">
 
-                    <!--
+                    
                     <div class="col-md-12" style="margin-bottom: -15px;">
                         <div class="bd-callout bd-callout-danger" v-html="indexCalloutTeaser">
                         </div>
                     </div>
-                    -->
+                    
 
                     <div class="col-md-12" style="margin-bottom: -15px;">
                         <div class="bd-callout bd-callout-info" v-html="indexCallout1Title">
@@ -272,14 +272,14 @@
                     var langDetected = (navigator.language || navigator.browserLanguage);
                     this.lang = langDetected.split("-")[0];
                     if (this.lang == "ko") {
-                        this.indexCalloutTeaser = '<h4>12월 31일 버스 운행 조정 안내</h4><p>12월 31일 한정으로 시내순환과 OLEV 버스는 오전에만 운행됩니다. 문지/화암 셔틀 시간은 그대로입니다. 교직원을 위한 퇴근 버스는 13시 10분에 대강당에서 출발합니다. (출근 버스는 동일)</p>';
+                        this.indexCalloutTeaser = '<h4>설날 버스 운행 안내</h4><p>1월 24일부터 28일까지 캠퍼스 순환 노선은 주말 노선을 따르고, OLEV 버스와 시내순환 버스는 운행되지 않습니다.</p>';
                         this.indexCallout1Title = '<h4>12월 23일 OLEV 운행 노선 변경 안내</h4><p>2019년 12월 23일부터 OLEV 버스 노선이 변경됩니다. 정문까지는 기존 그대로 운행한 이후, 오리연못 대신 신소재공학동을 거쳐 희망/다솜관으로 향한 뒤 학사식당으로 돌아오게 됩니다.</p>';
                         this.indexCurrentTimer = ' 현재 시각';
                         this.OLEVMenu = '<h6 class="my-0"><a href="./olev.html" class="caret-off-white">OLEV 본교 교내순환</a></h6><small class="text-muted">교내순환 버스입니다. 평일에만 운행합니다.</small>';
                         this.WolpyeongMenu = '<h6 class="my-0"><a href="./wolpyeong.html" class="caret-off-white">시내순환 (월평)</a></h6><small class="text-muted">시내순환 버스입니다.</small>';
                         this.indexCalloutTranslation = '';
                     } else {
-                        this.indexCalloutTeaser = '<h4>Buses on Dec 31st</h4><p>For only Dec 31st, Wolpyeong roundtrip drives until 11:05 AM, and OLEV drives until 11:45 AM.</p>';
+                        this.indexCalloutTeaser = '<h4>Buses on Lunar New Year</h4><p>Jan 24th to 28th: No OLEV and Wolpyeong Bus. Have a good holiday!</p>';
                         this.indexCallout1Title = '<h4>OLEV route change (Dec 23rd)</h4><p>We have a change on the OLEV route. After passing the main gate, it visits the Materials Science and Engineering B/D, W4 Domitory, International Faculty APT, and then returns back to the cafeteria.</p>';
                         this.indexCurrentTimer = ' Time (KST)';
                         this.OLEVMenu = '<h6 class="my-0"><a href="./olev.html" class="caret-off-white">OLEV (on-campus bus)</a></h6><small class="text-muted">OLEV (on-campus bus). A free electronic bus moving within the main campus. Available only on weekdays. </small>';
