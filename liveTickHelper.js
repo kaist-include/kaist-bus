@@ -4,11 +4,11 @@ var expressWeekdaysMidnight = [];
 var expressWeekendsMidnight = [];
 
 // new year hotfix
-if (typeof arrayWeekends !== 'undefined') {
-    arrayWeekends = arrayWeekends.filter( function(item) {
-    return !(item > 250 && item < 830);
-});
-}
+//if (typeof arrayWeekends !== 'undefined') {
+//    arrayWeekends = arrayWeekends.filter( function(item) {
+//    return !(item > 250 && item < 830);
+//});
+//}
 
 
 for (var i = 0; i < arrayWeekdays.length; i++) {
