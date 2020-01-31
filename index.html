@@ -31,7 +31,7 @@
     </script>
     <script>
         var date = new Date();
-        var forcedWeekends = [1, 24, 27, 28];
+        var forcedWeekends = [];
         var isWeekends = false;
         var day = date.getDay();
         for (var i = 0; i < forcedWeekends.length; i++) {
@@ -82,12 +82,12 @@
             <div class="col-md-6">
                 <div class="row">
 
-                    
+                    <!--
                     <div class="col-md-12" style="margin-bottom: -15px;">
                         <div class="bd-callout bd-callout-danger" v-html="indexCalloutTeaser">
                         </div>
                     </div>
-                    
+                    -->
 
                     <div class="col-md-12" style="margin-bottom: -15px;">
                         <div class="bd-callout bd-callout-info" v-html="indexCallout1Title">

@@ -1,5 +1,5 @@
 var date = new Date();
-var Holidays = [23,24,25,26,27,28];
+var Holidays = [];
 var isHolidays = false;
 var day = date.getDay();
 var isDiff = false;
