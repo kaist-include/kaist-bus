@@ -1,5 +1,5 @@
 var date = new Date();
-var forcedweekends = [5];
+var forcedweekends = [5, 30];
 var isWeekends = false;
 var day = date.getDay();
 var isDiff = false;
