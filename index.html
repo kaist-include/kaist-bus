@@ -31,7 +31,7 @@
     </script>
     <script>
         var date = new Date();
-        var forcedWeekends = [0, 5];
+        var forcedWeekends = [];
         var isWeekends = false;
         var day = date.getDay();
         for (var i = 0; i < forcedWeekends.length; i++) {
@@ -273,7 +273,7 @@
                     this.lang = langDetected.split("-")[0];
                     if (this.lang == "ko") {
                         this.indexCalloutTeaser = '<h4>방학 시간표 연장 안내</h4><p>3월 16일 사이버 강의 개시 이후에도 버스 시간표는 방학 시간표대로 계속 운행됩니다.</p>';
-                        this.indexCallout1Title = '<h4>대전역/대전복합터미널 셔틀 신설 계획</h4><p>대학원 총학생회는 학부 총학생회와 함께 대전역행 셔틀과 대전복합터미널행 셔틀 노선을 개설할 계획입니다. 현재 관련 설문 조사는 종료되었습니다.</p>';
+                        this.indexCallout1Title = '<h4>Play Protect 오진단에 대해</h4><p>현재 카이스트 버스 안드로이드 앱은 인터넷 접근 권한(android.permission.INTERNET) 만을 요구하고 있습니다. 하지만 간헐적으로 Play Protect에 의해 다른 권한을 요구하는 것으로 진단되는 문제가 있어 이에 대해 어필 중에 있습니다.</p>';
                         this.indexCurrentTimer = ' 현재 시각';
                         this.OLEVMenu = '<h6 class="my-0"><a href="./olev.html" class="caret-off-white">OLEV 본교 교내순환</a></h6><small class="text-muted">교내순환 버스입니다. 평일에만 운행합니다.</small>';
                         this.WolpyeongMenu = '<h6 class="my-0"><a href="./wolpyeong.html" class="caret-off-white">시내순환 (월평)</a></h6><small class="text-muted">시내순환 버스입니다.</small>';
