@@ -31,7 +31,7 @@
     </script>
     <script>
         var date = new Date();
-        var forcedWeekends = [];
+        var forcedWeekends = [17];
         var isWeekends = false;
         var day = date.getDay();
         for (var i = 0; i < forcedWeekends.length; i++) {
@@ -272,8 +272,8 @@
                     var langDetected = (navigator.language || navigator.browserLanguage);
                     this.lang = langDetected.split("-")[0];
                     if (this.lang == "ko") {
-                        this.indexCalloutTeaser = '<h4>방학 시간표 연장 안내</h4><p>3월 16일 사이버 강의 개시 이후에도 버스 시간표는 방학 시간표대로 계속 운행됩니다.</p>';
-                        this.indexCallout1Title = '<h4>Play Protect 오진단에 대해</h4><p>현재 카이스트 버스 안드로이드 앱은 인터넷 접근 권한(android.permission.INTERNET) 만을 요구하고 있습니다. 하지만 간헐적으로 Play Protect에 의해 다른 권한을 요구하는 것으로 진단되는 문제가 있어 이에 대해 어필 중에 있습니다.</p>';
+                        this.indexCalloutTeaser = '<h4>카이스트 버스 개편 작업 안내</h4><p>9월 릴리즈를 목표로 카이스트 버스 서비스 개편 작업을 여름 동안 진행하고 있습니다. 버스 시간표 이외에도 학내 구성원들에게 조금 더 많은 도움을 줄 수 있는 기능을 추가하고 새로운 iOS 및 안드로이드 앱을 통해 모바일 접근성을 개선하는 작업 중에 있습니다.</p>';
+                        this.indexCallout1Title = '<h4>방학 시간표 연장 안내</h4><p>온라인 개강의 특성 상 지속적으로 방학 버스 시간표대로 버스가 운행되고 있습니다. 2020년 가을학기에 변경 사항이 있으면 빠르게 알려드리도록 하겠습니다.</p>';
                         this.indexCurrentTimer = ' 현재 시각';
                         this.OLEVMenu = '<h6 class="my-0"><a href="./olev.html" class="caret-off-white">OLEV 본교 교내순환</a></h6><small class="text-muted">교내순환 버스입니다. 평일에만 운행합니다.</small>';
                         this.WolpyeongMenu = '<h6 class="my-0"><a href="./wolpyeong.html" class="caret-off-white">시내순환 (월평)</a></h6><small class="text-muted">시내순환 버스입니다.</small>';
