@@ -31,7 +31,7 @@
     </script>
     <script>
         var date = new Date();
-        var forcedWeekends = [30];
+        var forcedWeekends = [30, 0, 2];
         var isWeekends = false;
         var day = date.getDay();
         for (var i = 0; i < forcedWeekends.length; i++) {
@@ -272,15 +272,15 @@
                     var langDetected = (navigator.language || navigator.browserLanguage);
                     this.lang = langDetected.split("-")[0];
                     if (this.lang == "ko") {
-                        this.indexCalloutTeaser = '<h4>2020 추석 귀향 버스 수요 조사</h4><p>추석 귀향 버스 표를 학생복지위원회에서 판매합니다. 온라인으로 19일 토요일까지 판매되며 자세한 사항은 아래 링크를 참고해 주세요!</p><a href="http://bus.kaist.ac.kr/holidaySpecial.html" target="_blank"><button type="button" class="btn btn-dark">2020 추석 귀향버스 안내</button></a>';
-                        this.indexCallout1Title = '<h4>2020년 가을학기: 방학 시간표 운행 안내</h4><p>온라인 개강의 특성 상 2020년 가을학기에도 방학 시간표대로 버스가 운행됩니다. 추석 운행 시간표의 경우 추후 안내 드리겠습니다.</p>';
+                        this.indexCalloutTeaser = '<h4>2020 추석 버스 안내</h4><p>9월 30일부터 10월 2일까지는 모든 버스가 공휴일 시간표에 따라 버스가 운행됩니다. (OLEV와 월평순환은 운행하지 않습니다.) 단, 10월 1일 캠퍼스 순환 버스는 13시 50분부터 운행됩니다.</p>';
+                        this.indexCallout1Title = '<h4>2020년 가을학기: 방학 시간표 운행 안내</h4><p>온라인 개강의 특성 상 2020년 가을학기에도 방학 시간표대로 버스가 운행됩니다.</p>';
                         this.indexCurrentTimer = ' 현재 시각';
                         this.OLEVMenu = '<h6 class="my-0"><a href="./olev.html" class="caret-off-white">OLEV 본교 교내순환</a></h6><small class="text-muted">교내순환 버스입니다. 평일에만 운행합니다.</small>';
                         this.WolpyeongMenu = '<h6 class="my-0"><a href="./wolpyeong.html" class="caret-off-white">시내순환 (월평)</a></h6><small class="text-muted">시내순환 버스입니다.</small>';
                         this.indexCalloutTranslation = '';
                     } else {
                         this.indexCalloutTeaser = '<h4>Bus Schedules in Fall 2020</h4><p>While we start online lectures again this fall, bus schdules keep following the schedule of summer vacation.</p>';
-                        this.indexCallout1Title = '<h4>Plan on the new routes</h4><p>GSA is planning to provide shuttle bus between KAIST and the Daejeon Station & Daejeon Complex Terminal.</p>';
+                        this.indexCallout1Title = '<h4>Happy Chuseok!</h4><p>There is no OLEV and Wolpyeong bus during the Chuseok holiday period (Sep 30th to Oct 2nd).</p>';
                         this.indexCurrentTimer = ' Time (KST)';
                         this.OLEVMenu = '<h6 class="my-0"><a href="./olev.html" class="caret-off-white">OLEV (on-campus bus)</a></h6><small class="text-muted">OLEV (on-campus bus). A free electronic bus moving within the main campus. Available only on weekdays. </small>';
                         this.WolpyeongMenu = '<h6 class="my-0"><a href="./wolpyeong.html" class="caret-off-white">Wolpyeong roundtrip</a></h6><small class="text-muted">A free roundtrip bus connecting KAIST and nearby outside spots. Available on every day.</small>';

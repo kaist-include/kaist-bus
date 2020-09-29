@@ -3,12 +3,15 @@ var arrayWeekendsMidnight = [];
 var expressWeekdaysMidnight = [];
 var expressWeekendsMidnight = [];
 
-// new year hotfix
-//if (typeof arrayWeekends !== 'undefined') {
-//    arrayWeekends = arrayWeekends.filter( function(item) {
-//    return !(item > 250 && item < 830);
-//});
-//}
+
+// chuseok hotfix
+/*
+if (typeof arrayWeekends !== 'undefined') {
+    arrayWeekends = arrayWeekends.filter(function(item) {
+        return !(item > 250 && item < 830);
+    });
+}
+*/
 
 
 for (var i = 0; i < arrayWeekdays.length; i++) {
@@ -27,7 +30,7 @@ array1 = [];
 expressBus = [];
 setInterval(function() {
     var date = new Date();
-    var forcedWeekends = [30];
+    var forcedWeekends = [30, 0, 2];
     var isWeekends = false;
     var isWeekendsYesterday = false;
     var day = date.getDay();

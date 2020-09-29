@@ -212,6 +212,7 @@ a {
 }
 
 #carousel_main {
+    display: None;
     background-color: black;
     max-height: 100px;
     max-width: 1000px;
@@ -354,7 +355,7 @@ blockquote {
 }
 
 .specialHolidayCallout {
-    display: none;
+    display: block;
 }
 
 .androidApp {
