@@ -30,7 +30,7 @@ array1 = [];
 expressBus = [];
 setInterval(function() {
     var date = new Date();
-    var forcedWeekends = [30, 0, 1, 2];
+    var forcedWeekends = [9];
     var isWeekends = false;
     var isWeekendsYesterday = false;
     var day = date.getDay();
