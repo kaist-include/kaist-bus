@@ -272,15 +272,16 @@
                     var langDetected = (navigator.language || navigator.browserLanguage);
                     this.lang = langDetected.split("-")[0];
                     if (this.lang == "ko") {
-                        // this.indexCalloutTeaser = '<h4>12월 3일 수능일 출근버스 변경</h4><p>수능 당일 출근버스는 기존 시간표보다 1시간 늦게 운행되고 퇴근버스는 정상 운행됩니다.</p>';
-                        this.indexCalloutTeaser = '<h4>카이스트 버스 개편 작업 안내</h4><p>카이스트 버스 서비스 개편 작업이 진행중입니다. 잠시만 더 기다려 주세요!</p>';
+                        this.indexCalloutTeaser = '<h4>12월 31일 종무식</h4><p>12월 31일 종무식으로 인해 OLEV 및 월평 노선은 오후에 운행하지 않을 수 있습니다.</p>';
+                        //this.indexCalloutTeaser = '<h4>카이스트 버스 개편 작업 안내</h4><p>카이스트 버스 서비스 개편 작업이 진행중입니다. 잠시만 더 기다려 주세요!</p>';
                         this.indexCallout1Title = '<h4>2020년 가을학기: 방학 시간표 운행 안내</h4><p>온라인 개강의 특성 상 2020년 가을학기에도 방학 시간표대로 버스가 운행됩니다.</p>';
                         this.indexCurrentTimer = ' 현재 시각';
                         this.OLEVMenu = '<h6 class="my-0"><a href="./olev.html" class="caret-off-white">OLEV 본교 교내순환</a></h6><small class="text-muted">교내순환 버스입니다. 평일에만 운행합니다.</small>';
                         this.WolpyeongMenu = '<h6 class="my-0"><a href="./wolpyeong.html" class="caret-off-white">시내순환 (월평)</a></h6><small class="text-muted">시내순환 버스입니다.</small>';
                         this.indexCalloutTranslation = '';
                     } else {
-                        this.indexCalloutTeaser = '<h4>Bus Schedules in Fall 2020</h4><p>While we start online lectures again this fall, bus schdules keep following the schedule of summer vacation.</p>';
+                        this.indexCalloutTeaser = '<h4>Dec 31st schedule</h4><p>On december 31st, OLEV and Wolpyeong city bus schedule after noon may not operate.';
+                        //this.indexCalloutTeaser = '<h4>Bus Schedules in Fall 2020</h4><p>While we start online lectures again this fall, bus schdules keep following the schedule of summer vacation.</p>';
                         this.indexCallout1Title = '';
                         this.indexCurrentTimer = ' Time (KST)';
                         this.OLEVMenu = '<h6 class="my-0"><a href="./olev.html" class="caret-off-white">OLEV (on-campus bus)</a></h6><small class="text-muted">OLEV (on-campus bus). A free electronic bus moving within the main campus. Available only on weekdays. </small>';
