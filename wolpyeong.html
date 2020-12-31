@@ -34,8 +34,8 @@
     <script src="./warningForForcedHolidays.js"></script>
     <script src="./warningForWeekdays.js"></script>
     <script>
-        var array1 = [545, 605, 665, 665];
-        // var array1 = [545, 605, 665, 785, 845, 905, 965, 1025, 1085];
+        //var array1 = [545, 605, 665, 665];
+        var array1 = [545, 605, 665, 785, 845, 905, 965, 1025, 1085];
         var delay = [0, 1, 3, 4, 10, 15, 20, 27, 35, 38, 39, 40, 41];
         var langDetected = (navigator.language || navigator.browserLanguage);
         var language = langDetected.split("-")[0];
@@ -196,13 +196,13 @@
         function contentsMaker2(offset1, offset2) {
             var contents = "";
             if (language == "ko") {
-                contents += "<tr><td colspan='2' style='color:#413b98'>" + "[안내] 12월 31일은 오전 11시 05분 강당 출발 버스가 마지막 버스입니다." + "</td></tr>";
+                //contents += "<tr><td colspan='2' style='color:#413b98'>" + "[안내] 12월 31일은 오전 11시 05분 강당 출발 버스가 마지막 버스입니다." + "</td></tr>";
                 contents += "<tr><td colspan='2' style='color:#413b98'>" + "[안내] 아래의 9회차 시간표는 시내 교통 상황에 따라 원래의 시간표에서 상당한 시간 지연되는 경우가 많습니다." + "</td></tr>";
                 for (i = 0; i < 1; i++) {
                     contents += "<tr><td colspan='2'>" + int2str(array2[i] + offset1) + " (평균 추가 지연 시간 " + offset2 + " 분)" + "</td></tr>";
                 }
             } else {
-                contents += "<tr><td colspan='2' style='color:#413b98'>" + "[Notice] On Dec 31st, The bus departing from Auditorium at 11:05 AM is the last bus." + "</td></tr>";
+                //contents += "<tr><td colspan='2' style='color:#413b98'>" + "[Notice] On Dec 31st, The bus departing from Auditorium at 11:05 AM is the last bus." + "</td></tr>";
                 contents += "<tr><td colspan='2' style='color:#413b98'>" + "[Notice] The 9th bus below has a long delay from original schedule due to the surging traffics." + "</td></tr>";
                 for (i = 0; i < 1; i++) {
                     contents += "<tr><td colspan='2'>" + int2str(array2[i] + offset1) + " (+ expected delay: " + offset2 + " minutes)" + "</td></tr>";
@@ -319,6 +319,7 @@
         </div>
     </nav>
 
+    <!--
     <div class="container container-callout-3" style="display: None;">
         <div class="col-md-12">
             <div class="bd-callout bd-callout-info" v-html="OLEVCallout3">
@@ -327,6 +328,7 @@
             </div>
         </div>
     </div>
+    -->
 
     <div id="warningForDaysInversion"></div>
 
