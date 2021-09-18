@@ -31,7 +31,7 @@
     </script>
     <script>
         var date = new Date();
-        var forcedWeekends = [];
+        var forcedWeekends = [20, 21, 22];
         var isWeekends = false;
         var day = date.getDay();
         for (var i = 0; i < forcedWeekends.length; i++) {
@@ -272,15 +272,16 @@
                     var langDetected = (navigator.language || navigator.browserLanguage);
                     this.lang = langDetected.split("-")[0];
                     if (this.lang == "ko") {
-                        //this.indexCalloutTeaser = '<h4>12월 31일 종무식</h4><p>12월 31일 종무식으로 인해 OLEV 및 월평 노선은 오후에 운행하지 않을 수 있습니다.</p>';
-                        this.indexCalloutTeaser = '<h4>새로운 앱을 테스트해 주세요!</h4><p>버스 시간표 뿐만 아니라 각종 시설 운영 시간 등 편의 정보를 담은 새로운 앱을 테스트하고 있습니다. <a href="https://apps.apple.com/app/id1555938858?fbclid=IwAR0nyGdsUbYowor-KNMwfwrdeQhuYpkGbrENGCSWIPPp1WQAd63M47WI8Hs" target="_blank" style="text-decoration: underline;">iOS 버전</a>과 <a href="https://play.google.com/store/apps/details?id=kr.ac.kaist.bus" target="_blank" style="text-decoration: underline;">안드로이드 버전</a>을 체험해 보시고 앱 내 구글 닥스를 통해 코멘트를 남겨주세요!</p>';
+                        this.indexCalloutTeaser = '<h4>추석 시간표</h4><p>추석 연휴동안은 버스가 주간 시간표대로 운영되고 추석 당일은 캠퍼스 순환 노선이 문지 출발 기준 13시 50분, 본교 출발 기준 14시 30분부터 운영됩니다.</p>';
+                        //this.indexCalloutTeaser = '<h4>새로운 앱을 테스트해 주세요!</h4><p>버스 시간표 뿐만 아니라 각종 시설 운영 시간 등 편의 정보를 담은 새로운 앱을 테스트하고 있습니다. <a href="https://apps.apple.com/app/id1555938858?fbclid=IwAR0nyGdsUbYowor-KNMwfwrdeQhuYpkGbrENGCSWIPPp1WQAd63M47WI8Hs" target="_blank" style="text-decoration: underline;">iOS 버전</a>과 <a href="https://play.google.com/store/apps/details?id=kr.ac.kaist.bus" target="_blank" style="text-decoration: underline;">안드로이드 버전</a>을 체험해 보시고 앱 내 구글 닥스를 통해 코멘트를 남겨주세요!</p>';
                         this.indexCallout1Title = '<h4>2021년 가을학기: 방학 시간표 운행 안내</h4><p>온라인 개강의 특성 상 2021년 가을학기에도 방학 시간표대로 버스가 운행됩니다.</p>';
                         this.indexCurrentTimer = ' 현재 시각';
                         this.OLEVMenu = '<h6 class="my-0"><a href="./olev.html" class="caret-off-white">OLEV 본교 교내순환</a></h6><small class="text-muted">교내순환 버스입니다. 평일에만 운행합니다.</small>';
                         this.WolpyeongMenu = '<h6 class="my-0"><a href="./wolpyeong.html" class="caret-off-white">시내순환 (월평)</a></h6><small class="text-muted">시내순환 버스입니다.</small>';
                         this.indexCalloutTranslation = '';
                     } else {
-                        this.indexCalloutTeaser = '<h4>Test the new apps!</h4><p>We are testing new apps of KAIST BUS, even including facilities operating hours! Try <a href="https://apps.apple.com/app/id1555938858?fbclid=IwAR0nyGdsUbYowor-KNMwfwrdeQhuYpkGbrENGCSWIPPp1WQAd63M47WI8Hs" target="_blank"  style="text-decoration: underline;">iOS version</a> and <a href="https://play.google.com/store/apps/details?id=kr.ac.kaist.bus" target="_blank" style="text-decoration: underline;">Android version</a> and then leave any comment you have in mind in the Google docs form!</p>';
+                        this.indexCalloutTeaser = '<h4>Happy Chuseok!</h4><p>During Chuseok holidays (until 22nd), bus schedules follow weekend tables. On Sep 21st, no inter-campus routes will run before noon.</p>';
+                        //this.indexCalloutTeaser = '<h4>Test the new apps!</h4><p>We are testing new apps of KAIST BUS, even including facilities operating hours! Try <a href="https://apps.apple.com/app/id1555938858?fbclid=IwAR0nyGdsUbYowor-KNMwfwrdeQhuYpkGbrENGCSWIPPp1WQAd63M47WI8Hs" target="_blank"  style="text-decoration: underline;">iOS version</a> and <a href="https://play.google.com/store/apps/details?id=kr.ac.kaist.bus" target="_blank" style="text-decoration: underline;">Android version</a> and then leave any comment you have in mind in the Google docs form!</p>';
                         this.indexCallout1Title = '<h4>Bus Schedules in Fall 2021</h4><p>Due to the online lectures, bus schedules follows the schedule of the spring & winter semesters.</p>';
                         this.indexCurrentTimer = ' Time (KST)';
                         this.OLEVMenu = '<h6 class="my-0"><a href="./olev.html" class="caret-off-white">OLEV (on-campus bus)</a></h6><small class="text-muted">OLEV (on-campus bus). A free electronic bus moving within the main campus. Available only on weekdays. </small>';
