@@ -4,13 +4,14 @@ var expressWeekdaysMidnight = [];
 var expressWeekendsMidnight = [];
 
 
-
+/*
 // chuseok hotfix
 if (typeof arrayWeekends !== 'undefined') {
     arrayWeekends = arrayWeekends.filter(function(item) {
         return !(item > 250 && item < 830);
     });
 }
+*/
 
 
 
