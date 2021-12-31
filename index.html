@@ -84,138 +84,138 @@
 
 
                     <div class="col-md-12" style="margin-bottom: -15px;">
-                        <div class="bd-callout bd-callout-danger" v-html="indexCalloutTeaser">
+                        <div class="bd-callout bd-callout-danger" v-html="indexCalloutTeaser" style="display: none;">
                         </div>
                     </div>
 
 
                     <div class="col-md-12" style="margin-bottom: -15px;">
-                        <div class="bd-callout bd-callout-info" v-html="indexCallout1Title">
+                        <div class="bd-callout bd-callout-info" v-html="indexCallout1Title" style="display: none;>
                         </div>
                     </div>
 
 
-                    <div class="col-md-12 order-md-1 mb-1">
-                        <div class="card bg-light text-light text-center index-time" style="margin-top:22px; margin-bottom:6px;">
-                            <div class="card-body">
-                                <div class="container timers">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <h4 style="margin-top:7px;" data-toggle="tooltip" data-placement="top" title="현재 시각(Current time)"><i class="far fa-clock"></i><span v-html="indexCurrentTimer"></span></h4>
-                                            <div class="spinner-border text-info spinner-timer"></div>
-                                            <span class="current_timer" style="margin-bottom:0; font-size:2.5rem;"></span>
+                    <div class=" col-md-12 order-md-1 mb-1 ">
+                        <div class="card bg-light text-light text-center index-time " style="margin-top:22px; margin-bottom:6px; ">
+                            <div class="card-body ">
+                                <div class="container timers ">
+                                    <div class="row ">
+                                        <div class="col-12 ">
+                                            <h4 style="margin-top:7px; " data-toggle="tooltip " data-placement="top " title="현재 시각(Current time) "><i class="far fa-clock "></i><span v-html="indexCurrentTimer "></span></h4>
+                                            <div class="spinner-border text-info spinner-timer "></div>
+                                            <span class="current_timer " style="margin-bottom:0; font-size:2.5rem; "></span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 order-md-2 mb-1">
+                    <div class="col-md-12 order-md-2 mb-1 ">
 
-                        <div id="carousel"></div>
+                        <div id="carousel "></div>
                     </div>
                 </div>
             </div>
 
 
-            <div class="col-md-6 order-md-2 mb-1">
-                <ul class="list-group index-list mb-3" style="border-left-color: #413b98;">
+            <div class="col-md-6 order-md-2 mb-1 ">
+                <ul class="list-group index-list mb-3 " style="border-left-color: #413b98; ">
                     <li class="list-group-item d-flex justify-content-between lh-condensed ">
-                        <div v-html="OLEVMenu">
+                        <div v-html="OLEVMenu ">
                         </div>
-                        <span class="text-muted"></span>
+                        <span class="text-muted "></span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between lh-condensed ">
-                        <div v-html="WolpyeongMenu">
+                        <div v-html="WolpyeongMenu ">
                         </div>
-                        <span class="text-muted"></span>
+                        <span class="text-muted "></span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between lh-condensed ">
                         <div>
-                            <h6 class="my-0">
-                                <div class="dropleft">
-                                    <span class="caret-off-white index-button dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <h6 class="my-0 ">
+                                <div class="dropleft ">
+                                    <span class="caret-off-white index-button dropdown-toggle " data-toggle="dropdown " aria-haspopup="true " aria-expanded="false ">
                                                                                     본교 출발
                                     </span>
-                                    <div class="dropdown-menu">
-                                        <h6 class="dropdown-header">본교 출발 버스</h6>
-                                        <a class="dropdown-item" href="./main_live.html">오늘 시간표 <span class="badge badge-info">TODAY</span> </a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="./main_weekdays.html">주중</a>
-                                        <a class="dropdown-item" href="./main_weekends.html">주말/공휴일</a>
+                                    <div class="dropdown-menu ">
+                                        <h6 class="dropdown-header ">본교 출발 버스</h6>
+                                        <a class="dropdown-item " href="./main_live.html ">오늘 시간표 <span class="badge badge-info ">TODAY</span> </a>
+                                        <div class="dropdown-divider "></div>
+                                        <a class="dropdown-item " href="./main_weekdays.html ">주중</a>
+                                        <a class="dropdown-item " href="./main_weekends.html ">주말/공휴일</a>
                                     </div>
                                 </div>
                             </h6>
-                            <small class="text-muted">본교에서 문지, 화암으로 가는 버스입니다.</small>
+                            <small class="text-muted ">본교에서 문지, 화암으로 가는 버스입니다.</small>
                         </div>
-                        <span class="text-muted"></span>
+                        <span class="text-muted "></span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between lh-condensed ">
                         <div>
-                            <h6 class="my-0">
-                                <div class="dropleft">
-                                    <span class="caret-off-white index-button dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <h6 class="my-0 ">
+                                <div class="dropleft ">
+                                    <span class="caret-off-white index-button dropdown-toggle " data-toggle="dropdown " aria-haspopup="true " aria-expanded="false ">
                                                                                         문지 출발
                                                 </span>
-                                    <div class="dropdown-menu">
-                                        <h6 class="dropdown-header">문지 출발 버스</h6>
-                                        <a class="dropdown-item" href="./munji_inbound_live.html">본교행 <span class="badge badge-info">TODAY</span> </a>
-                                        <a class="dropdown-item" href="./munji_outbound_live.html">화암행 <span class="badge badge-info">TODAY</span> </a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="./munji_weekdays_inbound.html">본교행 주중</a>
-                                        <a class="dropdown-item" href="./munji_weekends_inbound.html">본교행 주말/공휴일</a>
-                                        <a class="dropdown-item" href="./munji_weekdays_outbound.html">화암행 주중</a>
-                                        <a class="dropdown-item" href="./munji_weekends_outbound.html">화암행 주말/공휴일</a>
+                                    <div class="dropdown-menu ">
+                                        <h6 class="dropdown-header ">문지 출발 버스</h6>
+                                        <a class="dropdown-item " href="./munji_inbound_live.html ">본교행 <span class="badge badge-info ">TODAY</span> </a>
+                                        <a class="dropdown-item " href="./munji_outbound_live.html ">화암행 <span class="badge badge-info ">TODAY</span> </a>
+                                        <div class="dropdown-divider "></div>
+                                        <a class="dropdown-item " href="./munji_weekdays_inbound.html ">본교행 주중</a>
+                                        <a class="dropdown-item " href="./munji_weekends_inbound.html ">본교행 주말/공휴일</a>
+                                        <a class="dropdown-item " href="./munji_weekdays_outbound.html ">화암행 주중</a>
+                                        <a class="dropdown-item " href="./munji_weekends_outbound.html ">화암행 주말/공휴일</a>
                                     </div>
                                 </div>
                             </h6>
-                            <small class="text-muted">문지에서 본교, 화암으로 가는 버스입니다.</small>
+                            <small class="text-muted ">문지에서 본교, 화암으로 가는 버스입니다.</small>
                         </div>
-                        <span class="text-muted"></span>
+                        <span class="text-muted "></span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between lh-condensed ">
                         <div>
-                            <h6 class="my-0">
-                                <div class="dropleft">
-                                    <span class="caret-off-white index-button dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <h6 class="my-0 ">
+                                <div class="dropleft ">
+                                    <span class="caret-off-white index-button dropdown-toggle " data-toggle="dropdown " aria-haspopup="true " aria-expanded="false ">
                                                                                             화암 출발
                                                     </span>
-                                    <div class="dropdown-menu">
-                                        <h6 class="dropdown-header">화암 출발 버스</h6>
-                                        <a class="dropdown-item" href="./hwaam_live.html">본교행 <span class="badge badge-info">TODAY</span> </a>
-                                        <a class="dropdown-item" href="./hwaam_to_munji_live.html">문지행 <span class="badge badge-info">TODAY</span> </a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="./hwaam_weekdays.html">본교행 주중</a>
-                                        <a class="dropdown-item" href="./hwaam_weekends.html">본교행 주말/공휴일</a>
-                                        <a class="dropdown-item" href="./hwaam_to_munji_weekdays.html">문지행 주중</a>
-                                        <a class="dropdown-item" href="./hwaam_to_munji_weekends.html">문지행 주말/공휴일</a>
+                                    <div class="dropdown-menu ">
+                                        <h6 class="dropdown-header ">화암 출발 버스</h6>
+                                        <a class="dropdown-item " href="./hwaam_live.html ">본교행 <span class="badge badge-info ">TODAY</span> </a>
+                                        <a class="dropdown-item " href="./hwaam_to_munji_live.html ">문지행 <span class="badge badge-info ">TODAY</span> </a>
+                                        <div class="dropdown-divider "></div>
+                                        <a class="dropdown-item " href="./hwaam_weekdays.html ">본교행 주중</a>
+                                        <a class="dropdown-item " href="./hwaam_weekends.html ">본교행 주말/공휴일</a>
+                                        <a class="dropdown-item " href="./hwaam_to_munji_weekdays.html ">문지행 주중</a>
+                                        <a class="dropdown-item " href="./hwaam_to_munji_weekends.html ">문지행 주말/공휴일</a>
                                     </div>
                                 </div>
                             </h6>
-                            <small class="text-muted">화암에서 본교, 문지로 가는 버스입니다.</small>
+                            <small class="text-muted ">화암에서 본교, 문지로 가는 버스입니다.</small>
                         </div>
-                        <span class="text-muted"></span>
+                        <span class="text-muted "></span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between lh-condensed ">
                         <div>
-                            <h6 class="my-0">
-                                <div class="dropleft">
-                                    <span class="caret-off-white index-button dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <h6 class="my-0 ">
+                                <div class="dropleft ">
+                                    <span class="caret-off-white index-button dropdown-toggle " data-toggle="dropdown " aria-haspopup="true " aria-expanded="false ">
                                                                                                 통근 버스
                                                         </span>
-                                    <div class="dropdown-menu">
-                                        <h6 class="dropdown-header">통근버스 시간표</h6>
-                                        <a class="dropdown-item" href="./commute_inbound.html">출근 노선</a>
-                                        <a class="dropdown-item" href="./commute_outbound.html">퇴근 노선</a>
+                                    <div class="dropdown-menu ">
+                                        <h6 class="dropdown-header ">통근버스 시간표</h6>
+                                        <a class="dropdown-item " href="./commute_inbound.html ">출근 노선</a>
+                                        <a class="dropdown-item " href="./commute_outbound.html ">퇴근 노선</a>
                                     </div>
                                 </div>
                             </h6>
-                            <small class="text-muted">교직원 전용 통근 버스입니다.</small>
+                            <small class="text-muted ">교직원 전용 통근 버스입니다.</small>
                         </div>
-                        <span class="text-muted"></span>
+                        <span class="text-muted "></span>
                     </li>
                 </ul>
-                <div v-html="indexCalloutTranslation">
+                <div v-html="indexCalloutTranslation ">
                 </div>
             </div>
 
@@ -223,20 +223,20 @@
     </div>
 
 
-    <div class="container">
+    <div class="container ">
 
     </div>
 
 
 
-    <div id="footer"></div>
+    <div id="footer "></div>
 
-    <script type="text/javascript">
+    <script type="text/javascript ">
         var vue_det = new Vue({
             el: 'head',
             data: {
-                lang: "",
-                titleText: "",
+                lang: " ",
+                titleText: " ",
             },
             mounted: function() {
                 this.detectLanguage()
@@ -244,11 +244,11 @@
             methods: {
                 detectLanguage: function() {
                     var langDetected = (navigator.language || navigator.browserLanguage);
-                    this.lang = langDetected.split("-")[0];
-                    if (this.lang == "ko") {
-                        this.titleText = "KAIST 버스 2.0";
+                    this.lang = langDetected.split("- ")[0];
+                    if (this.lang == "ko ") {
+                        this.titleText = "KAIST 버스 2.0 ";
                     } else {
-                        this.titleText = "KAIST BUS 2.0 (English)";
+                        this.titleText = "KAIST BUS 2.0 (English) ";
                     }
                 },
             }
@@ -256,13 +256,13 @@
         var vue_det2 = new Vue({
             el: '#indexPageMainContainer',
             data: {
-                lang: "",
-                indexCallout1Title: "",
-                indexCurrentTimer: "",
-                indexCalloutTeaser: "",
-                OLEVMenu: "",
-                WolpyeongMenu: "",
-                indexCalloutTranslation: ""
+                lang: " ",
+                indexCallout1Title: " ",
+                indexCurrentTimer: " ",
+                indexCalloutTeaser: " ",
+                OLEVMenu: " ",
+                WolpyeongMenu: " ",
+                indexCalloutTranslation: " "
             },
             mounted: function() {
                 this.detectLanguage()
@@ -270,23 +270,25 @@
             methods: {
                 detectLanguage: function() {
                     var langDetected = (navigator.language || navigator.browserLanguage);
-                    this.lang = langDetected.split("-")[0];
-                    if (this.lang == "ko") {
+                    this.lang = langDetected.split("- ")[0];
+                    if (this.lang == "ko ") {
                         this.indexCalloutTeaser = '<h4>12월 31일 시간표</h4><p>12월 31일은 캠퍼스 순환은 주중 시간표로 정상 운행되나 월평셔틀과 올레브는 오전만 운행합니다.</p>';
-                        //this.indexCalloutTeaser = '<h4>새로운 앱을 테스트해 주세요!</h4><p>버스 시간표 뿐만 아니라 각종 시설 운영 시간 등 편의 정보를 담은 새로운 앱을 테스트하고 있습니다. <a href="https://apps.apple.com/app/id1555938858?fbclid=IwAR0nyGdsUbYowor-KNMwfwrdeQhuYpkGbrENGCSWIPPp1WQAd63M47WI8Hs" target="_blank" style="text-decoration: underline;">iOS 버전</a>과 <a href="https://play.google.com/store/apps/details?id=kr.ac.kaist.bus" target="_blank" style="text-decoration: underline;">안드로이드 버전</a>을 체험해 보시고 앱 내 구글 닥스를 통해 코멘트를 남겨주세요!</p>';
+                        //this.indexCalloutTeaser = '<h4>새로운 앱을 테스트해 주세요!</h4><p>버스 시간표 뿐만 아니라 각종 시설 운영 시간 등 편의 정보를 담은 새로운 앱을 테스트하고 있습니다. <a href="https://apps.apple.com/app/id1555938858?fbclid=IwAR0nyGdsUbYowor-KNMwfwrdeQhuYpkGbrENGCSWIPPp1WQAd63M47WI8Hs
+                            " target="_blank " style="text-decoration: underline; ">iOS 버전</a>과 <a href="https://play.google.com/store/apps/details?id=kr.ac.kaist.bus " target="_blank " style="text-decoration: underline; ">안드로이드 버전</a>을 체험해 보시고 앱 내 구글 닥스를 통해 코멘트를 남겨주세요!</p>';
                         this.indexCallout1Title = '<h4>2021년 가을학기: 방학 시간표 운행 안내</h4><p>온라인 개강의 특성 상 2021년 가을학기에도 방학 시간표대로 버스가 운행됩니다.</p>';
                         this.indexCurrentTimer = ' 현재 시각';
-                        this.OLEVMenu = '<h6 class="my-0"><a href="./olev.html" class="caret-off-white">OLEV 본교 교내순환</a></h6><small class="text-muted">교내순환 버스입니다. 평일에만 운행합니다.</small>';
-                        this.WolpyeongMenu = '<h6 class="my-0"><a href="./wolpyeong.html" class="caret-off-white">시내순환 (월평)</a></h6><small class="text-muted">시내순환 버스입니다.</small>';
+                        this.OLEVMenu = '<h6 class="my-0 "><a href="./olev.html " class="caret-off-white ">OLEV 본교 교내순환</a></h6><small class="text-muted ">교내순환 버스입니다. 평일에만 운행합니다.</small>';
+                        this.WolpyeongMenu = '<h6 class="my-0 "><a href="./wolpyeong.html " class="caret-off-white ">시내순환 (월평)</a></h6><small class="text-muted ">시내순환 버스입니다.</small>';
                         this.indexCalloutTranslation = '';
                     } else {
                         this.indexCalloutTeaser = '<h4>Dec 31st changes</h4><p>Wolpeyong routes and OLEV only run before noon today.</p>';
-                        //this.indexCalloutTeaser = '<h4>Test the new apps!</h4><p>We are testing new apps of KAIST BUS, even including facilities operating hours! Try <a href="https://apps.apple.com/app/id1555938858?fbclid=IwAR0nyGdsUbYowor-KNMwfwrdeQhuYpkGbrENGCSWIPPp1WQAd63M47WI8Hs" target="_blank"  style="text-decoration: underline;">iOS version</a> and <a href="https://play.google.com/store/apps/details?id=kr.ac.kaist.bus" target="_blank" style="text-decoration: underline;">Android version</a> and then leave any comment you have in mind in the Google docs form!</p>';
+                        //this.indexCalloutTeaser = '<h4>Test the new apps!</h4><p>We are testing new apps of KAIST BUS, even including facilities operating hours! Try <a href="https://apps.apple.com/app/id1555938858?fbclid=IwAR0nyGdsUbYowor-KNMwfwrdeQhuYpkGbrENGCSWIPPp1WQAd63M47WI8Hs
+                            " target="_blank "  style="text-decoration: underline; ">iOS version</a> and <a href="https://play.google.com/store/apps/details?id=kr.ac.kaist.bus " target="_blank " style="text-decoration: underline; ">Android version</a> and then leave any comment you have in mind in the Google docs form!</p>';
                         this.indexCallout1Title = '<h4>Bus Schedules in Fall 2021</h4><p>Due to the online lectures, bus schedules follows the schedule of the spring & winter semesters.</p>';
                         this.indexCurrentTimer = ' Time (KST)';
-                        this.OLEVMenu = '<h6 class="my-0"><a href="./olev.html" class="caret-off-white">OLEV (on-campus bus)</a></h6><small class="text-muted">OLEV (on-campus bus). A free electronic bus moving within the main campus. Available only on weekdays. </small>';
-                        this.WolpyeongMenu = '<h6 class="my-0"><a href="./wolpyeong.html" class="caret-off-white">Wolpyeong roundtrip</a></h6><small class="text-muted">A free roundtrip bus connecting KAIST and nearby outside spots. Available on every day.</small>';
-                        this.indexCalloutTranslation = '<div class="bd-callout bd-callout-warning"><h4>Translation In Progress</h4><p>Thank you for your interest on KAIST BUS service. I decided to provide an English version of this service since I got surging requests, but it would take some time to finish translation because I am very busy doing my main work. Sorry for the inconvenience.</p></div>';
+                        this.OLEVMenu = '<h6 class="my-0 "><a href="./olev.html " class="caret-off-white ">OLEV (on-campus bus)</a></h6><small class="text-muted ">OLEV (on-campus bus). A free electronic bus moving within the main campus. Available only on weekdays. </small>';
+                        this.WolpyeongMenu = '<h6 class="my-0 "><a href="./wolpyeong.html " class="caret-off-white ">Wolpyeong roundtrip</a></h6><small class="text-muted ">A free roundtrip bus connecting KAIST and nearby outside spots. Available on every day.</small>';
+                        this.indexCalloutTranslation = '<div class="bd-callout bd-callout-warning "><h4>Translation In Progress</h4><p>Thank you for your interest on KAIST BUS service. I decided to provide an English version of this service since I got surging requests, but it would take some time to finish translation because I am very busy doing my main work. Sorry for the inconvenience.</p></div>';
                     }
                 },
             }
