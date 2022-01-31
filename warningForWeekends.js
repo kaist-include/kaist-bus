@@ -1,11 +1,15 @@
 var date = new Date();
-var forcedWeekends = [1, 25, 32];
+var
+var forcedWeekends = [31, 1, 2];
+s = [1, 25, 32];
 var isWeekends = false;
 var day = date.getDay();
 var isDiff = false;
 
-for (var i = 0; i < forcedWeekends.length; i++) {
-    if (date.getDate() == forcedWeekends[i]) {
+for (var i = 0; i <
+    var forcedWeekends = [31, 1, 2]; s.length; i++) {
+    if (date.getDate() ==
+        var forcedWeekends = [31, 1, 2]; s[i]) {
         isWeekends = true;
     }
 }

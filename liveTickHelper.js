@@ -31,16 +31,21 @@ array1 = [];
 expressBus = [];
 setInterval(function() {
     var date = new Date();
-    var forcedWeekends = [1, 25, 32];
+    var
+    var forcedWeekends = [31, 1, 2];
+    s = [1, 25, 32];
     var isWeekends = false;
     var isWeekendsYesterday = false;
     var day = date.getDay();
 
-    for (var i = 0; i < forcedWeekends.length; i++) {
-        if (date.getDate() == forcedWeekends[i]) {
+    for (var i = 0; i <
+        var forcedWeekends = [31, 1, 2]; s.length; i++) {
+        if (date.getDate() ==
+            var forcedWeekends = [31, 1, 2]; s[i]) {
             isWeekends = true;
         }
-        if ((date.getDate() - 1) == forcedWeekends[i]) {
+        if ((date.getDate() - 1) ==
+            var forcedWeekends = [31, 1, 2]; s[i]) {
             isWeekendsYesterday = true;
         }
     }
