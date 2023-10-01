@@ -31,7 +31,7 @@ array1 = [];
 expressBus = [];
 setInterval(function() {
     var date = new Date();
-    var forcedWeekends = [28,29,30];
+    var forcedWeekends = [3,9];
     var isWeekends = false;
     var isWeekendsYesterday = false;
     var day = date.getDay();
