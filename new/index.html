@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KAIST BUS 2.0 · 빠른 시간표</title>
+    <link rel="icon" href="/new/assets/favicon-DxkFzALv.ico" />
+    <link rel="apple-touch-icon" href="/new/assets/icon-4x-Dp8-h8Es.png" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&display=swap" />
+    <script type="module" crossorigin src="/new/assets/main-BVSaDpFk.js"></script>
+    <link rel="modulepreload" crossorigin href="/new/assets/stopLabels-Dfnzt6Cm.js">
+    <link rel="stylesheet" crossorigin href="/new/assets/stopLabels-PL8YZ9zl.css">
+  </head>
+  <body>
+    <div class="page">
+      <header class="navbar">
+        <div class="brand">
+          <img src="/new/assets/icon-4x-Dp8-h8Es.png" alt="KAIST BUS 2.0" />
+          <div>
+            <strong>KAIST BUS 2.0</strong>
+            <div class="muted">빠른 시간표 · 공지 · 노선 탐색</div>
+          </div>
+        </div>
+        <nav class="primary-nav">
+          <div class="nav-links">
+            <a href="./index.html">메인</a>
+            <a href="./route.html">시간표</a>
+            <a href="#notice">공지</a>
+          </div>
+          <div class="nav-actions">
+            <button class="favorite-tab" type="button" data-favorite-tab>즐겨찾기</button>
+            <button class="theme-toggle" type="button" data-theme-toggle aria-label="다크모드 전환">
+              <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v3M12 19v3M4 12H1M23 12h-3M5.2 5.2 7.3 7.3M16.7 16.7l2.1 2.1M18.8 5.2 16.7 7.3M7.3 16.7 5.2 18.8"></path>
+              </svg>
+              <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M21 14.5A8.5 8.5 0 0 1 9.5 3a7 7 0 1 0 11.5 11.5z"></path>
+              </svg>
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      <div class="favorite-dock" id="favoriteDock">
+        <div class="favorite-dock__handle">즐겨찾기</div>
+        <div class="favorite-dock__panel" id="favoriteDockPanel" aria-live="polite">
+          <div class="favorite-dock__empty">
+            즐겨찾기가 비어 있어요. 상단의 "즐겨찾기 추가" 버튼으로 등록해 주세요.
+          </div>
+        </div>
+      </div>
+
+      <main>
+        <section class="hero">
+          <div class="hero-card">
+            <div class="section-title">지금 시간</div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <div style="font-size:2rem; font-weight:700;" data-clock>--:--:--</div>
+              <div style="color:var(--muted);" data-date>----</div>
+              <div style="display:flex; align-items:center; justify-content:flex-start; gap:8px;">
+                <span class="weekday-pill weekday-pill--day" data-weekday>----</span>
+                <span class="weekday-pill" data-weekday-badge>(평일)</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title">가까운 출발</div>
+          <div id="nextDepartures"></div>
+        </section>
+
+        <section>
+          <div class="section-title">노선 탐색</div>
+          <div class="grid two" id="routeList"></div>
+        </section>
+
+        <section id="notice">
+          <div class="section-title">공지사항</div>
+          <div class="grid two" id="noticeList"></div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        KAIST BUS 2.0 · 시간표는 예고 없이 변경될 수 있습니다.
+      </footer>
+    </div>
+
+  </body>
+</html>
+
+

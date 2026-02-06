@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KAIST BUS 2.0 · 시간표</title>
+    <link rel="icon" href="/new/assets/favicon-DxkFzALv.ico" />
+    <link rel="apple-touch-icon" href="/new/assets/icon-4x-Dp8-h8Es.png" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&display=swap" />
+    <script type="module" crossorigin src="/new/assets/route-HInRaQnA.js"></script>
+    <link rel="modulepreload" crossorigin href="/new/assets/stopLabels-Dfnzt6Cm.js">
+    <link rel="stylesheet" crossorigin href="/new/assets/stopLabels-PL8YZ9zl.css">
+  </head>
+  <body>
+    <div class="page">
+      <header class="navbar">
+        <div class="brand">
+          <img src="/new/assets/icon-4x-Dp8-h8Es.png" alt="KAIST BUS 2.0" />
+          <div>
+            <strong>KAIST BUS 2.0</strong>
+            <div class="muted">시간표 상세 · 빠른 확인</div>
+          </div>
+        </div>
+        <nav class="primary-nav">
+          <div class="nav-links">
+            <a href="./index.html">메인</a>
+            <a href="./route.html">시간표</a>
+            <a href="./index.html#notice">공지</a>
+          </div>
+          <div class="nav-actions">
+            <button class="favorite-tab" type="button" data-favorite-tab>즐겨찾기</button>
+            <button class="theme-toggle" type="button" data-theme-toggle aria-label="다크모드 전환">
+              <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v3M12 19v3M4 12H1M23 12h-3M5.2 5.2 7.3 7.3M16.7 16.7l2.1 2.1M18.8 5.2 16.7 7.3M7.3 16.7 5.2 18.8"></path>
+              </svg>
+              <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M21 14.5A8.5 8.5 0 0 1 9.5 3a7 7 0 1 0 11.5 11.5z"></path>
+              </svg>
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      <div class="favorite-dock" id="favoriteDock">
+        <div class="favorite-dock__handle">즐겨찾기</div>
+        <div class="favorite-dock__panel" id="favoriteDockPanel">
+          <div class="favorite-dock__empty">
+            즐겨찾기가 비어 있어요. 상단의 "즐겨찾기 추가" 버튼으로 등록해 주세요.
+          </div>
+        </div>
+      </div>
+
+      <main>
+        <section class="route-layout">
+          <div class="route-side">
+            <div class="hero-card route-info-card">
+              <div class="route-title-row">
+                <h1 data-route-title>시간표</h1>
+                <span class="hero-badge" data-route-badge></span>
+              </div>
+              <p data-route-subtitle></p>
+              <div style="display:flex; flex-direction:column; gap:8px; margin-top:16px;">
+                <div style="font-size:2rem; font-weight:700;" data-clock>--:--:--</div>
+                <div style="color:var(--muted);" data-date>----</div>
+                <div style="color:var(--muted);" data-weekday>----</div>
+              </div>
+              <div class="day-toggle" id="serviceDayToggle">
+                <button type="button" data-day="weekday">평일</button>
+                <button type="button" data-day="weekend">휴일</button>
+                <button type="button" data-day="auto">오늘 기준</button>
+              </div>
+              <div class="selector" style="margin-top:16px;">
+                <label for="routeSelect">노선</label>
+                <select id="routeSelect"></select>
+                <label for="stopSelect" id="stopSelectLabel">정류장</label>
+                <select id="stopSelect"></select>
+              </div>
+              <div class="campus-selector" id="campusSelector">
+                <div class="campus-label-column">
+                  <span class="campus-label">출발</span>
+                  <span class="campus-label">도착</span>
+                </div>
+                <div class="campus-pills-column">
+                  <div class="campus-pills-row" data-campus-role="from"></div>
+                  <button class="swap-button" id="campusSwap" type="button" aria-label="출발/도착 바꾸기">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M12 4v16m0 0-4-4m4 4 4-4M12 4l-4 4m4-4 4 4" />
+                    </svg>
+                  </button>
+                  <div class="campus-pills-row" data-campus-role="to"></div>
+                </div>
+              </div>
+              <div class="action-row">
+                <button class="action-button" id="favoriteToggleRoute">즐겨찾기 추가</button>
+              </div>
+            </div>
+
+            <section>
+              <div class="section-title">정류장 선택</div>
+              <div class="stop-pills" id="stopPills"></div>
+            </section>
+
+            <div id="nextPanel"></div>
+            <div class="route-note" id="routeNote" style="margin-top:18px;"></div>
+          </div>
+          <div class="route-main" id="timeTableSection">
+            <div class="section-title">전체 시간표</div>
+            <div class="time-table" id="timeTable"></div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        KAIST BUS 2.0 · 실시간 위치 제공 없음 · 시간표는 예고 없이 변경될 수 있습니다.
+      </footer>
+    </div>
+
+  </body>
+</html>
+
+
