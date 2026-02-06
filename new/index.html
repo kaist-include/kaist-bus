@@ -3,24 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f5fb" />
     <title>KAIST BUS 2.0 · 빠른 시간표</title>
     <link rel="icon" href="/new/assets/favicon-DxkFzALv.ico" />
     <link rel="apple-touch-icon" href="/new/assets/icon-4x-Dp8-h8Es.png" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&display=swap" />
-    <script type="module" crossorigin src="/new/assets/main-BVSaDpFk.js"></script>
-    <link rel="modulepreload" crossorigin href="/new/assets/stopLabels-Dfnzt6Cm.js">
-    <link rel="stylesheet" crossorigin href="/new/assets/stopLabels-PL8YZ9zl.css">
+    <script type="module" crossorigin src="/new/assets/main-CsORfMAw.js"></script>
+    <link rel="modulepreload" crossorigin href="/new/assets/stopLabels-EZMPmHTw.js">
+    <link rel="stylesheet" crossorigin href="/new/assets/stopLabels-BZND_h4S.css">
   </head>
   <body>
     <div class="page">
       <header class="navbar">
         <div class="brand">
           <img src="/new/assets/icon-4x-Dp8-h8Es.png" alt="KAIST BUS 2.0" />
-          <div>
-            <strong>KAIST BUS 2.0</strong>
-            <div class="muted">빠른 시간표 · 공지 · 노선 탐색</div>
-          </div>
+            <div>
+              <strong>KAIST BUS 2.0</strong>
+              <div class="muted">
+                <span data-date>----</span>
+                <span data-weekday>----</span>
+                <span data-clock>--:--:--</span>
+              </div>
+            </div>
         </div>
         <nav class="primary-nav">
           <div class="nav-links">
@@ -57,12 +62,12 @@
           <div class="hero-card">
             <div class="section-title">지금 시간</div>
             <div style="display:flex; flex-direction:column; gap:8px;">
-              <div style="font-size:2rem; font-weight:700;" data-clock>--:--:--</div>
-              <div style="color:var(--muted);" data-date>----</div>
+              <div style="color:var(--muted);" data-date-card>----</div>
               <div style="display:flex; align-items:center; justify-content:flex-start; gap:8px;">
-                <span class="weekday-pill weekday-pill--day" data-weekday>----</span>
-                <span class="weekday-pill" data-weekday-badge>(평일)</span>
+                <span class="weekday-pill weekday-pill--day" data-weekday-card>----</span>
+                <span class="weekday-pill" data-weekday-badge>평일</span>
               </div>
+              <div style="font-size:2rem; font-weight:700;" data-clock-card>--:--:--</div>
             </div>
           </div>
         </section>
