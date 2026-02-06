@@ -3,15 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f5f5fb" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#e9ecff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#05070f" media="(prefers-color-scheme: dark)" />
     <title>KAIST BUS 2.0 · 시간표</title>
     <link rel="icon" href="/new/assets/favicon-DxkFzALv.ico" />
     <link rel="apple-touch-icon" href="/new/assets/icon-4x-Dp8-h8Es.png" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&display=swap" />
-    <script type="module" crossorigin src="/new/assets/route-BaW428Ch.js"></script>
-    <link rel="modulepreload" crossorigin href="/new/assets/stopLabels-EZMPmHTw.js">
-    <link rel="stylesheet" crossorigin href="/new/assets/stopLabels-BZND_h4S.css">
+    <script type="module" crossorigin src="/new/assets/route-Bbq9Z0HS.js"></script>
+    <link rel="modulepreload" crossorigin href="/new/assets/stopLabels-5QDnVXaU.js">
+    <link rel="stylesheet" crossorigin href="/new/assets/stopLabels-cFVGpaVi.css">
   </head>
   <body>
     <div class="page">
@@ -72,10 +74,14 @@
                 <button type="button" data-day="auto">오늘 기준</button>
               </div>
               <div class="selector" style="margin-top:16px;">
-                <label for="routeSelect">노선</label>
-                <select id="routeSelect"></select>
-                <label for="stopSelect" id="stopSelectLabel">정류장</label>
-                <select id="stopSelect"></select>
+                <div class="selector-row">
+                  <label for="routeSelect">노선</label>
+                  <select id="routeSelect"></select>
+                </div>
+                <div class="selector-row" id="stopSelectRow">
+                  <label for="stopSelect" id="stopSelectLabel">정류장</label>
+                  <select id="stopSelect"></select>
+                </div>
               </div>
               <div class="campus-selector" id="campusSelector">
                 <div class="campus-label-column">
@@ -94,6 +100,7 @@
               </div>
               <div class="action-row">
                 <button class="action-button" id="favoriteToggleRoute">즐겨찾기 추가</button>
+                <span class="favorite-help" id="favoriteHelp" aria-hidden="true"></span>
               </div>
             </div>
 
@@ -111,7 +118,7 @@
             <div class="hero-card info-card" id="routeNote" style="margin-top:0;"></div>
           </div>
           <div class="route-main" id="timeTableSection">
-            <div class="section-title">전체 시간표</div>
+            <div class="section-title section-title--right">전체 시간표</div>
             <div class="time-table" id="timeTable"></div>
           </div>
         </section>
