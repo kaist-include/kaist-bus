@@ -1,0 +1,48 @@
+﻿{
+  "routePresets": [
+    {
+      "id": "wolpyeong",
+      "name": "월평-본교-시내 순환셔틀",
+      "nameEn": "Wolpyeong-Main Campus-City Circular Shuttle",
+      "stops": [
+        {
+          "routeId": "wolpyeong",
+          "stopId": "stop-1"
+        }
+      ]
+    },
+    {
+      "id": "wolpyeong-early",
+      "name": "월평-유성온천역-본교 (얼리월평 셔틀)",
+      "nameEn": "Wolpyeong-Yuseong Spa-Main Campus (Early Shuttle)",
+      "stops": [
+        {
+          "routeId": "wolpyeong-early",
+          "stopId": "stop-1"
+        }
+      ]
+    },
+    {
+      "id": "campus-loop",
+      "name": "본교-문지-화암 왕복셔틀",
+      "nameEn": "Main-Munji-Hwaam Round Trip Shuttle",
+      "stops": [
+        {
+          "routeId": "campus-loop",
+          "stopId": "stop-2"
+        }
+      ]
+    },
+    {
+      "id": "olev",
+      "name": "OLEV 교내셔틀",
+      "nameEn": "OLEV Campus Shuttle",
+      "stops": [
+        {
+          "routeId": "olev",
+          "stopId": "stop-1"
+        }
+      ]
+    }
+  ]
+}

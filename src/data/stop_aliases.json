@@ -1,0 +1,22 @@
+[
+  {
+    "routeId": "wolpyeong",
+    "stopName": "본교 출발 강당 (E10)",
+    "shortName": "강당 (E10)"
+  },
+  {
+    "routeId": "wolpyeong",
+    "stopName": "본교 도착 강당 (E15)",
+    "shortName": "강당 (E15)"
+  },
+  {
+    "routeId": "wolpyeong",
+    "stopName": "본교 출발 오리연못",
+    "shortName": "오리연못 출발"
+  },
+  {
+    "routeId": "wolpyeong",
+    "stopName": "본교 도착 오리연못",
+    "shortName": "오리연못 도착"
+  }
+]

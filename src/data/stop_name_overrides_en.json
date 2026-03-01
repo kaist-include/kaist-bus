@@ -1,0 +1,46 @@
+{
+  "wolpyeong": {
+    "본교 출발 교수회관 (N6)": "Main Campus Departure · Faculty Club (N6)",
+    "본교 출발 강당 (E10)": "Main Campus Departure · Auditorium (E10)",
+    "본교 출발 본관당 (W8)": "Main Campus Departure · Main Building (W8)",
+    "본교 출발 오리연못": "Main Campus Departure · Duck Pond",
+    "시내구간 로데오 거리": "Downtown · Rodeo Street",
+    "시내구간 충대앞": "Downtown · Chungnam National University",
+    "시내구간 월평역 1번출구": "Downtown · Wolpyeong Station (Exit 1)",
+    "시내구간 갤러리아": "Downtown · Galleria Timeworld",
+    "시내구간 월평역 3번출구": "Downtown · Wolpyeong Station (Exit 3)",
+    "시내구간 궁동": "Downtown · Gung-dong",
+    "본교 도착 오리연못": "Main Campus Arrival · Duck Pond",
+    "본교 도착 본관 (E14)": "Main Campus Arrival · Main Building (E14)",
+    "본교 도착 강당 (E15)": "Main Campus Arrival · Auditorium (E15)",
+    "본교 도착 교수회관 (N6)": "Main Campus Arrival · Faculty Club (N6)"
+  },
+  "wolpyeong-early": {
+    "정부청사": "Government Complex",
+    "월평역 3번출구": "Wolpyeong Station (Exit 3)",
+    "유성온천역": "Yuseong Spa Station",
+    "유성구청 앞": "Yuseong District Office",
+    "오리연못": "Duck Pond",
+    "본관": "Main Building",
+    "강당": "Auditorium",
+    "영빈관": "Yeongbin Hall"
+  },
+  "campus-loop": {
+    "문지 출발": "Munji Departure",
+    "화암 도착": "Hwaam Arrival",
+    "문지 도착": "Munji Arrival",
+    "문지 출발 (2)": "Munji Departure (2)",
+    "로덴 하우스 앞 도착": "Arrival Near Roden House",
+    "본교 출발": "Main Campus Departure",
+    "본교 도착": "Main Campus Arrival",
+    "교수 아파트 앞 출발": "Departure Near Faculty Apartment",
+    "문지캠퍼스": "Munji Campus",
+    "화암기숙사": "Hwaam Dormitory",
+    "문지캠퍼스 (2)": "Munji Campus (2)",
+    "로덴하우스": "Roden House",
+    "본교": "Main Campus",
+    "교수 아파트": "Faculty Apartment",
+    "화암기숙사 (2)": "Hwaam Dormitory (2)",
+    "문지캠퍼스 (3)": "Munji Campus (3)"
+  }
+}

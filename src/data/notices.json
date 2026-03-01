@@ -1,0 +1,30 @@
+﻿[
+  {
+    "id": "notice-2026-02-01",
+    "title": "2월 1일 설 연휴 운행 안내",
+    "body": "해당일은 휴일 시간표로 운행됩니다. 출발 전 꼭 시간표를 확인해 주세요.",
+    "startDate": "2026-01-28",
+    "endDate": "2026-02-02",
+    "tag": "휴일",
+    "titleEn": "Service Notice for Lunar New Year Holiday (Feb 1)",
+    "bodyEn": "Holiday timetable applies on this date. Please check the timetable before departure.",
+    "tagEn": "Holiday"
+  },
+  {
+    "id": "notice-2026-03-02",
+    "title": "3월 2일 대체 공휴일",
+    "body": "해당일은 휴일 시간표로 운행됩니다. 출발 전 꼭 시간표를 확인해 주세요.",
+    "startDate": "2026-03-01",
+    "endDate": "2026-03-02",
+    "tag": "공지",
+    "titleEn": "Holiday: March 2nd",
+    "bodyEn": "March 2nd is a replacement holiday for the independence day.",
+    "tagEn": "Notice"
+  },
+  {
+    "id": "ticker-default",
+    "meta": "tickerDefault",
+    "message": "카이스트 버스 2.0에 오신 것을 환영합니다.",
+    "messageEn": "Welcome to KAIST Bus 2.0."
+  }
+]
