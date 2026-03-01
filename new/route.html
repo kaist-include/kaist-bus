@@ -11,9 +11,9 @@
     <link rel="apple-touch-icon" href="/new/assets/logo-192-h1BKcZbR.png" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&display=swap" />
-    <script type="module" crossorigin src="/new/assets/route-BZDoTFun.js"></script>
-    <link rel="modulepreload" crossorigin href="/new/assets/i18n-DG3A9GNN.js">
-    <link rel="stylesheet" crossorigin href="/new/assets/i18n-Dlf0pdOD.css">
+    <script type="module" crossorigin src="/new/assets/route-CFRY3uBE.js"></script>
+    <link rel="modulepreload" crossorigin href="/new/assets/i18n-Bzg00DT-.js">
+    <link rel="stylesheet" crossorigin href="/new/assets/i18n-DKFSvOrW.css">
   </head>
   <body class="route-page">
     <div class="page">
@@ -74,9 +74,11 @@
               <p data-route-subtitle></p>
               <p class="share-note" id="shareNotice" aria-live="polite"></p>
               <div class="day-toggle" id="serviceDayToggle">
-                <button type="button" data-day="weekday">평일</button>
-                <button type="button" data-day="weekend">휴일</button>
-                <button type="button" data-day="auto">오늘 기준</button>
+                <div class="day-toggle__segment" role="group" aria-label="운행일 선택">
+                  <button type="button" data-day="weekday">평일</button>
+                  <button type="button" data-day="weekend">휴일</button>
+                </div>
+                <button type="button" class="day-toggle__auto" data-day="auto">오늘 기준</button>
               </div>
               <div class="selector" style="margin-top:16px;">
                 <div class="selector-row">
