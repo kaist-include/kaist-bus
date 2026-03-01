@@ -814,10 +814,9 @@ def parse_campus_loop_weekday_pairs(table):
             if c12:
                 pairs['main->hwaam'].append(main_dep)
 
-        # 문지 -> 본교: 첫 문지 출발 + (문지 재출발)
+        # 문지 -> 본교(주중): 문지(1) 출발(c1)은 화암 경유 후 문지 재진입을 포함하므로 제외
+        # 실제 이용 관점에서 문지에서 본교로 바로 가는 체감 경로는 문지(2) 재출발(c5/c4)만 사용
         if c7:
-            if c1:
-                pairs['munji->main'].append(c1[0])
             munji_dep_to_main = c5[0] if c5 else (c4[0] if c4 else "")
             if munji_dep_to_main:
                 pairs['munji->main'].append(munji_dep_to_main)
