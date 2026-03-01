@@ -1863,16 +1863,22 @@ function applyLocale() {
   applyStaticI18n(state.locale);
   const footerUpdate = document.querySelector("#footerUpdateRoute");
   if (footerUpdate) {
-    const raw = /^\d{4}-\d{2}-\d{2}$/.test(BUILD_DATE) ? BUILD_DATE : toIsoDate(new Date());
-    const [year, month, day] = raw.split("-").map(Number);
+    const fallbackNow = new Date();
+    const raw = typeof BUILD_DATE === "string" ? BUILD_DATE.trim() : "";
+    const match = raw.match(/^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2}))?$/);
+    const year = match ? Number(match[1]) : fallbackNow.getFullYear();
+    const month = match ? Number(match[2]) : fallbackNow.getMonth() + 1;
+    const day = match ? Number(match[3]) : fallbackNow.getDate();
+    const hour = match ? Number(match[4] || "0") : fallbackNow.getHours();
+    const minute = match ? Number(match[5] || "0") : fallbackNow.getMinutes();
     if (state.locale === LOCALES.EN) {
       const monthNames = [
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
       ];
-      footerUpdate.textContent = `(Updated: ${monthNames[Math.max(0, Math.min(11, month - 1))]} ${day}, ${year})`;
+      footerUpdate.textContent = `(Updated: ${monthNames[Math.max(0, Math.min(11, month - 1))]} ${day}, ${year}, ${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")})`;
     } else {
-      footerUpdate.textContent = `(${year}년 ${month}월 ${day}일 업데이트)`;
+      footerUpdate.textContent = `(${year}년 ${month}월 ${day}일 ${String(hour).padStart(2, "0")}시 ${String(minute).padStart(2, "0")}분 업데이트)`;
     }
   }
   const toggle = document.querySelector("[data-locale-toggle]");
