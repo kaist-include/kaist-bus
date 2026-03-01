@@ -111,3 +111,6 @@ ENV/
 app/configs/local.py
 dump.rdb
 .sass-cache/
+# Node / frontend
+node_modules/
+.vite/
