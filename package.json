@@ -6,10 +6,10 @@
   "scripts": {
     "dev": "vite",
     "update-data": "python scripts/kaist_scrape.py",
-    "build": "vite build",
-    "build:new": "vite build --base=/new/ --outDir=new",
+    "build": "vite build && node scripts/legacy-redirects.cjs --out dist",
+    
     "deploy": "npm run update-data && npm run build",
-    "deploy:new": "npm run update-data && npm run build:new",
+    
     "preview": "vite preview"
   },
   "devDependencies": {
