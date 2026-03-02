@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/legacy-redirects.cjs",
     "dev": "vite",
     "update-data": "python scripts/kaist_scrape.py",
     "build": "vite build && node scripts/legacy-redirects.cjs --out dist",
