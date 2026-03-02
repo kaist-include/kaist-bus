@@ -1,3 +1,0 @@
-flask==0.12.2
-requests==2.18.4
-python-firebase==1.2
