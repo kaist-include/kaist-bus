@@ -1,3 +1,4 @@
+import "./styles.css";
 import holidays from "./data/holidays.json";
 import notices from "./data/notices.json";
 import routesData from "./data/routes.json";
@@ -1060,7 +1061,7 @@ function renderFavorites(routes) {
                       </span>
                     `
                     ),
-                    entry.hiddenCount > 0 ? `<span class="favorite-dock__more">+${entry.hiddenCount}</span>` : ""
+                    entry.hiddenCount > 0 ? `<span class="favorite-dock__more next-chip next-chip--more">+${entry.hiddenCount}</span>` : ""
                   ].join("")
                 : `<span class="favorite-dock__empty-text">미운행</span>`
             }
@@ -1646,6 +1647,7 @@ function isUserSelectingText() {
 }
 
 function boot() {
+  applyLocale();
   const { day } = resolveServiceDay(state.now);
   state.serviceDay = day;
 
@@ -1665,7 +1667,6 @@ function boot() {
   } else {
     state.selectedRouteId = pickDefaultRoute(routes).id;
   }
-  applyLocale();
   renderTime();
   renderNotices();
   renderNoticeTicker();

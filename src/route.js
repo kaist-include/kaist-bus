@@ -1,3 +1,4 @@
+import "./styles.css";
 import routesData from "./data/routes.json";
 import holidays from "./data/holidays.json";
 import notices from "./data/notices.json";
@@ -837,7 +838,7 @@ function renderFavoriteDock(route) {
                       </span>
                     `
                     ),
-                    entry.hiddenCount > 0 ? `<span class="favorite-dock__more">+${entry.hiddenCount}</span>` : ""
+                    entry.hiddenCount > 0 ? `<span class="favorite-dock__more next-chip next-chip--more">+${entry.hiddenCount}</span>` : ""
                   ].join("")
                 : `<span class="favorite-dock__empty-text">${t(state.locale, "noServiceText")}</span>`
             }

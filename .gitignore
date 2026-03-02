@@ -114,3 +114,6 @@ dump.rdb
 # Node / frontend
 node_modules/
 .vite/
+
+# PowerShell 스크립트 (빌드/배포용; 레포에 올리지 않음. 버전 관리할 스크립트는 !.ps1 예외 추가)
+*.ps1
