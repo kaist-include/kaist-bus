@@ -1,4 +1,4 @@
-﻿import json
+import json
 import re
 import urllib.request
 from html.parser import HTMLParser
@@ -769,9 +769,33 @@ def unique_service_times(times):
     return ordered
 
 
+def _find_second_munji_departure_data_column(rows):
+    """주중 표에서 '문지→본교 직통' 시간이 있는 열의 **데이터 행 기준** 인덱스 반환.
+    표에서 07:30이 두 번 나옴: 화암 출발(첫 번째), 문지 도착(두 번째). 문지 도착 열(7:30, 8:00, 8:30, 9:00…)
+    만 문지→본교 직통이므로, 첫 데이터 행에서 07:30이 들어 있는 열 중 **두 번째** 열을 쓴다."""
+    if len(rows) < 3:
+        return None
+    first_data = list(rows[2])
+    cols_with_0730 = []
+    for i, cell in enumerate(first_data):
+        if not cell:
+            continue
+        times = TIME_RE.findall(cell)
+        if not times:
+            continue
+        t = normalize_time(times[0])
+        if t == "07:30":
+            cols_with_0730.append(i)
+    # 두 번째 07:30 열 = 문지 도착(문지→본교 직통)
+    return cols_with_0730[1] if len(cols_with_0730) >= 2 else (cols_with_0730[0] if cols_with_0730 else None)
+
+
 def parse_campus_loop_weekday_pairs(table):
     if not table or not table.get('rows'):
         return {}, {}
+
+    all_rows = table.get('rows', [])
+    munji_to_main_col = _find_second_munji_departure_data_column(all_rows)
 
     pairs = {
         'main->munji': [],
@@ -785,10 +809,16 @@ def parse_campus_loop_weekday_pairs(table):
         'hwaam->main': []
     }
 
-    rows = table.get('rows', [])[2:]
+    rows = all_rows[2:]
     for raw in rows:
         row = (list(raw) + [""] * 17)[:17]
-        if not row[0].strip().isdigit():
+        # 회차 번호가 없어도(15회차 이후 열 구조) 두 번째 문지 출발 후보가 있으면 처리
+        is_data_row = row[0].strip().isdigit()
+        has_munji_main_candidate = (
+            (munji_to_main_col is not None and munji_to_main_col < len(row) and TIME_RE.search(row[munji_to_main_col] or ""))
+            or (len(row) >= 2 and TIME_RE.search(row[1] or ""))
+        )
+        if not is_data_row and not has_munji_main_candidate:
             continue
 
         c1 = [normalize_time(t) for t in TIME_RE.findall(row[1] or "")]
@@ -814,12 +844,27 @@ def parse_campus_loop_weekday_pairs(table):
             if c12:
                 pairs['main->hwaam'].append(main_dep)
 
-        # 문지 -> 본교(주중): 문지(1) 출발(c1)은 화암 경유 후 문지 재진입을 포함하므로 제외
-        # 실제 이용 관점에서 문지에서 본교로 바로 가는 체감 경로는 문지(2) 재출발(c5/c4)만 사용
-        if c7:
-            munji_dep_to_main = c5[0] if c5 else (c4[0] if c4 else "")
-            if munji_dep_to_main:
-                pairs['munji->main'].append(munji_dep_to_main)
+        # 문지 -> 본교(주중): 첫 번째 '문지 출발' 열은 문지→화암→문지→본교(경유)이므로 제외.
+        # 두 번째 '문지 출발' 열만 문지→본교 직통이므로 그 열만 사용.
+        munji_dep_to_main = ""
+        if munji_to_main_col is not None and munji_to_main_col < len(row):
+            cell_times = [normalize_time(t) for t in TIME_RE.findall(row[munji_to_main_col] or "")]
+            if cell_times:
+                munji_dep_to_main = cell_times[0]
+        # 15회차 이후 등 열 구조가 다른 행: 첫 몇 열이 비어 있고 두 번째 문지 출발이 열 5에 있음(17:40, 18:10…)
+        for fallback_col in (5, 1, 2):
+            if not munji_dep_to_main and len(row) > fallback_col:
+                cell_times = [normalize_time(t) for t in TIME_RE.findall(row[fallback_col] or "")]
+                if cell_times:
+                    munji_dep_to_main = cell_times[0]
+                    break
+        if munji_dep_to_main:
+            pairs['munji->main'].append(munji_dep_to_main)
+        elif munji_to_main_col is None and c7:
+            # 헤더에서 두 번째 문지 출발 열을 못 찾은 경우 기존 로직(c5/c4) 폴백
+            fallback = c5[0] if c5 else (c4[0] if c4 else "")
+            if fallback:
+                pairs['munji->main'].append(fallback)
 
         # 문지 -> 화암: 문지(1) 출발 + 문지(2/3) 출발
         if c1 and c2:
@@ -1061,6 +1106,13 @@ def build_routes():
             route['campusExpress'] = {
                 'weekday': campus_weekday_express,
                 'weekend': campus_weekend_express
+            }
+            # 문지→본교: 첫 번째 '문지 출발' 열(문지→화암→문지 경유) 제외, 두 번째 열만 직통
+            route['campusPairExcludeTimes'] = {
+                'munji->main': [
+                    '07:10', '08:10', '08:40', '09:20', '09:50', '10:20', '10:50', '11:50',
+                    '13:20', '14:25', '15:20', '16:20', '16:50'
+                ]
             }
 
         if tables_en:

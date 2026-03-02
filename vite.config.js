@@ -18,6 +18,15 @@ export default {
       input: {
         main: './index.html',
         route: './route.html'
+      },
+      output: {
+        chunkFileNames: 'assets/[name]-[hash:8].js',
+        entryFileNames: 'assets/[name]-[hash:8].js',
+        assetFileNames: 'assets/[name]-[hash:8][extname]',
+        manualChunks(id) {
+          if (id.includes('node_modules')) return 'vendor';
+          if (id.includes('i18n') || id.includes('utils') || (id.includes('data') && id.endsWith('.json'))) return 'shared';
+        }
       }
     }
   }

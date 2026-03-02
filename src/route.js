@@ -1,4 +1,4 @@
-﻿import routesData from "./data/routes.json";
+import routesData from "./data/routes.json";
 import holidays from "./data/holidays.json";
 import notices from "./data/notices.json";
 import {
@@ -999,16 +999,29 @@ function getCampusDepartureStop(route, fromId, toId) {
   return candidates[0].stop;
 }
 
+function normalizeTimeForFilter(timeStr) {
+  const s = String(timeStr || "").trim();
+  const m = s.match(/^(\d{1,2}):(\d{2})$/);
+  if (!m) return s;
+  return `${m[1].padStart(2, "0")}:${m[2].padStart(2, "0")}`;
+}
+
 function filterCampusLoopTimes(route, day, times, campusFrom, campusTo) {
   if (!isCampusLoop(route)) return times;
   const pairKey = `${campusFrom}->${campusTo}`;
   const pairTimes = route?.campusPairs?.[day]?.[pairKey];
-  if (Array.isArray(pairTimes)) {
+  if (Array.isArray(pairTimes) && pairTimes.length > 0) {
     return pairTimes.slice();
   }
-  if (day !== "weekend") return times;
-  if (campusFrom !== "main" || campusTo !== "hwaam") return times;
-  return times.filter((time) => time.trim() !== "11:30");
+  const excludeList = route?.campusPairExcludeTimes?.[pairKey];
+  if (Array.isArray(excludeList) && excludeList.length > 0 && Array.isArray(times)) {
+    const set = new Set(excludeList.map(normalizeTimeForFilter));
+    return times.filter((t) => !set.has(normalizeTimeForFilter(t)));
+  }
+  if (day === "weekend" && campusFrom === "main" && campusTo === "hwaam") {
+    return times.filter((time) => time.trim() !== "11:30");
+  }
+  return times;
 }
 
 function isCampusExpressTime(route, day, campusFrom, campusTo, time) {
