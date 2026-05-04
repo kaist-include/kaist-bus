@@ -2,15 +2,18 @@
   "timezone": "Asia/Seoul",
   "forcedWeekends": [
     "2026-02-01",
-    "2026-03-02"
+    "2026-03-02",
+    "2026-05-05"
   ],
   "labels": {
     "2026-02-01": "설 연휴",
-    "2026-03-02": "임시 휴일"
+    "2026-03-02": "임시 휴일",
+    "2026-05-05": "어린이날"
   },
   "labelsEn": {
     "2026-02-01": "Lunar New Year Holiday",
-    "2026-03-02": "Temporary Holiday"
+    "2026-03-02": "Temporary Holiday",
+    "2026-05-05": "Children's Day"
   }
 }
 
