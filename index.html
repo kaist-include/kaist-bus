@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#e9ecff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#05070f" media="(prefers-color-scheme: dark)" />
+    <title>KAIST BUS 2.0</title>
+    <link rel="icon" type="image/png" href="/logo-60.png" />
+    <link rel="apple-touch-icon" href="/logo-192.png" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&display=swap" />
+    <script type="module" crossorigin src="/assets/main-1PldtL6e.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/5b59f3e4.js">
+    <link rel="stylesheet" crossorigin href="/assets/i18n-DdDRK7FT.css">
+  </head>
+  <body>
+    <div class="page">
+      <header class="navbar">
+        <div class="brand">
+          <img src="/logo-60.png" alt="KAIST BUS 2.0" />
+            <div>
+              <strong>KAIST BUS 2.0</strong>
+              <div class="muted">
+                <span data-date>----</span>
+                <span data-weekday>----</span>
+                <span data-clock>--:--:--</span>
+              </div>
+            </div>
+        </div>
+        <nav class="primary-nav">
+          <div class="nav-links">
+            <a href="./index.html" data-i18n="navMain">메인</a>
+            <a href="./route.html" data-i18n="navTimetable">시간표</a>
+          </div>
+          <div class="nav-actions">
+            <button class="favorite-tab" type="button" data-favorite-tab data-i18n="navFavorite">즐겨찾기</button>
+            <button class="locale-toggle" type="button" data-locale-toggle aria-label="언어 변경">KO</button>
+            <button class="theme-toggle" type="button" data-theme-toggle aria-label="다크모드 전환">
+              <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v3M12 19v3M4 12H1M23 12h-3M5.2 5.2 7.3 7.3M16.7 16.7l2.1 2.1M18.8 5.2 16.7 7.3M7.3 16.7 5.2 18.8"></path>
+              </svg>
+              <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M21 14.5A8.5 8.5 0 0 1 9.5 3a7 7 0 1 0 11.5 11.5z"></path>
+              </svg>
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      <div class="favorite-dock" id="favoriteDock">
+        <div class="favorite-dock__handle">즐겨찾기</div>
+        <div class="favorite-dock__panel" id="favoriteDockPanel" aria-live="polite">
+          <div class="favorite-dock__empty">
+            즐겨찾기가 비어 있어요. 상단의 "즐겨찾기 추가" 버튼으로 등록해 주세요.
+          </div>
+        </div>
+      </div>
+
+      <main>
+        <section>
+          <div class="notice-ticker" id="noticeTicker" aria-live="polite"></div>
+        </section>
+
+        <section>
+          <div class="section-title" data-i18n="nearDepartures">다음 버스</div>
+          <div id="nextDepartures"></div>
+        </section>
+
+        <section>
+          <div class="section-title section-title--with-search">
+            <span data-i18n="routeExplore">노선 탐색</span>
+            <div class="route-search-inline">
+              <div class="route-search-recent route-search-recent--left" id="routeSearchRecent"></div>
+              <div class="search-input-wrap">
+                <input id="routeSearch" class="search-input search-input--inline" type="search" placeholder="노선 검색" autocomplete="off" data-i18n-placeholder="routeSearch" />
+                <button class="search-clear" type="button" aria-label="검색어 삭제" data-i18n-aria-label="searchClear">×</button>
+              </div>
+            </div>
+          </div>
+          <div class="grid two" id="routeList"></div>
+        </section>
+
+        <section id="notice">
+          <div class="section-title" data-i18n="notices">공지사항</div>
+          <div class="grid two" id="noticeList"></div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span data-i18n="footerMain">KAIST BUS 2.0 · Timetables may change without notice.</span>
+        <span class="footer-update" id="footerUpdateMain">(Updated: March 1, 2026)</span>
+      </footer>
+    </div>
+
+  </body>
+</html>
+
+
