@@ -7,13 +7,11 @@ function pad2(value) {
 const now = new Date();
 const buildDate = `${now.getFullYear()}-${pad2(now.getMonth() + 1)}-${pad2(now.getDate())} ${pad2(now.getHours())}:${pad2(now.getMinutes())}`;
 
-/** 청크 이름이 길어지는 것 방지: 이름을 해시한 8자로 파일명 생성 */
 function shortChunkName(chunkInfo) {
   const h = createHash("sha256").update(chunkInfo.name || "chunk").digest("hex").slice(0, 8);
   return `assets/${h}.js`;
 }
 
-/** 긴 청크/에셋 파일명(예: i18n-EtXYQdzn-...)을 8자 해시로 교체 */
 function shortenLongFilenames() {
   const renames = new Map();
   const short = (longName) => {
@@ -50,6 +48,8 @@ function shortenLongFilenames() {
 }
 
 export default {
+  root: 'src',
+  publicDir: '../public',
   define: {
     __BUILD_DATE__: JSON.stringify(buildDate)
   },
@@ -58,10 +58,12 @@ export default {
     port: 5173
   },
   build: {
+    outDir: '../dist',
+    emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: './index.html',
-        route: './route.html'
+        main: 'src/index.html',
+        route: 'src/route.html'
       },
       output: {
         chunkFileNames: shortChunkName,
