@@ -22,6 +22,17 @@
     "tagEn": "Notice"
   },
   {
+    "id": "notice-2026-06-03",
+    "title": "6월 3일 지방선거 운행 안내",
+    "body": "지방선거로 인해 휴일 시간표로 운행됩니다. 출발 전 꼭 시간표를 확인해 주세요.",
+    "startDate": "2026-06-02",
+    "endDate": "2026-06-03",
+    "tag": "휴일",
+    "titleEn": "Service Notice for Local Election Day (Jun 3)",
+    "bodyEn": "Holiday timetable applies due to the local election. Please check the timetable before departure.",
+    "tagEn": "Holiday"
+  },
+  {
     "id": "ticker-default",
     "meta": "tickerDefault",
     "message": "카이스트 버스 2.0에 오신 것을 환영합니다.",
