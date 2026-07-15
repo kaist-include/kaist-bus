@@ -1,16 +1,15 @@
 import "./styles.css";
 import routesData from "./data/routes.json";
-import holidays from "./data/holidays.json";
 import notices from "./data/notices.json";
 import {
   formatClockWithSeconds,
   formatKoreanDate,
   formatKoreanWeekday,
-  isWeekend,
   minutesToTime,
   timeToMinutes,
   toIsoDate
 } from "./utils/time.js";
+import { getResolvedDay } from "./utils/serviceDay.js";
 import { getStopShortName } from "./utils/stopLabels.js";
 import { escapeHtml, matchesQuery, highlightMatch } from "./utils/search.js";
 import { getCompositionFallback } from "./utils/imeSearch.js";
@@ -862,17 +861,11 @@ function renderFavoriteDock(route) {
   panel.innerHTML = cards.join("");
 }
 
-function resolveServiceDay(date) {
-  const iso = toIsoDate(date);
-  if (holidays.forcedWeekends.includes(iso)) return "weekend";
-  return isWeekend(date) ? "weekend" : "weekday";
-}
-
 function getEffectiveDayForStop(date, stop, route) {
-  const currentDay = resolveServiceDay(date);
+  const currentDay = getResolvedDay(date);
   const prevDate = new Date(date);
   prevDate.setDate(date.getDate() - 1);
-  const prevDay = resolveServiceDay(prevDate);
+  const prevDay = getResolvedDay(prevDate);
   if (currentDay === prevDay) return currentDay;
   const nowMinutes = date.getHours() * 60 + date.getMinutes();
   if (nowMinutes >= CROSSOVER_MINUTES) return currentDay;
@@ -893,7 +886,7 @@ function getEffectiveDayForStop(date, stop, route) {
 
 function getEffectiveNowMinutes(date, effectiveDay) {
   const nowMinutes = date.getHours() * 60 + date.getMinutes();
-  const resolved = resolveServiceDay(date);
+  const resolved = getResolvedDay(date);
   if (effectiveDay !== resolved && nowMinutes < CROSSOVER_MINUTES) {
     return nowMinutes + 1440;
   }
@@ -902,11 +895,11 @@ function getEffectiveNowMinutes(date, effectiveDay) {
 
 function getServiceDay(date, route) {
   if (state.serviceOverride) return state.serviceOverride;
-  if (!route) return resolveServiceDay(date);
+  if (!route) return getResolvedDay(date);
   const prevDate = new Date(date);
   prevDate.setDate(date.getDate() - 1);
-  const prevDay = resolveServiceDay(prevDate);
-  const currentDay = resolveServiceDay(date);
+  const prevDay = getResolvedDay(prevDate);
+  const currentDay = getResolvedDay(date);
   if (prevDay === currentDay) return currentDay;
   const nowMinutes = date.getHours() * 60 + date.getMinutes();
   if (nowMinutes >= CROSSOVER_MINUTES) return currentDay;
@@ -1087,7 +1080,7 @@ function renderHeader(route) {
     badge.classList.toggle("is-weekday", !hasWeekend);
   }
   if (weekday) {
-    const dayLabel = resolveServiceDay(state.now) === "weekday"
+    const dayLabel = getResolvedDay(state.now) === "weekday"
       ? t(state.locale, "dayWeekday")
       : t(state.locale, "dayHoliday");
     const dayText = state.locale === LOCALES.EN
@@ -1698,7 +1691,7 @@ function renderFavoriteButton(route, stop) {
 
 function render() {
   state.now = new Date();
-  const routes = getRoutesForDay(resolveServiceDay(state.now));
+  const routes = getRoutesForDay(getResolvedDay(state.now));
   const route = getRouteById(routes, state.routeId || routes[0]?.id);
   if (!route) return;
 
@@ -1725,7 +1718,7 @@ function setupServiceDayToggle() {
   const toggle = document.querySelector("#serviceDayToggle");
   if (!toggle) return;
   const updateButtons = () => {
-    const resolved = resolveServiceDay(state.now);
+    const resolved = getResolvedDay(state.now);
     const active = state.serviceOverride || resolved;
     toggle.querySelectorAll("button[data-day]").forEach((button) => {
       const day = button.dataset.day;
@@ -1738,7 +1731,7 @@ function setupServiceDayToggle() {
     const button = event.target.closest("button[data-day]");
     if (!button) return;
     const day = button.dataset.day;
-    const resolved = resolveServiceDay(state.now);
+    const resolved = getResolvedDay(state.now);
     if (day === "auto") {
       state.serviceOverride = null;
     } else {
@@ -2170,7 +2163,7 @@ setInterval(() => {
   state.now = new Date();
   renderClock();
   if (state.dropdownOpen) {
-    const routes = getRoutesForDay(resolveServiceDay(state.now));
+    const routes = getRoutesForDay(getResolvedDay(state.now));
     const route = getRouteById(routes, state.routeId || routes[0]?.id);
     if (route) {
       state.serviceDay = getServiceDay(state.now, route);

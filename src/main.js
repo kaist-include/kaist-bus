@@ -1,5 +1,4 @@
 import "./styles.css";
-import holidays from "./data/holidays.json";
 import notices from "./data/notices.json";
 import routesData from "./data/routes.json";
 import routePresetsData from "./data/routePresets.json";
@@ -7,10 +6,10 @@ import {
   formatClockWithSeconds,
   formatKoreanDate,
   formatKoreanWeekday,
-  isWeekend,
   minutesToTime,
   toIsoDate
 } from "./utils/time.js";
+import { resolveServiceDay, getResolvedDay } from "./utils/serviceDay.js";
 import { getStopShortName } from "./utils/stopLabels.js";
 import { escapeHtml, matchesQuery, highlightMatch } from "./utils/search.js";
 import { getCompositionFallback } from "./utils/imeSearch.js";
@@ -311,24 +310,6 @@ function toggleFavorite(routeId, stopId) {
         ...items
       ];
   writeFavorites(next.slice(0, 10));
-}
-
-function resolveServiceDay(date) {
-  const iso = toIsoDate(date);
-  if (holidays.forcedWeekends.includes(iso)) {
-    return {
-      day: "weekend",
-      labelKo: holidays.labels?.[iso] || "휴일",
-      labelEn: holidays.labelsEn?.[iso] || "Holiday"
-    };
-  }
-  return isWeekend(date)
-    ? { day: "weekend", labelKo: "주말", labelEn: "Weekend" }
-    : { day: "weekday", labelKo: "평일", labelEn: "Weekday" };
-}
-
-function getResolvedDay(date) {
-  return resolveServiceDay(date).day;
 }
 
 function getThemePreference() {
