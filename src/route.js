@@ -10,7 +10,7 @@ import {
   toIsoDate
 } from "./utils/time.js";
 import { getResolvedDay } from "./utils/serviceDay.js";
-import { buildNoticePages, createTickerFit } from "./utils/noticeTicker.js";
+import { buildNoticePages } from "./utils/noticeTicker.js";
 import { getStopShortName } from "./utils/stopLabels.js";
 import { escapeHtml, matchesQuery, highlightMatch } from "./utils/search.js";
 import { getCompositionFallback } from "./utils/imeSearch.js";
@@ -66,8 +66,6 @@ let noticeTickerTimer = null;
 let noticeTickerIndex = 0;
 let noticeTickerFadeTimer = null;
 let noticeTickerSwapTimer = null;
-let noticeTickerResizeBound = false;
-let noticeTickerResizeTimer = null;
 
 function localizeRoute(route) {
   return getLocalizedText(route, state.locale, "name");
@@ -102,14 +100,6 @@ function getTickerDefaultMessage() {
 function renderNoticeTicker() {
   const ticker = document.querySelector("#noticeTicker");
   if (!ticker) return;
-
-  if (!noticeTickerResizeBound) {
-    noticeTickerResizeBound = true;
-    window.addEventListener("resize", () => {
-      clearTimeout(noticeTickerResizeTimer);
-      noticeTickerResizeTimer = setTimeout(renderNoticeTicker, 150);
-    });
-  }
 
   if (noticeTickerTimer) {
     clearInterval(noticeTickerTimer);
@@ -148,7 +138,7 @@ function renderNoticeTicker() {
     return;
   }
 
-  const pages = buildNoticePages(visible, state.locale === LOCALES.EN, createTickerFit(ticker));
+  const pages = buildNoticePages(visible, state.locale === LOCALES.EN);
 
   const draw = (withFade = false) => {
     const text = pages[noticeTickerIndex % pages.length];

@@ -1020,9 +1020,10 @@ body:not(.theme-night) .route-card {
   border: 1px solid rgba(179, 220, 160, 0.2);
   color: #24385a;
   font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: keep-all;
+  line-height: 1.5;
   opacity: 1;
   transform: translateY(0);
   transition: opacity 240ms ease, transform 240ms ease;
