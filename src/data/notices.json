@@ -33,6 +33,17 @@
     "tagEn": "Holiday"
   },
   {
+    "id": "notice-2026-07-17",
+    "title": "7월 17일 제헌절 운행 안내",
+    "body": "제헌절로 인해 휴일 시간표로 운행됩니다. 출발 전 꼭 시간표를 확인해 주세요.",
+    "startDate": "2026-07-16",
+    "endDate": "2026-07-17",
+    "tag": "휴일",
+    "titleEn": "Service Notice for Constitution Day (Jul 17)",
+    "bodyEn": "Holiday timetable applies due to Constitution Day. Please check the timetable before departure.",
+    "tagEn": "Holiday"
+  },
+  {
     "id": "ticker-default",
     "meta": "tickerDefault",
     "message": "카이스트 버스 2.0에 오신 것을 환영합니다.",
