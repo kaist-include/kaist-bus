@@ -4,8 +4,11 @@ function pad2(value) {
   return String(value).padStart(2, "0");
 }
 
+// 빌드 머신(예: GitHub Actions 러너는 UTC)과 무관하게 한국시간(KST, GMT+9) 벽시계로 고정한다.
+// UTC 인스턴트에 +9시간을 더한 뒤 getUTC*로 읽으면 타임존 설정에 의존하지 않는다. KST는 서머타임이 없어 항상 +9.
 const now = new Date();
-const buildDate = `${now.getFullYear()}-${pad2(now.getMonth() + 1)}-${pad2(now.getDate())} ${pad2(now.getHours())}:${pad2(now.getMinutes())}`;
+const kst = new Date(now.getTime() + 9 * 60 * 60 * 1000);
+const buildDate = `${kst.getUTCFullYear()}-${pad2(kst.getUTCMonth() + 1)}-${pad2(kst.getUTCDate())} ${pad2(kst.getUTCHours())}:${pad2(kst.getUTCMinutes())}`;
 
 function shortChunkName(chunkInfo) {
   const h = createHash("sha256").update(chunkInfo.name || "chunk").digest("hex").slice(0, 8);
