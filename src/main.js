@@ -10,6 +10,7 @@ import {
   toIsoDate
 } from "./utils/time.js";
 import { resolveServiceDay, getResolvedDay } from "./utils/serviceDay.js";
+import { buildNoticePages } from "./utils/noticeTicker.js";
 import { getStopShortName } from "./utils/stopLabels.js";
 import { escapeHtml, matchesQuery, highlightMatch } from "./utils/search.js";
 import { getCompositionFallback } from "./utils/imeSearch.js";
@@ -769,35 +770,7 @@ function renderNoticeTicker() {
     return;
   }
 
-  const buildText = () => {
-    const item = visible[noticeTickerIndex % visible.length];
-    const tag = state.locale === LOCALES.EN ? item.tagEn || item.tag || "Notice" : item.tag || "공지";
-    const title = state.locale === LOCALES.EN ? item.titleEn || item.title : item.title;
-    return `[${tag}] ${title}`;
-  };
-
-  const draw = (withFade = false) => {
-    const nextText = buildText();
-    if (!withFade) {
-      ticker.textContent = nextText;
-      syncTickerLink();
-      return;
-    }
-    if (noticeTickerFadeTimer) clearTimeout(noticeTickerFadeTimer);
-    if (noticeTickerSwapTimer) clearTimeout(noticeTickerSwapTimer);
-
-    ticker.classList.add("is-switching");
-    noticeTickerSwapTimer = setTimeout(() => {
-      ticker.textContent = nextText;
-      syncTickerLink();
-    }, 120);
-
-    noticeTickerFadeTimer = setTimeout(() => {
-      ticker.classList.remove("is-switching");
-      noticeTickerFadeTimer = null;
-      noticeTickerSwapTimer = null;
-    }, 240);
-  };
+  const pages = buildNoticePages(visible, state.locale === LOCALES.EN);
 
   const goNoticeSection = () => {
     const target = document.querySelector("#notice");
@@ -807,11 +780,7 @@ function renderNoticeTicker() {
     }
   };
 
-  const syncTickerLink = () => {
-    const item = visible[noticeTickerIndex % visible.length];
-    const body = state.locale === LOCALES.EN ? item.bodyEn || item.body || "" : item.body || "";
-    const fullText = `${buildText()} ${body ? `- ${body}` : ""}`.trim();
-    ticker.textContent = fullText;
+  const applyClickable = () => {
     ticker.classList.add("is-link");
     ticker.setAttribute("role", "button");
     ticker.setAttribute("tabindex", "0");
@@ -824,13 +793,37 @@ function renderNoticeTicker() {
     };
   };
 
+  const draw = (withFade = false) => {
+    const text = pages[noticeTickerIndex % pages.length];
+    if (!withFade) {
+      ticker.textContent = text;
+      applyClickable();
+      return;
+    }
+    if (noticeTickerFadeTimer) clearTimeout(noticeTickerFadeTimer);
+    if (noticeTickerSwapTimer) clearTimeout(noticeTickerSwapTimer);
+
+    ticker.classList.add("is-switching");
+    noticeTickerSwapTimer = setTimeout(() => {
+      ticker.textContent = text;
+      applyClickable();
+    }, 120);
+
+    noticeTickerFadeTimer = setTimeout(() => {
+      ticker.classList.remove("is-switching");
+      noticeTickerFadeTimer = null;
+      noticeTickerSwapTimer = null;
+    }, 240);
+  };
+
+  noticeTickerIndex = 0;
   draw(false);
-  if (visible.length <= 1) {
+  if (pages.length <= 1) {
     ticker.classList.remove("is-switching");
     return;
   }
   noticeTickerTimer = setInterval(() => {
-    noticeTickerIndex = (noticeTickerIndex + 1) % visible.length;
+    noticeTickerIndex = (noticeTickerIndex + 1) % pages.length;
     draw(true);
   }, 5000);
 }

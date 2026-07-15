@@ -10,6 +10,7 @@ import {
   toIsoDate
 } from "./utils/time.js";
 import { getResolvedDay } from "./utils/serviceDay.js";
+import { buildNoticePages } from "./utils/noticeTicker.js";
 import { getStopShortName } from "./utils/stopLabels.js";
 import { escapeHtml, matchesQuery, highlightMatch } from "./utils/search.js";
 import { getCompositionFallback } from "./utils/imeSearch.js";
@@ -137,16 +138,10 @@ function renderNoticeTicker() {
     return;
   }
 
-  const buildText = () => {
-    const item = visible[noticeTickerIndex % visible.length];
-    const tag = state.locale === LOCALES.EN ? item.tagEn || item.tag || "Notice" : item.tag || "공지";
-    const title = state.locale === LOCALES.EN ? item.titleEn || item.title : item.title;
-    const body = state.locale === LOCALES.EN ? item.bodyEn || item.body || "" : item.body || "";
-    return `[${tag}] ${title}${body ? ` - ${body}` : ""}`;
-  };
+  const pages = buildNoticePages(visible, state.locale === LOCALES.EN);
 
   const draw = (withFade = false) => {
-    const text = buildText();
+    const text = pages[noticeTickerIndex % pages.length];
     if (!withFade) {
       ticker.textContent = text;
       applyClickable();
@@ -164,13 +159,14 @@ function renderNoticeTicker() {
     }, 240);
   };
 
+  noticeTickerIndex = 0;
   draw(false);
-  if (visible.length <= 1) {
+  if (pages.length <= 1) {
     ticker.classList.remove("is-switching");
     return;
   }
   noticeTickerTimer = setInterval(() => {
-    noticeTickerIndex = (noticeTickerIndex + 1) % visible.length;
+    noticeTickerIndex = (noticeTickerIndex + 1) % pages.length;
     draw(true);
   }, 5000);
 }
