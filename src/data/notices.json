@@ -37,7 +37,7 @@
     "title": "특구 1번 운행 중단 · 월평 셔틀 야간 확대",
     "body": "7월 14일부로 특구 1번 운행이 중단되었습니다. 월평 셔틀에 20시·22시 본교 출발 편이 추가됐습니다. 출발 전 시간표를 확인해 주세요.",
     "startDate": "2026-07-14",
-    "endDate": "2026-08-31",
+    "endDate": "2026-08-16",
     "tag": "공지",
     "titleEn": "Teukgu Route 1 Ended · Wolpyeong Shuttle Expanded",
     "bodyEn": "Teukgu Route 1 ended on July 14. The Wolpyeong Shuttle added 20:00 and 22:00 departures from Main Campus. Please check the timetable before departure.",
@@ -52,6 +52,17 @@
     "tag": "휴일",
     "titleEn": "Service Notice for Constitution Day (Jul 17)",
     "bodyEn": "Holiday timetable applies due to Constitution Day. Please check the timetable before departure.",
+    "tagEn": "Holiday"
+  },
+  {
+    "id": "notice-2026-08-17",
+    "title": "8월 17일 광복절 대체공휴일 운행 안내",
+    "body": "광복절 대체공휴일로 휴일 시간표로 운행됩니다. 출발 전 시간표를 확인해 주세요.",
+    "startDate": "2026-08-16",
+    "endDate": "2026-08-17",
+    "tag": "휴일",
+    "titleEn": "Service Notice for Liberation Day Substitute Holiday (Aug 17)",
+    "bodyEn": "Holiday timetable applies for the Liberation Day substitute holiday. Please check the timetable before departure.",
     "tagEn": "Holiday"
   },
   {
