@@ -66,6 +66,17 @@
     "tagEn": "Holiday"
   },
   {
+    "id": "notice-2026-09-24",
+    "title": "9월 24일~26일 추석 연휴 운행 안내",
+    "body": "추석 연휴 기간에는 휴일 시간표로 운행됩니다. 출발 전 꼭 시간표를 확인해 주세요.",
+    "startDate": "2026-09-23",
+    "endDate": "2026-09-26",
+    "tag": "휴일",
+    "titleEn": "Service Notice for Chuseok Holiday (Sep 24–26)",
+    "bodyEn": "Holiday timetable applies during the Chuseok holiday. Please check the timetable before departure.",
+    "tagEn": "Holiday"
+  },
+  {
     "id": "ticker-default",
     "meta": "tickerDefault",
     "message": "카이스트 버스 2.0에 오신 것을 환영합니다.",
