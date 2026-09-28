@@ -77,6 +77,17 @@
     "tagEn": "Holiday"
   },
   {
+    "id": "notice-2026-10-05",
+    "title": "10월 5일 개천절 대체공휴일 운행 안내",
+    "body": "개천절 대체공휴일로 휴일 시간표로 운행됩니다. 출발 전 시간표를 확인해 주세요.",
+    "startDate": "2026-10-02",
+    "endDate": "2026-10-05",
+    "tag": "휴일",
+    "titleEn": "Service Notice for National Foundation Day Substitute Holiday (Oct 5)",
+    "bodyEn": "Holiday timetable applies for the National Foundation Day substitute holiday. Please check the timetable before departure.",
+    "tagEn": "Holiday"
+  },
+  {
     "id": "ticker-default",
     "meta": "tickerDefault",
     "message": "카이스트 버스 2.0에 오신 것을 환영합니다.",
