@@ -63,7 +63,7 @@ export default {
   build: {
     outDir: '../dist',
     emptyOutDir: true,
-    rollupOptions: {
+    rolldownOptions: {
       input: {
         main: 'src/index.html',
         route: 'src/route.html'

@@ -1,5 +1,11 @@
 # 배포 안내 (bus.kaist.ac.kr)
 
+## 개발·빌드 환경
+
+Node.js 24 LTS(`.nvmrc`), Python 3.12, Vite 8을 사용합니다.
+`nvm use` 후 `npm ci`로 잠금 파일의 의존성을 설치하세요.
+GitHub Actions도 같은 Node/Python 계열과 Ubuntu 24.04에서 빌드합니다.
+
 ## 빌드 결과물
 
 `npm run build`는 `prebuild`에서 공식 시간표를 수집·검증하고 회귀 테스트를 실행합니다.

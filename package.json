@@ -14,6 +14,9 @@
     "test": "python -m unittest discover -s tests -p \"test_*.py\" && node --test tests/*.test.js"
   },
   "devDependencies": {
-    "vite": "^5.4.0"
+    "vite": "^8.3.3"
+  },
+  "engines": {
+    "node": ">=24 <25"
   }
 }
