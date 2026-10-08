@@ -8,10 +8,10 @@
     "dev": "vite",
     "update-data": "python scripts/kaist_scrape.py",
     "build": "vite build && node scripts/legacy-redirects.cjs --out dist",
-    
-    "deploy": "npm run update-data && npm run build",
-    
-    "preview": "vite preview"
+    "deploy": "npm run build",
+    "preview": "vite preview",
+    "prebuild": "npm run update-data && npm test",
+    "test": "python -m unittest discover -s tests -p \"test_*.py\" && node --test tests/*.test.js"
   },
   "devDependencies": {
     "vite": "^5.4.0"

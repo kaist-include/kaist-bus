@@ -1,7 +1,6 @@
 {
   "wolpyeong": {
     "본교 출발 교수회관 (N6)": "Main Campus Departure · Faculty Club (N6)",
-    "본교 출발 강당 (E10)": "Main Campus Departure · Auditorium (E10)",
     "본교 출발 본관당 (W8)": "Main Campus Departure · Main Building (W8)",
     "본교 출발 오리연못": "Main Campus Departure · Duck Pond",
     "시내구간 로데오 거리": "Downtown · Rodeo Street",
@@ -13,7 +12,8 @@
     "본교 도착 오리연못": "Main Campus Arrival · Duck Pond",
     "본교 도착 본관 (E14)": "Main Campus Arrival · Main Building (E14)",
     "본교 도착 강당 (E15)": "Main Campus Arrival · Auditorium (E15)",
-    "본교 도착 교수회관 (N6)": "Main Campus Arrival · Faculty Club (N6)"
+    "본교 도착 교수회관 (N6)": "Main Campus Arrival · Faculty Club (N6)",
+    "본교 출발 강당 (E15)": "Main Campus Departure · Auditorium (E15)"
   },
   "wolpyeong-early": {
     "정부청사": "Government Complex",
@@ -41,6 +41,11 @@
     "본교": "Main Campus",
     "교수 아파트": "Faculty Apartment",
     "화암기숙사 (2)": "Hwaam Dormitory (2)",
-    "문지캠퍼스 (3)": "Munji Campus (3)"
+    "문지캠퍼스 (3)": "Munji Campus (3)",
+    "문지 도착 (2)": "Munji Arrival (2)",
+    "문지 출발 (3)": "Munji Departure (3)",
+    "화암 도착 (2)": "Hwaam Arrival (2)",
+    "화암 출발 (2)": "Hwaam Departure (2)",
+    "문지 도착 (3)": "Munji Arrival (3)"
   }
 }

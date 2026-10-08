@@ -1,17 +1,14 @@
+import { readStoredArray, writeStoredArray } from "./storage.js";
+
 const RECENT_SEARCH_KEY = "kaist-bus-recent-search";
 const DEFAULT_LIMIT = 5;
 
 export function readRecentSearches(scope = "route") {
-  try {
-    const raw = localStorage.getItem(`${RECENT_SEARCH_KEY}:${scope}`);
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
+  return readStoredArray(`${RECENT_SEARCH_KEY}:${scope}`, (item) => typeof item === "string");
 }
 
 export function writeRecentSearches(scope = "route", items = []) {
-  localStorage.setItem(`${RECENT_SEARCH_KEY}:${scope}`, JSON.stringify(items));
+  writeStoredArray(`${RECENT_SEARCH_KEY}:${scope}`, items);
 }
 
 export function addRecentSearch(scope = "route", term, limit = DEFAULT_LIMIT) {

@@ -41,14 +41,29 @@ export function isWeekend(date) {
 }
 
 export function getNextDepartures(times, nowMinutes, count = 5) {
-  const sorted = times.map(timeToMinutes).sort((a, b) => a - b);
-  if (sorted.length === 0) return [];
-  if (sorted.length === 1) return [minutesToTime(sorted[0])];
+  return times.map(timeToMinutes).map((minute) => minute < 240 ? minute + 1440 : minute).sort((a, b) => a - b)
+    .filter((minute) => minute >= nowMinutes).slice(0, count).map(minutesToTime);
+}
 
-  const extended = [...sorted, ...sorted.map((t) => t + 1440)];
-  const startIndex = extended.findIndex((t) => t >= nowMinutes);
-  const sliceStart = startIndex === -1 ? 0 : startIndex;
-  return extended.slice(sliceStart, sliceStart + count).map(minutesToTime);
+// Store a KST wall-clock on a UTC calendar so the viewer's DST cannot move
+// nonexistent local times (e.g. 02:30 on a US spring-forward date).
+class KoreaWallClockDate extends Date {
+  getFullYear() { return this.getUTCFullYear(); }
+  getMonth() { return this.getUTCMonth(); }
+  getDate() { return this.getUTCDate(); }
+  getDay() { return this.getUTCDay(); }
+  getHours() { return this.getUTCHours(); }
+  getMinutes() { return this.getUTCMinutes(); }
+  getSeconds() { return this.getUTCSeconds(); }
+  setDate(day) { return this.setUTCDate(day); }
+  toLocaleDateString(locale, options) {
+    return super.toLocaleDateString(locale, { ...options, timeZone: "UTC" });
+  }
+}
+
+// For wall-clock scheduling/display only; Date.now() remains the real timestamp.
+export function getKoreaNow(instant = new Date()) {
+  return new KoreaWallClockDate(instant.getTime() + 9 * 60 * 60 * 1000);
 }
 
 

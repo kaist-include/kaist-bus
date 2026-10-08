@@ -2,6 +2,12 @@
 
 ## 빌드 결과물
 
+`npm run build`는 `prebuild`에서 공식 시간표를 수집·검증하고 회귀 테스트를 실행합니다.
+수집 실패나 표 구조 변경이 감지되면 기존 JSON을 유지하고 빌드를 실패시킵니다.
+현재 승인된 회차 수는 월평 11회, 얼리월평 1회, 문지 주중 25회/휴일 13회,
+OLEV 26회입니다. 공식 회차·정류장 구조가 바뀌면 파서와 fixture를 함께 검토해야 합니다.
+`npm test`는 네트워크 없이 저장된 공식 HTML fixture와 시간 계산을 검증합니다.
+
 `npm run build` 후 `dist/` 폴더에는 다음이 포함됩니다.
 
 - **진입점**: `index.html`, `route.html`, `privacypolicy.html`, `404.html`

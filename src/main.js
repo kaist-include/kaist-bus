@@ -1,3 +1,5 @@
+import { getServiceContext, getRemainingDepartures, selectRouteTimes } from "./utils/schedule.js";
+import { readStoredArray, writeStoredArray, isFavorite, readGlowMap } from "./utils/storage.js";
 import "./styles.css";
 import notices from "./data/notices.json";
 import routesData from "./data/routes.json";
@@ -6,8 +8,8 @@ import {
   formatClockWithSeconds,
   formatKoreanDate,
   formatKoreanWeekday,
-  minutesToTime,
-  toIsoDate
+  toIsoDate,
+  getKoreaNow
 } from "./utils/time.js";
 import { resolveServiceDay, getResolvedDay } from "./utils/serviceDay.js";
 import { buildNoticePages } from "./utils/noticeTicker.js";
@@ -37,7 +39,6 @@ let nightSkyCss = null;
 const CAMPUS_LOOP_ID = "campus-loop";
 const NAV_WRAP_SLACK = 12;
 const BUILD_DATE = typeof __BUILD_DATE__ === "string" ? __BUILD_DATE__ : "";
-const CROSSOVER_MINUTES = 4 * 60;
 const CAMPUS_OPTIONS = [
   { id: "main", label: "본교", labelEn: "Main", match: /본교|main/i },
   { id: "munji", label: "문지", labelEn: "Munji", match: /문지|munji/i },
@@ -108,52 +109,13 @@ function findStopForDay(route, stopId, day) {
   return withTimes || matches[0];
 }
 
-function normalizeServiceMinutes(timeStr) {
-  const [rawH, rawM] = timeStr.split(":").map(Number);
-  if (Number.isNaN(rawH) || Number.isNaN(rawM)) return 0;
-  let minutes = rawH * 60 + rawM;
-  if (rawH < 4) {
-    minutes += 1440;
-  }
-  return minutes;
-}
-
-function getLastServiceMinute(times) {
-  if (!times || times.length === 0) return null;
-  return Math.max(...times.map(normalizeServiceMinutes));
-}
-
-function getRouteLastServiceMinute(route, day) {
-  if (!route) return null;
-  const times = route.stops.flatMap((stop) => stop.times?.[day] || []);
-  return getLastServiceMinute(times);
-}
 
 function getEffectiveDayForStop(date, stop, route) {
-  const currentDay = getResolvedDay(date);
-  const prevDate = new Date(date);
-  prevDate.setDate(date.getDate() - 1);
-  const prevDay = getResolvedDay(prevDate);
-  if (currentDay === prevDay) return currentDay;
-  const nowMinutes = date.getHours() * 60 + date.getMinutes();
-  if (nowMinutes >= CROSSOVER_MINUTES) return currentDay;
-  const lastPrev = route
-    ? getRouteLastServiceMinute(route, prevDay)
-    : getLastServiceMinute(stop?.times?.[prevDay] || []);
-  const prevStillRunning = lastPrev != null && lastPrev >= nowMinutes + 1440;
-  const hasTimes = (day) => (stop?.times?.[day] || []).length > 0;
-  let preferred = prevStillRunning ? prevDay : currentDay;
-  if (preferred === prevDay && !hasTimes(prevDay) && hasTimes(currentDay)) {
-    preferred = currentDay;
-  }
-  if (preferred === currentDay && !hasTimes(currentDay) && hasTimes(prevDay) && prevStillRunning) {
-    preferred = prevDay;
-  }
-  return preferred;
+  return getServiceContext(date, route, resolveServiceDay).day;
 }
 
 const state = {
-  now: new Date(),
+  now: getKoreaNow(),
   serviceDay: "weekday",
   holidayLabel: "",
   selectedRouteId: "",
@@ -185,14 +147,8 @@ function localizeStop(stop) {
 }
 
 function readFavorites() {
-  try {
-    const raw = localStorage.getItem(FAVORITES_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
+  return readStoredArray(FAVORITES_KEY, isFavorite);
 }
-
 
 
 function isCampusLoop(route) {
@@ -240,33 +196,14 @@ function getCampusDepartureStop(route, fromId, toId) {
   return candidates[0].stop;
 }
 
-function normalizeTimeForFilter(timeStr) {
-  const s = String(timeStr || "").trim();
-  const m = s.match(/^(\d{1,2}):(\d{2})$/);
-  if (!m) return s;
-  return `${m[1].padStart(2, "0")}:${m[2].padStart(2, "0")}`;
-}
 
 function filterCampusLoopTimes(route, day, times, campusFrom, campusTo) {
-  if (!isCampusLoop(route)) return times;
-  const pairKey = `${campusFrom}->${campusTo}`;
-  const pairTimes = route?.campusPairs?.[day]?.[pairKey];
-  if (Array.isArray(pairTimes) && pairTimes.length > 0) {
-    return pairTimes.slice();
-  }
-  const excludeList = route?.campusPairExcludeTimes?.[pairKey];
-  if (Array.isArray(excludeList) && excludeList.length > 0 && Array.isArray(times)) {
-    const set = new Set(excludeList.map(normalizeTimeForFilter));
-    return times.filter((t) => !set.has(normalizeTimeForFilter(t)));
-  }
-  if (day === "weekend" && campusFrom === "main" && campusTo === "hwaam") {
-    return times.filter((time) => time.trim() !== "11:30");
-  }
-  return times;
+  return selectRouteTimes(route, day, times, campusFrom, campusTo,
+    getServiceContext(state.now, route, resolveServiceDay));
 }
 
 function writeFavorites(items) {
-  localStorage.setItem(FAVORITES_KEY, JSON.stringify(items));
+  writeStoredArray(FAVORITES_KEY, items);
 }
 
 function getFavoritePreviewLimit() {
@@ -285,15 +222,8 @@ function getMainNextPreviewLimit() {
   return 7;
 }
 
-function getRemainingDeparturesUntilLast(times, nowMinutesWithTolerance) {
-  if (!times?.length) return [];
-  const normalized = times
-    .map((time) => normalizeServiceMinutes(time))
-    .sort((a, b) => a - b);
-  const lastMinute = normalized[normalized.length - 1];
-  return normalized
-    .filter((minute) => minute >= nowMinutesWithTolerance && minute <= lastMinute)
-    .map((minute) => minutesToTime(minute));
+function getRemainingDeparturesUntilLast(times, nowMinutes) {
+  return getRemainingDepartures(times, nowMinutes);
 }
 
 function toggleFavorite(routeId, stopId) {
@@ -469,12 +399,7 @@ function applyRandomCardGlow() {
   const cards = document.querySelectorAll(
     ".hero-card, .next-card, .notice-card, .time-table"
   );
-  let glowMap = {};
-  try {
-    glowMap = JSON.parse(sessionStorage.getItem(CARD_GLOW_KEY) || "{}");
-  } catch {
-    glowMap = {};
-  }
+  const glowMap = readGlowMap(CARD_GLOW_KEY);
 
   const getCardType = (card) => {
     if (card.classList.contains("hero-card")) return "hero";
@@ -527,12 +452,7 @@ function applyRouteCardGlowStable() {
   if (!list) return;
   const cards = list.querySelectorAll(".route-card");
   if (!cards.length) return;
-  let glowMap = {};
-  try {
-    glowMap = JSON.parse(sessionStorage.getItem(CARD_GLOW_KEY) || "{}");
-  } catch {
-    glowMap = {};
-  }
+  const glowMap = readGlowMap(CARD_GLOW_KEY);
   cards.forEach((card) => {
     const key = `route:${card.dataset.glowKey || ""}`;
     if (!glowMap[key]) return;
@@ -550,12 +470,7 @@ function applyRouteCardGlowStable() {
 
 function ensureRouteGlowCache(routes) {
   if (!document.body.classList.contains("theme-night")) return;
-  let glowMap = {};
-  try {
-    glowMap = JSON.parse(sessionStorage.getItem(CARD_GLOW_KEY) || "{}");
-  } catch {
-    glowMap = {};
-  }
+  const glowMap = readGlowMap(CARD_GLOW_KEY);
   routes.forEach((route) => {
     const key = `route:${route.id}`;
     if (!glowMap[key]) {
@@ -617,7 +532,7 @@ function renderTime() {
   const weekdayBadge = document.querySelector("[data-weekday-badge]");
   if (!clockEls.length || !dateEls.length || !weekdayEls.length) return;
 
-  state.now = new Date();
+  state.now = getKoreaNow();
   const timeText = formatClockWithSeconds(state.now);
   clockEls.forEach((el) => {
     el.textContent = timeText;
@@ -939,7 +854,6 @@ function renderFavorites(routes) {
   if (dock) dock.classList.remove("is-empty");
   dockPanel.style.display = "";
 
-  const nowMinutes = state.now.getHours() * 60 + state.now.getMinutes();
   const previewLimit = getFavoritePreviewLimit();
   const validItems = [];
   const entries = [];
@@ -966,10 +880,8 @@ function renderFavorites(routes) {
       item.campusFrom,
       item.campusTo
     );
-    const effectiveNow = favoriteDay !== getResolvedDay(state.now) && nowMinutes < CROSSOVER_MINUTES
-      ? nowMinutes + 1440
-      : nowMinutes;
-    const remaining = getRemainingDeparturesUntilLast(times, effectiveNow - 2);
+    const effectiveNow = getServiceContext(state.now, route, resolveServiceDay).nowMinutes;
+    const remaining = getRemainingDeparturesUntilLast(times, effectiveNow);
     const upcoming = remaining.slice(0, previewLimit);
     const lastTime = remaining[remaining.length - 1];
     const hiddenCount = Math.max(0, remaining.length - upcoming.length);
@@ -1171,7 +1083,6 @@ function renderNextDepartures(routes) {
     return;
   }
 
-  const nowMinutes = state.now.getHours() * 60 + state.now.getMinutes();
   const cards = favorites
     .map((item) => {
       const route = mergedRoutes.find((r) => r.id === item.routeId);
@@ -1194,11 +1105,8 @@ function renderNextDepartures(routes) {
         item.campusFrom,
         item.campusTo
       );
-      if (!times.length) return "";
-      const effectiveNow = effectiveDay !== getResolvedDay(state.now) && nowMinutes < CROSSOVER_MINUTES
-        ? nowMinutes + 1440
-        : nowMinutes;
-      const remaining = getRemainingDeparturesUntilLast(times, effectiveNow - 2);
+      const effectiveNow = getServiceContext(state.now, route, resolveServiceDay).nowMinutes;
+      const remaining = getRemainingDeparturesUntilLast(times, effectiveNow);
       const upcoming = remaining.slice(0, previewLimit);
       const hiddenCount = Math.max(0, remaining.length - upcoming.length);
       const lastTime = remaining[remaining.length - 1];
@@ -1224,7 +1132,7 @@ function renderNextDepartures(routes) {
             </div>
           </div>
           <div class="next-list">
-            ${[
+            ${upcoming.length ? [
               ...upcoming.map((time) => `
                 <div class="next-chip">
                   ${time}
@@ -1233,7 +1141,7 @@ function renderNextDepartures(routes) {
               `)
               ,
               hiddenCount > 0 ? `<div class="next-chip next-chip--more">+${hiddenCount}</div>` : ""
-            ].join("")}
+            ].join("") : `<div class="next-empty-inline">${t(state.locale, "noServiceText")}</div>`}
           </div>
           <p class="next-note">${t(state.locale, "realtimeNotice")}</p>
         </div>
@@ -1284,21 +1192,21 @@ function setupThemeToggle() {
   button.addEventListener("click", () => {
     const isNight = document.body.classList.contains("theme-night");
     setThemePreference(isNight ? "light" : "dark");
-    applyThemeByPreference(new Date());
+    applyThemeByPreference(getKoreaNow());
     state.glowLocked = false;
     if (!isNight) {
       ensureRouteGlowCache(getRouteExploreList());
     }
     lockCardGlow();
   });
-  applyThemeByPreference(new Date());
+  applyThemeByPreference(getKoreaNow());
 }
 
 function applyLocale() {
   applyStaticI18n(state.locale);
   const footerUpdate = document.querySelector("#footerUpdateMain");
   if (footerUpdate) {
-    const fallbackNow = new Date();
+    const fallbackNow = getKoreaNow();
     const raw = typeof BUILD_DATE === "string" ? BUILD_DATE.trim() : "";
     const match = raw.match(/^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2}))?$/);
     const year = match ? Number(match[1]) : fallbackNow.getFullYear();
@@ -1691,6 +1599,5 @@ function boot() {
 }
 
 boot();
-
 
 

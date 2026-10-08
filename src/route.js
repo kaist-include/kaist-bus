@@ -1,3 +1,5 @@
+import { normalizeServiceMinutes, getServiceContext, getRemainingDepartures, selectRouteTimes } from "./utils/schedule.js";
+import { readStoredArray, writeStoredArray, isFavorite, readGlowMap } from "./utils/storage.js";
 import "./styles.css";
 import routesData from "./data/routes.json";
 import notices from "./data/notices.json";
@@ -5,11 +7,10 @@ import {
   formatClockWithSeconds,
   formatKoreanDate,
   formatKoreanWeekday,
-  minutesToTime,
-  timeToMinutes,
-  toIsoDate
+  toIsoDate,
+  getKoreaNow
 } from "./utils/time.js";
-import { getResolvedDay } from "./utils/serviceDay.js";
+import { resolveServiceDay, getResolvedDay } from "./utils/serviceDay.js";
 import { buildNoticePages } from "./utils/noticeTicker.js";
 import { getStopShortName } from "./utils/stopLabels.js";
 import { escapeHtml, matchesQuery, highlightMatch } from "./utils/search.js";
@@ -41,7 +42,7 @@ const CAMPUS_OPTIONS = [
 ];
 
 const state = {
-  now: new Date(),
+  now: getKoreaNow(),
   serviceDay: "weekday",
   serviceOverride: null,
   routeId: "",
@@ -61,7 +62,6 @@ const state = {
 const dropdownRegistry = new Map();
 const NAV_WRAP_SLACK = 12;
 const BUILD_DATE = typeof __BUILD_DATE__ === "string" ? __BUILD_DATE__ : "";
-const CROSSOVER_MINUTES = 4 * 60;
 let noticeTickerTimer = null;
 let noticeTickerIndex = 0;
 let noticeTickerFadeTimer = null;
@@ -223,26 +223,6 @@ function mergeDuplicateRoutes(routes) {
 
 const mergedRoutes = mergeDuplicateRoutes(routesData.routes);
 
-function normalizeServiceMinutes(timeStr) {
-  const [rawH, rawM] = timeStr.split(":").map(Number);
-  if (Number.isNaN(rawH) || Number.isNaN(rawM)) return 0;
-  let minutes = rawH * 60 + rawM;
-  if (rawH < 4) {
-    minutes += 1440;
-  }
-  return minutes;
-}
-
-function getLastServiceMinute(times) {
-  if (!times || times.length === 0) return null;
-  return Math.max(...times.map(normalizeServiceMinutes));
-}
-
-function getRouteLastServiceMinute(route, day) {
-  if (!route) return null;
-  const times = route.stops.flatMap((stop) => stop.times?.[day] || []);
-  return getLastServiceMinute(times);
-}
 
 function getStopsForDay(route, day) {
   const dayStops = route.stops.filter((stop) => (stop.times?.[day] || []).length);
@@ -682,16 +662,11 @@ function syncDropdown(select, overrideSearchValue = null) {
 }
 
 function readFavorites() {
-  try {
-    const raw = localStorage.getItem(FAVORITES_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
+  return readStoredArray(FAVORITES_KEY, isFavorite);
 }
 
 function writeFavorites(items) {
-  localStorage.setItem(FAVORITES_KEY, JSON.stringify(items));
+  writeStoredArray(FAVORITES_KEY, items);
 }
 
 function getFavoritePreviewLimit() {
@@ -702,15 +677,8 @@ function getFavoritePreviewLimit() {
   return 5;
 }
 
-function getRemainingDeparturesUntilLast(times, nowMinutesWithTolerance) {
-  if (!times?.length) return [];
-  const normalized = times
-    .map((time) => normalizeServiceMinutes(time))
-    .sort((a, b) => a - b);
-  const lastMinute = normalized[normalized.length - 1];
-  return normalized
-    .filter((minute) => minute >= nowMinutesWithTolerance && minute <= lastMinute)
-    .map((minute) => minutesToTime(minute));
+function getRemainingDeparturesUntilLast(times, nowMinutes) {
+  return getRemainingDepartures(times, nowMinutes);
 }
 
 
@@ -737,7 +705,6 @@ function renderFavoriteDock(route) {
 
   if (dock) dock.classList.remove("is-empty");
 
-  const nowMinutes = state.now.getHours() * 60 + state.now.getMinutes();
   const previewLimit = getFavoritePreviewLimit();
   const entries = [];
   const validItems = [];
@@ -762,10 +729,11 @@ function renderFavoriteDock(route) {
       favoriteDay,
       stop.times?.[favoriteDay] || [],
       item.campusFrom,
-      item.campusTo
+      item.campusTo,
+      true
     );
-    const effectiveNow = getEffectiveNowMinutes(state.now, favoriteDay);
-    const remaining = getRemainingDeparturesUntilLast(times, effectiveNow - 2);
+    const effectiveNow = getEffectiveNowMinutes(state.now, favoriteDay, itemRoute);
+    const remaining = getRemainingDeparturesUntilLast(times, effectiveNow);
     const upcoming = remaining.slice(0, previewLimit);
     const lastTime = remaining[remaining.length - 1];
     const hiddenCount = Math.max(0, remaining.length - upcoming.length);
@@ -858,50 +826,15 @@ function renderFavoriteDock(route) {
 }
 
 function getEffectiveDayForStop(date, stop, route) {
-  const currentDay = getResolvedDay(date);
-  const prevDate = new Date(date);
-  prevDate.setDate(date.getDate() - 1);
-  const prevDay = getResolvedDay(prevDate);
-  if (currentDay === prevDay) return currentDay;
-  const nowMinutes = date.getHours() * 60 + date.getMinutes();
-  if (nowMinutes >= CROSSOVER_MINUTES) return currentDay;
-  const lastPrev = route
-    ? getRouteLastServiceMinute(route, prevDay)
-    : getLastServiceMinute(stop?.times?.[prevDay] || []);
-  const prevStillRunning = lastPrev != null && lastPrev >= nowMinutes + 1440;
-  const hasTimes = (day) => (stop?.times?.[day] || []).length > 0;
-  let preferred = prevStillRunning ? prevDay : currentDay;
-  if (preferred === prevDay && !hasTimes(prevDay) && hasTimes(currentDay)) {
-    preferred = currentDay;
-  }
-  if (preferred === currentDay && !hasTimes(currentDay) && hasTimes(prevDay) && prevStillRunning) {
-    preferred = prevDay;
-  }
-  return preferred;
+  return getServiceContext(date, route, resolveServiceDay).day;
 }
 
-function getEffectiveNowMinutes(date, effectiveDay) {
-  const nowMinutes = date.getHours() * 60 + date.getMinutes();
-  const resolved = getResolvedDay(date);
-  if (effectiveDay !== resolved && nowMinutes < CROSSOVER_MINUTES) {
-    return nowMinutes + 1440;
-  }
-  return nowMinutes;
+function getEffectiveNowMinutes(date, effectiveDay, route) {
+  return getServiceContext(date, route, resolveServiceDay).nowMinutes;
 }
 
 function getServiceDay(date, route) {
-  if (state.serviceOverride) return state.serviceOverride;
-  if (!route) return getResolvedDay(date);
-  const prevDate = new Date(date);
-  prevDate.setDate(date.getDate() - 1);
-  const prevDay = getResolvedDay(prevDate);
-  const currentDay = getResolvedDay(date);
-  if (prevDay === currentDay) return currentDay;
-  const nowMinutes = date.getHours() * 60 + date.getMinutes();
-  if (nowMinutes >= CROSSOVER_MINUTES) return currentDay;
-  const lastPrev = getRouteLastServiceMinute(route, prevDay);
-  if (lastPrev == null) return currentDay;
-  return lastPrev >= nowMinutes + 1440 ? prevDay : currentDay;
+  return state.serviceOverride || getServiceContext(date, route, resolveServiceDay).day;
 }
 
 function getRoutesForDay(day) {
@@ -989,29 +922,10 @@ function getCampusDepartureStop(route, fromId, toId) {
   return candidates[0].stop;
 }
 
-function normalizeTimeForFilter(timeStr) {
-  const s = String(timeStr || "").trim();
-  const m = s.match(/^(\d{1,2}):(\d{2})$/);
-  if (!m) return s;
-  return `${m[1].padStart(2, "0")}:${m[2].padStart(2, "0")}`;
-}
 
-function filterCampusLoopTimes(route, day, times, campusFrom, campusTo) {
-  if (!isCampusLoop(route)) return times;
-  const pairKey = `${campusFrom}->${campusTo}`;
-  const pairTimes = route?.campusPairs?.[day]?.[pairKey];
-  if (Array.isArray(pairTimes) && pairTimes.length > 0) {
-    return pairTimes.slice();
-  }
-  const excludeList = route?.campusPairExcludeTimes?.[pairKey];
-  if (Array.isArray(excludeList) && excludeList.length > 0 && Array.isArray(times)) {
-    const set = new Set(excludeList.map(normalizeTimeForFilter));
-    return times.filter((t) => !set.has(normalizeTimeForFilter(t)));
-  }
-  if (day === "weekend" && campusFrom === "main" && campusTo === "hwaam") {
-    return times.filter((time) => time.trim() !== "11:30");
-  }
-  return times;
+function filterCampusLoopTimes(route, day, times, campusFrom, campusTo, applyExceptions = !state.serviceOverride) {
+  return selectRouteTimes(route, day, times, campusFrom, campusTo,
+    getServiceContext(state.now, route, resolveServiceDay), applyExceptions);
 }
 
 function isCampusExpressTime(route, day, campusFrom, campusTo, time) {
@@ -1076,13 +990,17 @@ function renderHeader(route) {
     badge.classList.toggle("is-weekday", !hasWeekend);
   }
   if (weekday) {
-    const dayLabel = getResolvedDay(state.now) === "weekday"
+    const dayLabel = state.serviceDay === "weekday"
       ? t(state.locale, "dayWeekday")
       : t(state.locale, "dayHoliday");
+    const context = getServiceContext(state.now, route, resolveServiceDay);
+    const serviceDate = state.serviceOverride ? state.now : context.serviceDate;
     const dayText = state.locale === LOCALES.EN
-      ? state.now.toLocaleDateString("en-US", { weekday: "long" })
-      : formatKoreanWeekday(state.now);
-    weekday.textContent = `${dayText} (${dayLabel})`;
+      ? serviceDate.toLocaleDateString("en-US", { weekday: "long" })
+      : formatKoreanWeekday(serviceDate);
+    const previous = toIsoDate(serviceDate) !== toIsoDate(state.now)
+      ? (state.locale === LOCALES.EN ? " · Previous day's service" : " · 전날 운행") : "";
+    weekday.textContent = `${dayText} (${dayLabel})${previous}`;
   }
 }
 
@@ -1252,12 +1170,7 @@ function applyRandomCardGlow() {
   const cards = document.querySelectorAll(
     ".hero-card, .next-card, .notice-card, .route-card, .time-table"
   );
-  let glowMap = {};
-  try {
-    glowMap = JSON.parse(sessionStorage.getItem(CARD_GLOW_KEY) || "{}");
-  } catch {
-    glowMap = {};
-  }
+  const glowMap = readGlowMap(CARD_GLOW_KEY);
 
   const getCardType = (card) => {
     if (card.classList.contains("hero-card")) return "hero";
@@ -1531,7 +1444,7 @@ function renderNext(route, stop) {
     `;
     return;
   }
-  const effectiveNow = getEffectiveNowMinutes(state.now, state.serviceDay);
+  const effectiveNow = getEffectiveNowMinutes(state.now, state.serviceDay, route);
   const times = filterCampusLoopTimes(
     route,
     state.serviceDay,
@@ -1544,7 +1457,7 @@ function renderNext(route, stop) {
     return;
   }
   container.style.display = "";
-  const remaining = getRemainingDeparturesUntilLast(times, effectiveNow - 2);
+  const remaining = getRemainingDeparturesUntilLast(times, effectiveNow);
   const nextTimes = remaining.slice(0, 5);
   const lastTime = remaining[remaining.length - 1];
   const hiddenCount = Math.max(0, remaining.length - nextTimes.length);
@@ -1562,7 +1475,7 @@ function renderNext(route, stop) {
       <span class="next-badge">${t(state.locale, "upcoming")}</span>
     </div>
     <div class="next-list">
-      ${[
+      ${nextTimes.length ? [
         ...nextTimes.map((time) => `
           <div class="next-chip">
             ${time}
@@ -1571,7 +1484,7 @@ function renderNext(route, stop) {
         `)
         ,
         hiddenCount > 0 ? `<div class="next-chip next-chip--more">+${hiddenCount}</div>` : ""
-      ].join("")}
+      ].join("") : `<div class="next-empty-inline">${t(state.locale, "noServiceText")}</div>`}
     </div>
     <p class="next-note">${t(state.locale, "realtimeNotice")}</p>
   `;
@@ -1686,7 +1599,7 @@ function renderFavoriteButton(route, stop) {
 }
 
 function render() {
-  state.now = new Date();
+  state.now = getKoreaNow();
   const routes = getRoutesForDay(getResolvedDay(state.now));
   const route = getRouteById(routes, state.routeId || routes[0]?.id);
   if (!route) return;
@@ -1707,6 +1620,10 @@ function render() {
   renderStopPills(route);
   renderFavoriteButton(route, stop);
   renderFavoriteDock(route);
+  document.querySelectorAll("#serviceDayToggle button[data-day]").forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.day === "auto"
+      ? !state.serviceOverride : button.dataset.day === state.serviceDay);
+  });
   applyRandomCardGlow();
 }
 
@@ -1714,8 +1631,7 @@ function setupServiceDayToggle() {
   const toggle = document.querySelector("#serviceDayToggle");
   if (!toggle) return;
   const updateButtons = () => {
-    const resolved = getResolvedDay(state.now);
-    const active = state.serviceOverride || resolved;
+    const active = state.serviceOverride || state.serviceDay;
     toggle.querySelectorAll("button[data-day]").forEach((button) => {
       const day = button.dataset.day;
       const isAuto = day === "auto";
@@ -1727,11 +1643,10 @@ function setupServiceDayToggle() {
     const button = event.target.closest("button[data-day]");
     if (!button) return;
     const day = button.dataset.day;
-    const resolved = getResolvedDay(state.now);
     if (day === "auto") {
       state.serviceOverride = null;
     } else {
-      state.serviceOverride = day === resolved ? null : day;
+      state.serviceOverride = day;
     }
     updateButtons();
     render();
@@ -1799,7 +1714,7 @@ function setupFavorites() {
           },
           ...items
         ];
-    localStorage.setItem(FAVORITES_KEY, JSON.stringify(next.slice(0, 10)));
+    writeFavorites(next.slice(0, 10));
     render();
   });
 }
@@ -1857,16 +1772,16 @@ function setupThemeToggle() {
   button.addEventListener("click", () => {
     const isNight = document.body.classList.contains("theme-night");
     setThemePreference(isNight ? "light" : "dark");
-    applyThemeByPreference(new Date());
+    applyThemeByPreference(getKoreaNow());
   });
-  applyThemeByPreference(new Date());
+  applyThemeByPreference(getKoreaNow());
 }
 
 function applyLocale() {
   applyStaticI18n(state.locale);
   const footerUpdate = document.querySelector("#footerUpdateRoute");
   if (footerUpdate) {
-    const fallbackNow = new Date();
+    const fallbackNow = getKoreaNow();
     const raw = typeof BUILD_DATE === "string" ? BUILD_DATE.trim() : "";
     const match = raw.match(/^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2}))?$/);
     const year = match ? Number(match[1]) : fallbackNow.getFullYear();
@@ -2156,7 +2071,7 @@ setupNavbarWrap();
 setupResizeRender();
 let lastMinuteKey = "";
 setInterval(() => {
-  state.now = new Date();
+  state.now = getKoreaNow();
   renderClock();
   if (state.dropdownOpen) {
     const routes = getRoutesForDay(getResolvedDay(state.now));
@@ -2176,6 +2091,5 @@ setInterval(() => {
     render();
   }
 }, 1000);
-
 
 
