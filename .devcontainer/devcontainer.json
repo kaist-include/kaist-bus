@@ -1,0 +1,18 @@
+{
+  "name": "KAIST Bus UI (Node 24)",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "24"
+    }
+  },
+  "postCreateCommand": "node --version && npm ci",
+  "forwardPorts": [5173],
+  "portsAttributes": {
+    "5173": {
+      "label": "KAIST Bus UI preview",
+      "onAutoForward": "notify",
+      "protocol": "http"
+    }
+  }
+}

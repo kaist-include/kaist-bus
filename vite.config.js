@@ -1,5 +1,10 @@
 import { createHash } from "crypto";
 
+// Allow only this Codespace's forwarded host; keep local development unchanged.
+const codespacesHost = process.env.CODESPACES === 'true' && process.env.CODESPACE_NAME
+  ? `${process.env.CODESPACE_NAME}-5173.${process.env.GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN || 'app.github.dev'}`
+  : undefined;
+
 function pad2(value) {
   return String(value).padStart(2, "0");
 }
@@ -58,7 +63,12 @@ export default {
   },
   server: {
     host: true,
-    port: 5173
+    port: 5173,
+    ...(codespacesHost ? {
+      strictPort: true,
+      allowedHosts: [codespacesHost],
+      ws: { protocol: 'wss', host: codespacesHost, clientPort: 443 }
+    } : {})
   },
   build: {
     outDir: '../dist',
